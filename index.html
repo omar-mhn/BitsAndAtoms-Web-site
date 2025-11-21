@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bits and Atoms</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      /* 
+         Configuración de Tailwind CSS.
+         Mapeo de clases de utilidad a variables CSS nativas para soporte de temas.
+      */
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              border: "var(--border)",
+              input: "var(--input)",
+              ring: "var(--ring)",
+              background: "var(--background)",
+              foreground: "var(--foreground)",
+              primary: {
+                DEFAULT: "var(--primary)", 
+                foreground: "var(--primary-foreground)",
+              },
+              secondary: {
+                DEFAULT: "var(--secondary)", 
+                foreground: "var(--secondary-foreground)",
+              },
+              destructive: {
+                DEFAULT: "var(--destructive)",
+                foreground: "var(--destructive-foreground)",
+              },
+              muted: {
+                DEFAULT: "var(--muted)", 
+                foreground: "var(--muted-foreground)",
+              },
+              accent: {
+                DEFAULT: "var(--accent)", 
+                foreground: "var(--accent-foreground)",
+              },
+              popover: {
+                DEFAULT: "var(--popover)",
+                foreground: "var(--popover-foreground)",
+              },
+              card: {
+                DEFAULT: "var(--card)",
+                foreground: "var(--card-foreground)",
+              },
+            },
+            borderRadius: {
+              lg: "var(--radius)",
+              md: "calc(var(--radius) - 2px)",
+              sm: "calc(var(--radius) - 4px)",
+            },
+          }
+        }
+      }
+    </script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+      :root {
+        /* --- MODO CLARO (High Contrast) --- */
+        --background: #ffffff;       /* Fondo Blanco Puro */
+        --foreground: #020617;       /* Texto Negro Profundo (Slate 950) */
+        
+        --card: #ffffff;             /* Tarjetas Blancas */
+        --card-foreground: #020617;  /* Texto en tarjetas */
+        
+        --popover: #ffffff;
+        --popover-foreground: #020617;
+        
+        --primary: #4f46e5;          /* Indigo-600: Un poco más oscuro para contraste en blanco */
+        --primary-foreground: #ffffff;
+        
+        --secondary: #2563eb;        /* Blue-600 */
+        --secondary-foreground: #ffffff;
+        
+        --muted: #f1f5f9;            /* Slate-100: Fondos secundarios muy claros */
+        --muted-foreground: #475569; /* Slate-600: Texto secundario gris medio (legible) */
+        
+        --accent: #7c3aed;           /* Violet-600 */
+        --accent-foreground: #ffffff;
+        
+        --destructive: #ef4444;
+        --destructive-foreground: #ffffff;
+        
+        --border: #e2e8f0;           /* Slate-200: Bordes sutiles */
+        --input: #e2e8f0;
+        --ring: #4f46e5;
+        
+        --radius: 0.75rem;
+
+        /* Glows adaptados para que se vean en fondo blanco (más oscuros/saturados) */
+        --glow-primary: rgba(79, 70, 229, 0.2); 
+        --glow-secondary: rgba(37, 99, 235, 0.2);
+        --glow-accent: rgba(124, 58, 237, 0.2);
+      }
+
+      /* --- MODO OSCURO --- */
+      .dark {
+        --background: #0a0a0a;       /* Negro casi puro */
+        --foreground: #f8fafc;       /* Blanco hueso */
+        
+        --card: #171717;             /* Gris neutro oscuro */
+        --card-foreground: #f8fafc;
+        
+        --popover: #171717;
+        --popover-foreground: #f8fafc;
+        
+        --primary: #6366f1;          /* Indigo-500: Vibrante sobre negro */
+        --primary-foreground: #ffffff;
+        
+        --secondary: #3b82f6;        /* Blue-500 */
+        --secondary-foreground: #ffffff;
+        
+        --muted: #262626;            /* Neutral-800 */
+        --muted-foreground: #a3a3a3; /* Neutral-400 */
+        
+        --accent: #a855f7;           /* Purple-500 */
+        --accent-foreground: #ffffff;
+        
+        --destructive: #ef4444;
+        --destructive-foreground: #ffffff;
+        
+        --border: rgba(255, 255, 255, 0.1);
+        --input: rgba(255, 255, 255, 0.1);
+        --ring: #6366f1;
+        
+        /* Glows vibrantes para modo oscuro */
+        --glow-primary: rgba(99, 102, 241, 0.5);
+        --glow-secondary: rgba(59, 130, 246, 0.5);
+        --glow-accent: rgba(168, 85, 247, 0.5);
+      }
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--background);
+        color: var(--foreground);
+        scroll-behavior: smooth;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+
+      @keyframes glow-pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+
+      .glow-effect { box-shadow: 0 0 30px var(--glow-primary); }
+    </style>
+    <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.3.1",
+    "react/": "https://esm.sh/react@18.3.1/",
+    "react-dom": "https://esm.sh/react-dom@18.3.1",
+    "react-dom/": "https://esm.sh/react-dom@18.3.1/",
+    "react-dom/client": "https://esm.sh/react-dom@18.3.1/client",
+    "clsx": "https://esm.sh/clsx@2.1.1",
+    "tailwind-merge": "https://esm.sh/tailwind-merge@2.3.0",
+    "framer-motion": "https://esm.sh/framer-motion@11.0.8",
+    "lucide-react": "https://esm.sh/lucide-react@0.344.0",
+    "@radix-ui/react-label": "https://esm.sh/@radix-ui/react-label@2.0.2",
+    "@radix-ui/react-tabs": "https://esm.sh/@radix-ui/react-tabs@1.0.4",
+    "@radix-ui/react-slot": "https://esm.sh/@radix-ui/react-slot@1.0.2",
+    "class-variance-authority": "https://esm.sh/class-variance-authority@0.7.0",
+    "sonner": "https://esm.sh/sonner@1.4.3",
+    "vite": "https://aistudiocdn.com/vite@^7.2.4",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.1"
+  }
+}
+</script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
