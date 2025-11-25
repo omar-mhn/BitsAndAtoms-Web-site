@@ -53,7 +53,7 @@ const mentors = [
   },
   {
     name: "Juan Antonio Dominguez",
-    role: "Producción y Postproducción Audiovisual",
+    role: "Producción Audiovisual",
     company: "",
     image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBtYW4lMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjM3MTUyMDB8MA&ixlib=rb-4.1.0&q=80&w=600",
     bio: "Da vida a tus ideas con excelencia técnica y creatividad, dominando cada etapa de la producción y postproducción audiovisual.",
