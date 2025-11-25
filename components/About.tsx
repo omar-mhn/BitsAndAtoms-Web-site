@@ -1,28 +1,29 @@
 import React from 'react';
 import { motion } from "framer-motion";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { Lightbulb, Users, Rocket, Code } from "lucide-react";
+import { UsersRound, Globe2, Sparkles, Atom } from "lucide-react";
+
 
 const values = [
   {
-    icon: Lightbulb,
-    title: "Creatividad",
-    description: "Fomentamos el pensamiento creativo y la innovación en cada proyecto",
+    icon: Globe2,
+    title: "Visión",
+    description: "Usar la tecnología para crear impacto real",
   },
   {
-    icon: Code,
-    title: "Tecnología",
-    description: "Herramientas de última generación para crear el futuro",
+    icon: UsersRound,
+    title: "Personas",
+    description: "Una comunidad curiosa, diversa y con ganas de aprender juntos",
   },
   {
-    icon: Users,
-    title: "Colaboración",
-    description: "Aprendizaje colaborativo y trabajo en equipo",
+    icon: Sparkles,
+    title: "Próposito",
+    description: "Acompañar a futuros creadores a encontrar su camino",
   },
   {
-    icon: Rocket,
-    title: "Innovación",
-    description: "Exploramos nuevas formas de aprender y enseñar",
+    icon: Atom,
+    title: "Misión",
+    description: "Innovación, honestidad y colaboración para crecer creando",
   },
 ];
 
@@ -56,8 +57,9 @@ export function About() {
           </h2>
           
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg md:text-xl leading-relaxed font-medium">
-            En Bits and Atoms creemos en una educación centrada en proyectos reales, 
-            donde la tecnología y la creatividad se unen para formar a los innovadores del futuro.
+            Un espacio donde la tecnología cobra vida. Un proyecto impulsado por Admira y nacido del 
+            deseo de formar, acompañar y abrir oportunidades a una nueva generación de creadores e 
+            innovadores.
           </p>
         </motion.div>
 
@@ -110,16 +112,20 @@ export function About() {
             </h3>
             <div className="space-y-6 text-lg text-muted-foreground">
               <p>
-                Somos un centro de innovación y aprendizaje tecnológico donde estudiantes y profesionales 
-                trabajan juntos en proyectos reales que impulsan el cambio.
+               En Bits and Atoms aprenderás tecnología creándola. Nuestro programa combina IA, 
+               IoT y creatividad para que desarrolles proyectos reales desde el primer día. 
+               Aquí trabajarás enfrentándote a retos auténticos, transformando ideas y 
+               mejorando en equipo.
               </p>
               <p>
-                Nuestro FabLab está equipado con tecnología de fabricación digital de última generación, 
-                permitiendo que las ideas se conviertan en realidad.
+              Creemos en una educación práctica, donde experimentar, equivocarse y construir forman 
+              parte del proceso. Aquí aprenderás a pensar de forma crítica, a comunicar tus ideas y a 
+              convertir conceptos en soluciones tangibles.
               </p>
               <p>
-                Aquí, cada estudiante es un creador, cada proyecto es una oportunidad de innovar y 
-                cada día es una nueva aventura en el mundo de la tecnología.
+                Bits and Atoms es un entorno donde tu curiosidad, tu energía y tus ganas de crear son 
+                lo que realmente importa. Un lugar donde las ideas evolucionan y cada proyecto te acerca 
+                a la mejor versión de ti mismo.
               </p>
             </div>
 
