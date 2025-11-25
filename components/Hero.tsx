@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { ChevronDown } from "lucide-react";
+import Logo from "./Logo";
 
 export function Hero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -125,21 +126,8 @@ export function Hero() {
               />
               
               {/* Main Text */}
-              <motion.div 
-                className="relative bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-500 bg-clip-text text-transparent"
-                style={{
-                  fontSize: "clamp(4rem, 12vw, 10rem)",
-                  fontWeight: 900,
-                  letterSpacing: "-0.04em",
-                  textAlign: "center",
-                  lineHeight: 0.9,
-                }}
-              >
-                BITS
-                <br />
-                <span className="text-foreground/20">&</span>
-                <br />
-                ATOMS
+              <motion.div className="flex flex-col items-center justify-center antialiased z-10 relative">
+                <Logo />
               </motion.div>
             </div>
           </motion.div>
@@ -154,7 +142,7 @@ export function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, duration: 0.8 }}
         >
-          Architecting the Future
+       
         </motion.p>
 
         {/* CTA Buttons */}
