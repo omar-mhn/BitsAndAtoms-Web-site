@@ -127,7 +127,11 @@ export function Hero() {
               
               {/* Main Text */}
               <motion.div className="flex flex-col items-center justify-center antialiased z-10 relative">
-                <Logo />
+              <span className=" text-7xl mb-8 relative z-10 group-hover:text-black transition-colors font-bold">
+                Bits & Atoms
+              </span>
+              <div className="absolute inset-0 rounded-lg shadow-[0_0_20px_rgba(0,212,255,0.5)] opacity-0 group-hover:opacity-100 transition-opacity" />
+              <Logo />
               </motion.div>
             </div>
           </motion.div>
