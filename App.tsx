@@ -11,6 +11,7 @@ import { Branding } from "./components/Branding";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { Toaster } from "./components/ui/sonner";
+import { Mentors } from './components/Mentors';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
         <Hero />
         <About />
         <Training />
+        <Mentors />
         <Spaces />
         <Podcast />
         <Blog />

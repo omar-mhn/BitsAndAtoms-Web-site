@@ -27,6 +27,7 @@ export function Navbar() {
     { name: "Inicio", href: "#hero" },
     { name: "Quiénes somos", href: "#about" },
     { name: "Formación", href: "#training" },
+    { name: "Mentores", href: "#mentors" },
     { name: "Espacios", href: "#spaces" },
     { name: "Podcast", href: "#podcast" },
     { name: "Blog", href: "#blog" },
