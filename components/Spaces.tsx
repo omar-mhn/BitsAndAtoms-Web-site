@@ -21,8 +21,8 @@ const spaces = [
     ],
   },
   {
-    id: "aulas",
-    name: "Aulas Tecnológicas",
+    id: "audiovisuales",
+    name: "Estudio Audiovisual",
     icon: Cpu,
     description: "Espacios de aprendizaje equipados con tecnología de última generación para clases y talleres.",
     image: "https://images.unsplash.com/photo-1563394867331-e687a36112fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmdXR1cmlzdGljJTIwY2xhc3Nyb29tJTIwZWR1Y2F0aW9ufGVufDF8fHx8MTc2MzcxNDg5OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
@@ -36,8 +36,8 @@ const spaces = [
     ],
   },
   {
-    id: "biblioteca",
-    name: "Biblioteca & Coworking",
+    id: "incubadora",
+    name: "Incubadora",
     icon: BookOpen,
     description: "Zona tranquila para estudio individual y trabajo colaborativo con recursos técnicos actualizados.",
     image: "https://images.unsplash.com/photo-1758685848208-e108b6af94cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB0ZWNobm9sb2d5JTIwbGFiJTIwd29ya3NwYWNlfGVufDF8fHx8MTc2MzcxNDg5OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
@@ -51,8 +51,8 @@ const spaces = [
     ],
   },
   {
-    id: "comunes",
-    name: "Zonas Comunes",
+    id: "uni",
+    name: "Universidad",
     icon: Coffee,
     description: "Espacios de descanso y socialización diseñados para fomentar la creatividad y el networking.",
     image: "https://images.unsplash.com/photo-1728933102332-a4f1a281a621?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWFtJTIwY29sbGFib3JhdGlvbiUyMHRlY2hub2xvZ3l8ZW58MXx8fHwxNzYzNjUyMjY2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
@@ -63,6 +63,51 @@ const spaces = [
       "Lounges cómodos",
       "Ping pong y juegos de mesa",
       "Eventos y networking"
+    ],
+  },
+   {
+    id: "desarrollo",
+    name: "Oficinas de desarrollo",
+    icon: Wrench,
+    description: "Laboratorio de fabricación digital equipado con impresoras 3D, cortadoras láser, fresadoras CNC y más.",
+    image: "https://images.unsplash.com/photo-1694701503673-379c9e0d887e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYWJsYWIlMjBtYWtlcnNwYWNlJTIwZXF1aXBtZW50fGVufDF8fHx8MTc2MzcxNDg5OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    features: [
+      "Impresoras 3D (FDM y SLA)",
+      "Cortadora láser CO2",
+      "Fresadora CNC",
+      "Estación de soldadura",
+      "Herramientas de prototipado",
+      "Zona de ensamblaje"
+    ],
+  },
+   {
+    id: "360",
+    name: "Sala 360",
+    icon: Wrench,
+    description: "Laboratorio de fabricación digital equipado con impresoras 3D, cortadoras láser, fresadoras CNC y más.",
+    image: "https://images.unsplash.com/photo-1694701503673-379c9e0d887e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYWJsYWIlMjBtYWtlcnNwYWNlJTIwZXF1aXBtZW50fGVufDF8fHx8MTc2MzcxNDg5OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    features: [
+      "Impresoras 3D (FDM y SLA)",
+      "Cortadora láser CO2",
+      "Fresadora CNC",
+      "Estación de soldadura",
+      "Herramientas de prototipado",
+      "Zona de ensamblaje"
+    ],
+  },
+   {
+    id: "showrooms",
+    name: "Showrooms",
+    icon: Wrench,
+    description: "Laboratorio de fabricación digital equipado con impresoras 3D, cortadoras láser, fresadoras CNC y más.",
+    image: "https://images.unsplash.com/photo-1694701503673-379c9e0d887e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYWJsYWIlMjBtYWtlcnNwYWNlJTIwZXF1aXBtZW50fGVufDF8fHx8MTc2MzcxNDg5OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    features: [
+      "Impresoras 3D (FDM y SLA)",
+      "Cortadora láser CO2",
+      "Fresadora CNC",
+      "Estación de soldadura",
+      "Herramientas de prototipado",
+      "Zona de ensamblaje"
     ],
   },
 ];
@@ -178,22 +223,6 @@ export function Spaces() {
                       ))}
                     </div>
                   </div>
-
-                  <motion.button
-                    className="mt-10 group px-8 py-4 bg-transparent border-2 border-primary rounded-full overflow-hidden relative"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <motion.div
-                      className="absolute inset-0 bg-primary"
-                      initial={{ x: "-100%" }}
-                      whileHover={{ x: 0 }}
-                      transition={{ duration: 0.3 }}
-                    />
-                    <span className="relative z-10 text-primary group-hover:text-white transition-colors font-bold tracking-wide">
-                      Reservar visita virtual 360°
-                    </span>
-                  </motion.button>
                 </motion.div>
               </motion.div>
             </TabsContent>
