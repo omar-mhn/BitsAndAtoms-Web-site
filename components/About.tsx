@@ -74,25 +74,15 @@ export function About() {
             transition={{ duration: 0.6 }}
           >
             <div className="relative h-[400px] lg:h-[600px] rounded-3xl overflow-hidden group shadow-2xl shadow-primary/10">
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1728933102332-a4f1a281a621?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWFtJTIwY29sbGFib3JhdGlvbiUyMHRlY2hub2xvZ3l8ZW58MXx8fHwxNzYzNjUyMjY2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-                alt="Bits and Atoms Team"
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              <iframe
+                src="https://www.youtube.com/embed/PN577xVQ4SM?mute=1&controls=1"
+                title="YouTube video"
+                allow="encrypted-media"
+                allowFullScreen
+                className="w-full h-full transition-transform duration-700"
               />
               {/* Gradient overlay for text readability on image */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80" />
-              
-              {/* Floating Badge */}
-              <motion.div
-                className="absolute bottom-8 left-8 bg-background/90 backdrop-blur-xl px-6 py-4 rounded-2xl border border-border shadow-lg"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-              >
-                <p className="text-foreground font-bold">Educación del futuro</p>
-                <p className="text-muted-foreground text-sm">FabLab & Code</p>
-              </motion.div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80 pointer-events-none" />
             </div>
 
             {/* Back Glow */}

@@ -1,8 +1,7 @@
-import React from 'react';
-import { motion } from "framer-motion";
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from "framer-motion";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
-import { Cpu, BookOpen, Coffee, Wrench } from "lucide-react";
+import { Cpu, Clapperboard, GraduationCap, Wrench, Laptop, Sprout, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
 
 const spaces = [
   {
@@ -21,9 +20,9 @@ const spaces = [
     ],
   },
   {
-    id: "audiovisuales",
-    name: "Estudio Audiovisual",
-    icon: Cpu,
+    id: "estudio_audiovisual",
+    name: "Estudio audiovisual",
+    icon: Clapperboard,
     description: "Espacios de aprendizaje equipados con tecnología de última generación para clases y talleres.",
     image: "https://images.unsplash.com/photo-1563394867331-e687a36112fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmdXR1cmlzdGljJTIwY2xhc3Nyb29tJTIwZWR1Y2F0aW9ufGVufDF8fHx8MTc2MzcxNDg5OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     features: [
@@ -38,7 +37,7 @@ const spaces = [
   {
     id: "incubadora",
     name: "Incubadora",
-    icon: BookOpen,
+    icon: Cpu,
     description: "Zona tranquila para estudio individual y trabajo colaborativo con recursos técnicos actualizados.",
     image: "https://images.unsplash.com/photo-1758685848208-e108b6af94cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB0ZWNobm9sb2d5JTIwbGFiJTIwd29ya3NwYWNlfGVufDF8fHx8MTc2MzcxNDg5OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     features: [
@@ -53,7 +52,7 @@ const spaces = [
   {
     id: "uni",
     name: "Universidad",
-    icon: Coffee,
+    icon: GraduationCap,
     description: "Espacios de descanso y socialización diseñados para fomentar la creatividad y el networking.",
     image: "https://images.unsplash.com/photo-1728933102332-a4f1a281a621?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWFtJTIwY29sbGFib3JhdGlvbiUyMHRlY2hub2xvZ3l8ZW58MXx8fHwxNzYzNjUyMjY2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     features: [
@@ -65,60 +64,72 @@ const spaces = [
       "Eventos y networking"
     ],
   },
-   {
-    id: "desarrollo",
+  {
+    id: "ofi_desarrollo",
     name: "Oficinas de desarrollo",
-    icon: Wrench,
-    description: "Laboratorio de fabricación digital equipado con impresoras 3D, cortadoras láser, fresadoras CNC y más.",
-    image: "https://images.unsplash.com/photo-1694701503673-379c9e0d887e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYWJsYWIlMjBtYWtlcnNwYWNlJTIwZXF1aXBtZW50fGVufDF8fHx8MTc2MzcxNDg5OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    icon: Laptop,
+    description: "Espacios privados insonorizados diseñados para el trabajo en equipo y videoconferencias.",
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBtZWV0aW5nJTIwcm9vbXxlbnwxfHx8fDE3NjM3MTU1MDB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     features: [
-      "Impresoras 3D (FDM y SLA)",
-      "Cortadora láser CO2",
-      "Fresadora CNC",
-      "Estación de soldadura",
-      "Herramientas de prototipado",
-      "Zona de ensamblaje"
+      "Pantallas para presentaciones",
+      "Sistemas de videoconferencia",
+      "Pizarras de vidrio",
+      "Paneles acústicos",
+      "Climatización independiente",
+      "Servicio de catering"
     ],
   },
-   {
+  {
     id: "360",
     name: "Sala 360",
-    icon: Wrench,
-    description: "Laboratorio de fabricación digital equipado con impresoras 3D, cortadoras láser, fresadoras CNC y más.",
-    image: "https://images.unsplash.com/photo-1694701503673-379c9e0d887e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYWJsYWIlMjBtYWtlcnNwYWNlJTIwZXF1aXBtZW50fGVufDF8fHx8MTc2MzcxNDg5OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    icon: Sprout,
+    description: "Estudio profesional equipado para la producción de podcasts, vídeos y contenido multimedia.",
+    image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb2RjYXN0JTIwc3R1ZGlvfGVufDF8fHx8MTc2MzcxNTUwMHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     features: [
-      "Impresoras 3D (FDM y SLA)",
-      "Cortadora láser CO2",
-      "Fresadora CNC",
-      "Estación de soldadura",
-      "Herramientas de prototipado",
-      "Zona de ensamblaje"
+      "Micrófonos Shure SM7B",
+      "Interfaz de audio Rodecaster Pro",
+      "Iluminación LED profesional",
+      "Cámaras 4K",
+      "Fondos intercambiables",
+      "Software de edición"
     ],
   },
-   {
+  {
     id: "showrooms",
     name: "Showrooms",
-    icon: Wrench,
-    description: "Laboratorio de fabricación digital equipado con impresoras 3D, cortadoras láser, fresadoras CNC y más.",
-    image: "https://images.unsplash.com/photo-1694701503673-379c9e0d887e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYWJsYWIlMjBtYWtlcnNwYWNlJTIwZXF1aXBtZW50fGVufDF8fHx8MTc2MzcxNDg5OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    icon: Sparkles,
+    description: "Gran espacio polivalente para eventos, conferencias, presentaciones y hackathons.",
+    image: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhdWRpdG9yaXVtJTIwbW9kZXJufGVufDF8fHx8MTc2MzcxNTUwMHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
     features: [
-      "Impresoras 3D (FDM y SLA)",
-      "Cortadora láser CO2",
-      "Fresadora CNC",
-      "Estación de soldadura",
-      "Herramientas de prototipado",
-      "Zona de ensamblaje"
+      "Capacidad para 150 personas",
+      "Proyector Láser 4K",
+      "Sistema de sonido envolvente",
+      "Streaming en directo",
+      "Cabina de control",
+      "Zona de networking anexa"
     ],
   },
 ];
 
 export function Spaces() {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextSpace = () => {
+    setCurrentIndex((prev) => (prev + 1) % spaces.length);
+  };
+
+  const prevSpace = () => {
+    setCurrentIndex((prev) => (prev - 1 + spaces.length) % spaces.length);
+  };
+
+  const currentSpace = spaces[currentIndex];
+
   return (
     <section id="spaces" className="min-h-screen py-24 px-4 bg-background">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-16"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -147,87 +158,99 @@ export function Spaces() {
           </p>
         </motion.div>
 
-        {/* Tabs */}
-        <Tabs defaultValue="fablab" className="w-full">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 mb-16 bg-muted border border-border rounded-xl p-1.5 h-auto">
-            {spaces.map((space) => (
-              <TabsTrigger
-                key={space.id}
-                value={space.id}
-                className="flex items-center justify-center gap-2 py-3 data-[state=active]:bg-white data-[state=active]:text-black dark:data-[state=active]:bg-primary dark:data-[state=active]:text-white rounded-lg transition-all shadow-sm"
-              >
-                <space.icon size={18} />
-                <span className="hidden sm:inline font-medium">{space.name}</span>
-              </TabsTrigger>
-            ))}
-          </TabsList>
+        {/* Navigation Controls */}
+        <motion.div 
+          className="flex items-center justify-center gap-4 sm:gap-8 mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <button 
+            onClick={prevSpace}
+            className="p-3 rounded-full bg-card border border-border hover:border-primary hover:text-primary transition-colors shadow-sm"
+            aria-label="Espacio anterior"
+          >
+            <ChevronLeft size={24} />
+          </button>
 
-          {spaces.map((space, index) => (
-            <TabsContent key={space.id} value={space.id}>
-              <motion.div
-                className="grid lg:grid-cols-2 gap-12 items-center"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                {/* Image */}
-                <motion.div
-                  className="relative h-[400px] lg:h-[550px] rounded-3xl overflow-hidden group shadow-2xl shadow-black/20"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <ImageWithFallback
-                    src={space.image}
-                    alt={space.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  
-                  {/* Floating Badge on Image */}
-                  <motion.div
-                    className="absolute bottom-8 left-8 bg-black/70 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/10 flex items-center gap-3"
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    <space.icon className="text-primary" size={24} />
-                    <span className="text-white font-semibold">{space.name}</span>
-                  </motion.div>
-                </motion.div>
+          <div className="flex items-center gap-3 px-8 py-4 rounded-full bg-card border border-border shadow-md min-w-[240px] sm:min-w-[300px] justify-center">
+            <currentSpace.icon className="text-primary" size={24} />
+            <span className="text-lg font-bold text-foreground">{currentSpace.name}</span>
+          </div>
 
-                {/* Content */}
-                <motion.div
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2, duration: 0.6 }}
-                >
-                  <h3 className="mb-6 text-3xl font-bold text-foreground">{space.name}</h3>
-                  <p className="text-muted-foreground mb-8 text-lg leading-relaxed">
-                    {space.description}
-                  </p>
+          <button 
+            onClick={nextSpace}
+            className="p-3 rounded-full bg-card border border-border hover:border-primary hover:text-primary transition-colors shadow-sm"
+            aria-label="Siguiente espacio"
+          >
+            <ChevronRight size={24} />
+          </button>
+        </motion.div>
 
-                  <div className="space-y-6">
-                    <h4 className="text-primary font-semibold text-lg border-b border-border pb-2 inline-block">Equipamiento y servicios</h4>
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      {space.features.map((feature, idx) => (
-                        <motion.div
-                          key={feature}
-                          className="flex items-center gap-3 p-4 rounded-xl bg-card border border-border hover:border-primary/50 transition-colors shadow-sm"
-                          initial={{ opacity: 0, x: -10 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: idx * 0.05 }}
-                          whileHover={{ x: 5 }}
-                        >
-                          <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0" />
-                          <span className="text-muted-foreground text-sm font-medium">{feature}</span>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-            </TabsContent>
+        {/* Content Display */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSpace.id}
+            className="grid lg:grid-cols-2 gap-12 items-center"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.4 }}
+          >
+            {/* Image */}
+            <div className="relative h-[400px] lg:h-[550px] rounded-[2rem] overflow-hidden group shadow-2xl border border-border/50">
+              <ImageWithFallback
+                src={currentSpace.image}
+                alt={currentSpace.name}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+            
+            </div>
+
+            {/* Info */}
+            <div className="flex flex-col justify-center h-full">
+              <h3 className="mb-6 text-3xl md:text-4xl font-bold text-foreground">{currentSpace.name}</h3>
+              <p className="text-muted-foreground mb-10 text-lg leading-relaxed">
+                {currentSpace.description}
+              </p>
+
+              <div className="space-y-6">
+                <h4 className="text-primary font-bold text-lg border-b border-border pb-3 inline-block">
+                  Equipamiento destacado
+                </h4>
+                <div className="grid sm:grid-cols-2 gap-4">
+                  {currentSpace.features.map((feature, idx) => (
+                    <motion.div
+                      key={feature}
+                      className="flex items-center gap-3 p-4 rounded-2xl bg-card border border-border hover:border-primary/30 transition-colors shadow-sm"
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: idx * 0.05 }}
+                    >
+                      <div className="w-2 h-2 rounded-full bg-primary flex-shrink-0 shadow-[0_0_10px_rgba(0,255,136,0.5)]" />
+                      <span className="text-muted-foreground text-sm font-medium">{feature}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Progress Indicator */}
+        <div className="flex justify-center gap-2 mt-12">
+          {spaces.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentIndex(idx)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                idx === currentIndex ? 'w-8 bg-primary' : 'w-2 bg-border hover:bg-primary/50'
+              }`}
+              aria-label={`Ir al espacio ${idx + 1}`}
+            />
           ))}
-        </Tabs>
+        </div>
       </div>
     </section>
   );
