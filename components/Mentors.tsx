@@ -133,7 +133,7 @@ export function Mentors() {
   };
 
   return (
-    <section id="mentors" className="min-h-screen py-24 px-4 bg-background border-t border-border/40">
+    <section id="mentors" className="min-h-screen py-24 px-4 bg-background">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -245,18 +245,6 @@ export function Mentors() {
                       <p className="text-muted-foreground text-sm leading-relaxed mb-6 flex-grow">
                         {mentor.bio}
                       </p>
-
-                      <div className="flex flex-wrap gap-2 mt-auto">
-                        {mentor.specialties.map((tech) => (
-                          <Badge 
-                            key={tech} 
-                            variant="secondary" 
-                            className="bg-muted text-foreground border-border hover:bg-primary/10 hover:text-primary transition-colors text-xs py-1"
-                          >
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
                     </div>
                   </Card>
                 </div>

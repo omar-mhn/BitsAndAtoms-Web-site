@@ -126,7 +126,7 @@ export function Hero() {
               />
               
               {/* Main Text */}
-              <motion.div className="flex flex-col items-center justify-center antialiased z-10 relative">
+              <motion.div className="flex flex-col items-center justify-center antialiased z-10 relative mt-16">
               <span className=" text-7xl mb-8 relative z-10 group-hover:text-black transition-colors font-bold">
                 Bits & Atoms
               </span>
@@ -183,7 +183,7 @@ export function Hero() {
       </div>
 
       <motion.button
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-muted-foreground cursor-pointer z-20 hover:text-primary transition-colors"
+        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-muted-foreground cursor-pointer z-20 hover:text-primary transition-colors"
         onClick={handleScroll}
         animate={{
           y: [0, 10, 0],
