@@ -10,7 +10,7 @@ const mentors = [
     name: "Marc Segarra",
     role: "Creatividad",
     company: "",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxQcm9mZXNzaW9uYWwlMjB3b21hbiUyMHRlY2h8ZW58MXx8fHwxNzYzNzE0OTAwfDA&ixlib=rb-4.1.0&q=80&w=600",
+    image: "/Mentores/Marc_Segarra.png",
     bio: "Explora y expande los límites de tu imaginación, convirtiendo ideas innovadoras en realidades impactantes.",
     specialties: [],
     social: { linkedin: "#", twitter: "#", website: "#" }
@@ -19,25 +19,17 @@ const mentors = [
     name: "Jordi Palou",
     role: "IoT",
     company: "",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYW4lMjBpbiUyMHRlY2h8ZW58MXx8fHwxNzYzNzE0OTAwfDA&ixlib=rb-4.1.0&q=80&w=600",
+    image:"/Mentores/Jordi_Palou.jpg",
     bio: "Integra el mundo físico con el digital creando soluciones inteligentes a través del Internet de las Cosas.",
     specialties: [],
     social: { linkedin: "#", twitter: "#", website: "#" }
   },
-  {
-    name: "Skain",
-    role: "Producción y Streaming",
-    company: "",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzbWlsaW5nJTIwd29tYW4lMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjM3MTQ5MDB8MA&ixlib=rb-4.1.0&q=80&w=600",
-    bio: "Descubre cómo transformar historias en experiencias visuales cautivadoras a través del arte del streaming.",
-    specialties: [],
-    social: { linkedin: "#", twitter: "#", website: "#" }
-  },
+
   {
     name: "Carlas Mayans",
     role: "Marketing 3.0",
     company: "",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYW4lMjBjb3Jwb3JhdGV8ZW58MXx8fHwxNzYzNzE0OTAwfDA&ixlib=rb-4.1.0&q=80&w=600",
+    image: "/Mentores/Carles_Mayans.jpg",
     bio: "Aprende a conectar con tus clientes a un nivel emocional y ético, utilizando las estrategias avanzadas del marketing 3.0.",
     specialties: [],
     social: { linkedin: "#", twitter: "#", website: "#" }
@@ -46,7 +38,7 @@ const mentors = [
     name: "Daniel Vidal",
     role: "Propiedad intelectual",
     company: "",
-    image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHwzZCUyMHdvbWFuJTIwcG9ydHJhaXR8ZW58MXx8fHwxNzYzNzE1MjAwfDA&ixlib=rb-4.1.0&q=80&w=600",
+    image:"/Mentores/Daniel_Vidal.png",
     bio: "Protege y maximiza el valor de tus innovaciones y creaciones con una sólida estrategia de propiedad intelectual.",
     specialties: [],
     social: { linkedin: "#", twitter: "#", website: "#" }
@@ -57,6 +49,15 @@ const mentors = [
     company: "",
     image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBtYW4lMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjM3MTUyMDB8MA&ixlib=rb-4.1.0&q=80&w=600",
     bio: "Da vida a tus ideas con excelencia técnica y creatividad, dominando cada etapa de la producción y postproducción audiovisual.",
+    specialties: [],
+    social: { linkedin: "#", twitter: "#", website: "#" }
+  },
+  {
+    name: "Skain",
+    role: "Producción y Streaming",
+    company: "",
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzbWlsaW5nJTIwd29tYW4lMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjM3MTQ5MDB8MA&ixlib=rb-4.1.0&q=80&w=600",
+    bio: "Descubre cómo transformar historias en experiencias visuales cautivadoras a través del arte del streaming.",
     specialties: [],
     social: { linkedin: "#", twitter: "#", website: "#" }
   },
