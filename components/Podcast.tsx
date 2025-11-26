@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { Play, Youtube, Music, ExternalLink } from "lucide-react";
-import { Badge } from "./ui/badge";
+import { Play, Youtube, ExternalLink } from "lucide-react";
+import { FaSpotify } from "react-icons/fa";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
 
 // ------------------------------
@@ -58,7 +58,7 @@ export function Podcast() {
 
   const platforms = [
     { name: "YouTube", icon: Youtube, color: "text-red-500" },
-    { name: "Spotify", icon: Music, color: "text-green-500" },
+    { name: "Spotify", icon: FaSpotify, color: "text-green-500" },
   ];
 
   return (
@@ -129,9 +129,9 @@ export function Podcast() {
 
               {/* Texto */}
               <div className="absolute inset-0 flex flex-col justify-end p-8 lg:p-12">
-                <Badge className="self-start mb-4 bg-accent text-white">
+                <div className="self-start mb-4 px-3 py-1 rounded-full bg-accent text-white text-xs font-semibold">
                   Episodio destacado
-                </Badge>
+                </div>
 
                 <h3 className="text-white text-3xl lg:text-5xl font-bold max-w-2xl mb-4">
                   {featuredEpisodes[0].title}
@@ -207,9 +207,9 @@ export function Podcast() {
                           </div>
                         </motion.div>
 
-                        <Badge className="absolute top-4 right-4 bg-black/60 text-white border-none backdrop-blur-md">
+                        <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/60 text-white text-xs font-semibold backdrop-blur-md">
                           {episode.category}
-                        </Badge>
+                        </div>
                       </div>
 
                       <div className="p-8">
