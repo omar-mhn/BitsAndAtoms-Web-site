@@ -4,16 +4,17 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Play, Youtube, Music, Radio, ExternalLink } from "lucide-react";
 import { Badge } from "./ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import podcastImg from "../public/img/podcast_1.jpeg";
 
 const featuredEpisodes = [
   {
     title: "El futuro de la Inteligencia Artificial",
-    guest: "Dra. Ana García",
+    guest: "Mateo, Omar & Iván",
     duration: "45:30",
     date: "15 Nov 2025",
     category: "Tecnología",
-    description: "Exploramos las últimas tendencias en IA y su impacto en la sociedad",
-    thumbnail: "https://images.unsplash.com/photo-1627667050609-d4ba6483a368?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb2RjYXN0JTIwcmVjb3JkaW5nJTIwc3R1ZGlvfGVufDF8fHx8MTc2MzcxNDc1NXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    description: "Exploramos las opiones de nuestros alumnos en IA y su impacto en el trabajo",
+    thumbnail: podcastImg,
   },
   {
     title: "Emprendimiento Tech en 2025",
@@ -40,7 +41,6 @@ const categories = ["Todos", "Educación", "Tecnología", "Emprendimiento"];
 const platforms = [
   { name: "YouTube", icon: Youtube, color: "text-red-500" },
   { name: "Spotify", icon: Music, color: "text-green-500" },
-  { name: "Apple Podcasts", icon: Radio, color: "text-purple-500" },
 ];
 
 export function Podcast() {
