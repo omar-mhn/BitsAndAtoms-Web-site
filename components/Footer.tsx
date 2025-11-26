@@ -16,7 +16,7 @@ export function Footer() {
     <footer className="relative bg-muted/30 border-t border-border">
 
         {/* Bottom bar */}
-        <div className="align-items-center max-w-7xl mx-auto px-4 py-20 flex flex-col md:flex-row items-center justify-between gap-6 pt-10 border-t border-border">
+        <div className="align-items-center max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row items-center justify-between gap-6 pt-10 border-t border-border">
           <p className="text-muted-foreground text-sm text-center md:text-left font-medium">
             © 2025 Bits and Atoms. Hecho con <Heart className="inline text-red-500 mx-1" size={16} fill="currentColor" /> en Admira.
           </p>
