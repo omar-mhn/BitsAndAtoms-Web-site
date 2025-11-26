@@ -133,7 +133,7 @@ export function Mentors() {
   };
 
   return (
-    <section id="mentors" className="min-h-screen py-24 px-4 bg-background">
+    <section id="mentors" className="min-h-screen pt-12 pb-24 px-4 bg-background">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
