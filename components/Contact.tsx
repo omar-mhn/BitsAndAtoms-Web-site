@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import { MapPin, Phone, Mail, Send, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+import { SiTiktok } from "react-icons/si";
 import { Card } from "./ui/card";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -11,25 +12,21 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Ubicación",
-    content: "Calle Innovación Tech, 42\n28001 Madrid, España",
+    content: "Carrer de Bretón de los Herreros, 9\n08012 Gràcia, España",
   },
-  {
-    icon: Phone,
-    title: "Teléfono",
-    content: "+34 91 234 56 78",
-  },
+  
   {
     icon: Mail,
     title: "Email",
-    content: "info@bitsandatoms.tech",
+    content: "jsedano@admira.com",
   },
 ];
 
 const socialMedia = [
-  { name: "Instagram", icon: Instagram, url: "#", color: "hover:text-pink-500" },
-  { name: "LinkedIn", icon: Linkedin, url: "#", color: "hover:text-blue-500" },
-  { name: "Twitter", icon: Twitter, url: "#", color: "hover:text-sky-500" },
-  { name: "YouTube", icon: Youtube, url: "#", color: "hover:text-red-500" },
+  { name: "Instagram", icon: Instagram, url: "https://www.instagram.com/bitsatoms_/", color: "hover:text-pink-500" },
+  { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/company/bitsatoms/", color: "hover:text-blue-500" },
+  { name: "TikTok", icon: SiTiktok, url: "https://www.tiktok.com/@bitsatoms?_r=1&_t=ZN-91TI3bSOSpi", color:  "hover:text-[#69C9D0]" },
+  { name: "YouTube", icon: Youtube, url: "https://www.youtube.com/@BitsAtomsAdmira", color: "hover:text-red-500" },
 ];
 
 export function Contact() {
@@ -43,8 +40,7 @@ export function Contact() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Simulación de envío. 
-    // NOTA: Para recibir el correo realmente, aquí deberías integrar un servicio como EmailJS o Formspree.
+
     
     const promise = new Promise((resolve) => setTimeout(resolve, 1500));
 
@@ -138,6 +134,8 @@ export function Contact() {
                   <motion.a
                     key={social.name}
                     href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className={`p-4 rounded-full bg-card border border-border transition-all ${social.color} text-muted-foreground hover:bg-muted`}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -167,7 +165,25 @@ export function Contact() {
                   </div>
                 </div>
               </div>
+               {/* Mapa */}
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2992.701747264483!2d2.1494400764403756!3d41.402283095070466!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a2a26721ad83%3A0x59179c0e359f91d!2sCarrer%20de%20Bret%C3%B3n%20de%20los%20Herreros%2C%209%2C%20Gr%C3%A0cia%2C%2008012%20Barcelona!5e0!3m2!1ses!2ses!4v1764072192952!5m2!1ses!2ses"
+                className="absolute inset-0 w-full h-full pointer-events-none"
+                loading="lazy"
+                allowFullScreen
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
+
+              {/* Link arriba */}
+              <a
+                href="https://www.google.com/maps/place/Carrer+de+Bret%C3%B3n+de+los+Herreros,+9,+08012+Barcelona/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0 z-10"
+              ></a>
             </motion.div>
+          
+            
           </motion.div>
 
           {/* Contact form */}
@@ -177,7 +193,7 @@ export function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Card className="p-10 bg-card border-border rounded-3xl shadow-lg">
+            <Card className="p-10 bg-card border-border rounded-3xl shadow-lg mt-16">
               <h3 className="mb-8 text-2xl font-bold text-foreground">Envíanos un mensaje</h3>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
@@ -257,20 +273,7 @@ export function Contact() {
               </form>
             </Card>
 
-            {/* Additional info */}
-            <motion.div
-              className="mt-8 p-6 rounded-2xl bg-muted border border-border"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              <p className="text-sm text-muted-foreground leading-relaxed font-medium">
-                <strong className="text-primary block mb-1 text-base">Horario de atención:</strong>
-                Lunes a Viernes: 9:00 - 20:00<br />
-                Sábados: 10:00 - 14:00
-              </p>
-            </motion.div>
+           
           </motion.div>
         </div>
       </div>
