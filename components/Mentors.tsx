@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { Linkedin, Twitter, Globe, Award, Briefcase, ChevronLeft, ChevronRight } from "lucide-react";
+import { Linkedin, Globe, Award, Briefcase, ChevronLeft, ChevronRight } from "lucide-react";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 
@@ -13,26 +13,26 @@ const mentors = [
     image: "/Mentores/Marc_Segarra.png",
     bio: "Explora y expande los límites de tu imaginación, convirtiendo ideas innovadoras en realidades impactantes.",
     specialties: [],
-    social: { linkedin: "#", twitter: "#", website: "#" }
+    social: { linkedin: "https://www.linkedin.com/in/marcsegarratorres/",  website: "#" }
   },
   {
     name: "Jordi Palou",
     role: "IoT",
     company: "",
-    image:"/Mentores/Jordi_Palou.jpg",
+    image:"/Mentores/Jordi_Palou.png",
     bio: "Integra el mundo físico con el digital creando soluciones inteligentes a través del Internet de las Cosas.",
     specialties: [],
-    social: { linkedin: "#", twitter: "#", website: "#" }
+    social: { linkedin: "https://www.linkedin.com/in/jordipalou/", website: "#" }
   },
 
   {
-    name: "Carlas Mayans",
+    name: "Carles Mayans",
     role: "Marketing 3.0",
     company: "",
-    image: "/Mentores/Carles_Mayans.jpg",
+    image: "/Mentores/Carles_Mayans.png",
     bio: "Aprende a conectar con tus clientes a un nivel emocional y ético, utilizando las estrategias avanzadas del marketing 3.0.",
     specialties: [],
-    social: { linkedin: "#", twitter: "#", website: "#" }
+    social: { linkedin: "https://www.linkedin.com/in/cmayansc/", website: "#" }
   },
   {
     name: "Daniel Vidal",
@@ -41,25 +41,25 @@ const mentors = [
     image:"/Mentores/Daniel_Vidal.png",
     bio: "Protege y maximiza el valor de tus innovaciones y creaciones con una sólida estrategia de propiedad intelectual.",
     specialties: [],
-    social: { linkedin: "#", twitter: "#", website: "#" }
+    social: { linkedin: "https://www.linkedin.com/in/danielvidal1/", website: "#" }
   },
   {
-    name: "Juan Antonio Dominguez",
+    name: "Miguel Fernández",
     role: "Producción Audiovisual",
     company: "",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBtYW4lMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjM3MTUyMDB8MA&ixlib=rb-4.1.0&q=80&w=600",
+    image: "/Mentores/Miguel_Fernández.png",
     bio: "Da vida a tus ideas con excelencia técnica y creatividad, dominando cada etapa de la producción y postproducción audiovisual.",
     specialties: [],
     social: { linkedin: "#", twitter: "#", website: "#" }
   },
   {
-    name: "Skain",
+    name: "Joan Melchor",
     role: "Producción y Streaming",
     company: "",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzbWlsaW5nJTIwd29tYW4lMjBwb3J0cmFpdHxlbnwxfHx8fDE3NjM3MTQ5MDB8MA&ixlib=rb-4.1.0&q=80&w=600",
+    image: "/Mentores/Joan_Melchor.png",
     bio: "Descubre cómo transformar historias en experiencias visuales cautivadoras a través del arte del streaming.",
     specialties: [],
-    social: { linkedin: "#", twitter: "#", website: "#" }
+    social: { linkedin: "https://www.linkedin.com/in/joanmelchor/", website: "#" }
   },
   {
     name: "Iván Rodríguez",
@@ -215,13 +215,10 @@ export function Mentors() {
                       
                       {/* Social Links Overlay */}
                       <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4 translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                        <a href={mentor.social.linkedin} className="p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-primary hover:text-white transition-colors">
+                        <a href={mentor.social.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-primary hover:text-white transition-colors">
                           <Linkedin size={18} />
-                        </a>
-                        <a href={mentor.social.twitter} className="p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-primary hover:text-white transition-colors">
-                          <Twitter size={18} />
-                        </a>
-                        <a href={mentor.social.website} className="p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-primary hover:text-white transition-colors">
+                        </a>                      
+                        <a href={mentor.social.website} target="_blank" rel="noopener noreferrer" className="p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-primary hover:text-white transition-colors">
                           <Globe size={18} />
                         </a>
                       </div>

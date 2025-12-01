@@ -126,7 +126,7 @@ export function Hero() {
               />
               
               {/* Main Text */}
-              <motion.div className="flex flex-col items-center justify-center antialiased z-10 relative mt-32 md:mt-16 ">
+              <motion.div className="flex flex-col items-center justify-center antialiased z-10 relative -mt-4 md:mt-16 ">
               <span className=" text-7xl mb-8 relative z-10 group-hover:text-black transition-colors font-bold">
                 Bits & Atoms
               </span>
@@ -151,14 +151,14 @@ export function Hero() {
 
         {/* CTA Buttons */}
         <motion.div
-          className="flex flex-wrap gap-4 justify-center mt-8"
+          className="flex flex-wrap gap-2 sm:gap-4 justify-center -mt-8 sm:mt-8 px-2 sm:px-4 w-full"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
         >
           {/* Primary Button - Filled for weight */}
           <motion.button
-            className="group relative px-8 py-4 bg-primary border border-primary overflow-hidden rounded-full shadow-lg shadow-primary/25"
+            className="group relative px-4 sm:px-8 py-3 sm:py-4 bg-primary border border-primary overflow-hidden rounded-full shadow-lg shadow-primary/25 text-sm sm:text-base whitespace-nowrap"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => document.getElementById("training")?.scrollIntoView({ behavior: "smooth" })}
@@ -170,7 +170,7 @@ export function Hero() {
 
           {/* Secondary Button */}
           <motion.button
-            className="group relative px-8 py-4 bg-transparent border border-muted-foreground/30 text-foreground overflow-hidden rounded-full hover:bg-muted/20"
+            className="group relative px-4 sm:px-8 py-3 sm:py-4 bg-transparent border border-muted-foreground/30 text-foreground overflow-hidden rounded-full hover:bg-muted/20 text-sm sm:text-base whitespace-nowrap"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
