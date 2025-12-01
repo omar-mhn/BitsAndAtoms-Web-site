@@ -34,7 +34,8 @@ export function Contact() {
     name: "",
     email: "",
     subject: "",
-    message: "",
+    message: "" ,
+    cv: null as File | null,
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -63,7 +64,7 @@ export function Contact() {
   toast.promise(promise, {
     loading: 'Enviando mensaje...',
     success: () => {
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      setFormData({ name: "", email: "", subject: "", message: "", cv: null });
       return '¡Mensaje enviado! Gracias por contactarnos.';
     },
     error: 'Hubo un error al enviar el mensaje. Inténtalo de nuevo.',
@@ -209,12 +210,12 @@ export function Contact() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <Card className="p-10 bg-card border-border rounded-3xl shadow-lg mt-16">
-              <h3 className="mb-8 text-2xl font-bold text-foreground">Envíanos un mensaje</h3>
+            <Card className="p-10 bg-card border-border rounded-3xl shadow-lg mt-16 h-fit min-h-[650px] overflow-y-auto">
+              <h3 className="mb-4 text-2xl font-bold text-foreground">Envíanos un mensaje</h3>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <Label htmlFor="name" className="text-foreground mb-2 block font-medium">
-                    Nombre completo
+                    Nombre completo *
                   </Label>
                   <Input
                     id="name"
@@ -229,7 +230,7 @@ export function Contact() {
 
                 <div>
                   <Label htmlFor="email" className="text-foreground mb-2 block font-medium">
-                    Email
+                    Email *
                   </Label>
                   <Input
                     id="email"
@@ -244,7 +245,7 @@ export function Contact() {
 
                 <div>
                   <Label htmlFor="subject" className="text-foreground mb-2 block font-medium">
-                    Asunto
+                    Asunto  *
                   </Label>
                   <Input
                     id="subject"
@@ -259,21 +260,34 @@ export function Contact() {
 
                 <div>
                   <Label htmlFor="message" className="text-foreground mb-2 block font-medium">
-                    Mensaje
+                    Mensaje *
                   </Label>
                   <Textarea
                     id="message"
                     placeholder="Cuéntanos sobre tu proyecto o pregunta..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="bg-background border-input focus:border-primary text-foreground min-h-[180px] placeholder:text-muted-foreground rounded-xl resize-none"
+                    className="bg-background border-input focus:border-primary text-foreground min-h-[120px] placeholder:text-muted-foreground rounded-xl resize-none"
                     required
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="cv" className="text-foreground mb-2 block font-medium">
+                    Adjuntar CV (Opcional)
+                  </Label>
+                  <input
+                    id="cv"
+                    type="file"
+                    accept=".pdf,.doc,.docx"
+                    onChange={(e) => setFormData({ ...formData, cv: e.target.files?.[0] || null })}
+                    className="bg-background border border-input focus:border-primary text-muted-foreground placeholder:text-muted-foreground h-12 rounded-xl px-2 pt-2 file:bg-primary file:text-white file:border-none file:rounded-md file:px-3 file:py-1 file:mr-6 file:cursor-pointer hover:file:bg-primary/80 transition-colors w-full"
                   />
                 </div>
 
                 <motion.button
                   type="submit"
-                  className="group w-full flex items-center justify-center gap-3 px-8 py-5 bg-primary text-white rounded-xl overflow-hidden relative font-bold text-lg tracking-wide shadow-lg shadow-primary/20"
+                  className="group w-full flex items-center justify-center gap-3 px-8 py-4 bg-primary text-white rounded-xl overflow-hidden relative font-bold text-lg tracking-wide shadow-lg shadow-primary/20"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
