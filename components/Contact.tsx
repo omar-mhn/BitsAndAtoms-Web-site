@@ -39,19 +39,35 @@ export function Contact() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const recipientEmail = "crisomar226@gmail.com";
     
+    const promise = fetch(`https://formsubmit.co/ajax/${recipientEmail}`, {
+    method: "POST",
+    headers: { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+      _subject: `Nouveau contact: ${formData.subject}` 
+    })
+  })
+  .then(response => {
+      if (!response.ok) throw new Error("Erreur réseau");
+      return response.json();
+  });
 
-    
-    const promise = new Promise((resolve) => setTimeout(resolve, 1500));
-
-    toast.promise(promise, {
-      loading: 'Enviando mensaje...',
-      success: () => {
-        setFormData({ name: "", email: "", subject: "", message: "" });
-        return '¡Mensaje enviado! Gracias por contactarnos.';
-      },
-      error: 'Hubo un error al enviar el mensaje. Inténtalo de nuevo.',
-    });
+  toast.promise(promise, {
+    loading: 'Enviando mensaje...',
+    success: () => {
+      setFormData({ name: "", email: "", subject: "", message: "" });
+      return '¡Mensaje enviado! Gracias por contactarnos.';
+    },
+    error: 'Hubo un error al enviar el mensaje. Inténtalo de nuevo.',
+  });
   };
 
   return (

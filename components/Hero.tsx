@@ -126,7 +126,7 @@ export function Hero() {
               />
               
               {/* Main Text */}
-              <motion.div className="flex flex-col items-center justify-center antialiased z-10 relative mt-16">
+              <motion.div className="flex flex-col items-center justify-center antialiased z-10 relative mt-32 md:mt-16 ">
               <span className=" text-7xl mb-8 relative z-10 group-hover:text-black transition-colors font-bold">
                 Bits & Atoms
               </span>

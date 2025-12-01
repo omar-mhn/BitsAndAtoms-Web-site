@@ -7,7 +7,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
   return (
     <Sonner
       theme="dark"
-      position="bottom-right"
+      position="bottom-center"
       className="toaster group"
       // Coloca el toaster justo encima del footer (ajustable)
       style={{ ['--offset-bottom' as any]: '96px' }}
