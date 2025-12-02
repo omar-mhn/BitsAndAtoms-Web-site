@@ -183,7 +183,7 @@ export function Hero() {
       </div>
 
       <motion.button
-        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-muted-foreground cursor-pointer z-20 hover:text-primary transition-colors"
+        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-muted-foreground cursor-pointer z-20 hover:text-primary transition-colors hidden md:block"
         onClick={handleScroll}
         animate={{
           y: [0, 10, 0],

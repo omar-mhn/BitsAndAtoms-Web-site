@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Triangle from './Triangle';
 
-const TILE_SIZE = 150;
+const TILE_SIZE = typeof window !== 'undefined' && window.innerWidth < 768 ? 100 : 150;
 
 const Logo: React.FC = () => {
   const [layoutIndex, setLayoutIndex] = useState<number>(0);
