@@ -91,7 +91,7 @@ export function Hero() {
       ))}
 
       {/* Main Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center gap-8 px-4">
+      <div className="relative z-10 flex flex-col items-center justify-center gap-8 px-4 sm:px-6 md:px-8 w-full max-w-full">
         <motion.div
           className="relative"
           style={{
@@ -126,8 +126,8 @@ export function Hero() {
               />
               
               {/* Main Text */}
-              <motion.div className="flex flex-col items-center justify-center antialiased z-10 relative -mt-4 md:mt-16 ">
-              <span className=" text-7xl mb-8 relative z-10 group-hover:text-black transition-colors font-bold">
+             <motion.div className="flex flex-col items-center justify-center antialiased z-10 relative -mt-4 md:mt-16 w-full">
+              <span className="text-5xl sm:text-6xl mt-12 md:text-7xl mb-8 relative z-10 group-hover:text-black transition-colors font-bold text-center w-full">
                 Bits & Atoms
               </span>
               <div className="absolute inset-0 rounded-lg shadow-[0_0_20px_rgba(0,212,255,0.5)] opacity-0 group-hover:opacity-100 transition-opacity" />
