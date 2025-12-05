@@ -25,7 +25,7 @@ const contactInfo = [
 const socialMedia = [
   { name: "Instagram", icon: Instagram, url: "https://www.instagram.com/bitsatoms_/", color: "hover:text-pink-500" },
   { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/company/bitsatoms/", color: "hover:text-blue-500" },
-  { name: "TikTok", icon: SiTiktok, url: "https://www.tiktok.com/@bitsatoms?_r=1&_t=ZN-91TI3bSOSpi", color:  "hover:text-[#69C9D0]" },
+  { name: "TikTok", icon: SiTiktok, url: "https://www.tiktok.com/@bitsatoms?_r=1&_t=ZN-91TI3bSOSpi", color:  "hover:text-[#69C9D0]" },
   { name: "YouTube", icon: Youtube, url: "https://www.youtube.com/@BitsAtomsAdmira", color: "hover:text-red-500" },
 ];
 
@@ -35,41 +35,59 @@ export function Contact() {
     email: "",
     subject: "",
     message: "" ,
+    center: "",   // NOUVEAU
+    city: "",     // NOUVEAU
     cv: null as File | null,
+    coverLetter: null as File | null, // NOUVEAU (Lettre de motivation)
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const recipientEmail = "crisomar226@gmail.com";
     
-    const promise = fetch(`https://formsubmit.co/ajax/${recipientEmail}`, {
-    method: "POST",
-    headers: { 
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      name: formData.name,
-      email: formData.email,
-      subject: formData.subject,
-      message: formData.message,
-      _subject: `Nouveau contact: ${formData.subject}` 
-    })
-  })
-  .then(response => {
-      if (!response.ok) throw new Error("Erreur réseau");
-      return response.json();
-  });
+    // Créer un objet FormData pour l'envoi de fichiers et de données textuelles
+    const formToSend = new FormData();
+    
+    // Ajouter les champs de texte
+    formToSend.append("name", formData.name);
+    formToSend.append("email", formData.email);
+    formToSend.append("subject", formData.subject);
+    formToSend.append("message", formData.message);
+    formToSend.append("center", formData.center);
+    formToSend.append("city", formData.city);
+    
+    // Ajouter les fichiers (vérifier s'ils existent)
+    if (formData.cv) {
+      formToSend.append("cv", formData.cv, formData.cv.name);
+    }
+    if (formData.coverLetter) {
+      formToSend.append("coverLetter", formData.coverLetter, formData.coverLetter.name);
+    }
 
-  toast.promise(promise, {
-    loading: 'Enviando mensaje...',
-    success: () => {
-      setFormData({ name: "", email: "", subject: "", message: "", cv: null });
-      return '¡Mensaje enviado! Gracias por contactarnos.';
-    },
-    error: 'Hubo un error al enviar el mensaje. Inténtalo de nuevo.',
-  });
+    // Requête vers le backend Express
+    const promise = fetch('http://localhost:5000/api/contact', {
+        method: "POST",
+        // Pas de Content-Type ici, FormData le gère
+        body: formToSend,
+      })
+      .then((res) => {
+        if (!res.ok) throw new Error("Erreur réseau ou du serveur.");
+        return res.json();
+      });
+
+    toast.promise(promise, {
+      loading: "Enviando mensaje...",
+      success: () => {
+        // Réinitialiser l'état après succès
+        setFormData({
+         name: "", email: "", subject: "", message: "", 
+         cv: null, coverLetter: null, center: "", city: ""
+        });
+        return "Mensaje enviado con éxito. ¡Gracias por contactarnos!";
+      },  
+      error: "Error al enviar el mensaje. Por favor, inténtalo de nuevo más tarde.",
+    });
   };
+  
 
   return (
     <section id="contact" className="min-h-screen py-24 px-4 bg-background">
@@ -105,7 +123,8 @@ export function Contact() {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-16">
-          {/* Contact info */}
+          
+          {/* Contact info, Social media, and Map (Code Intégral) */}
           <motion.div
             className="space-y-10"
             initial={{ opacity: 0, x: -20 }}
@@ -199,11 +218,9 @@ export function Contact() {
                 className="absolute inset-0 z-10"
               ></a>
             </motion.div>
-          
-            
           </motion.div>
 
-          {/* Contact form */}
+          {/* Contact form (avec les champs ajoutés) */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -213,6 +230,8 @@ export function Contact() {
             <Card className="p-10 bg-card border-border rounded-3xl shadow-lg mt-16 h-fit min-h-[650px] overflow-y-auto">
               <h3 className="mb-4 text-2xl font-bold text-foreground">Envíanos un mensaje</h3>
               <form onSubmit={handleSubmit} className="space-y-6">
+                
+                {/* Champ Nombre completo */}
                 <div>
                   <Label htmlFor="name" className="text-foreground mb-2 block font-medium">
                     Nombre completo *
@@ -228,6 +247,7 @@ export function Contact() {
                   />
                 </div>
 
+                {/* Champ Email */}
                 <div>
                   <Label htmlFor="email" className="text-foreground mb-2 block font-medium">
                     Email *
@@ -243,9 +263,42 @@ export function Contact() {
                   />
                 </div>
 
+                {/* AJOUTÉ: Champ Centro (Center) */}
+                <div>
+                    <Label htmlFor="center" className="text-foreground mb-2 block font-medium">
+                        Centro *
+                    </Label>
+                    <Input
+                        id="center"
+                        type="text"
+                        placeholder="Tu centro de interés"
+                        value={formData.center}
+                        onChange={(e) => setFormData({ ...formData, center: e.target.value })}
+                        className="bg-background border-input focus:border-primary text-foreground placeholder:text-muted-foreground h-12 rounded-xl"
+                        required
+                    />
+                </div>
+
+                {/* AJOUTÉ: Champ Ciudad (City) */}
+                <div>
+                    <Label htmlFor="city" className="text-foreground mb-2 block font-medium">
+                        Ciudad *
+                    </Label>
+                    <Input
+                        id="city"
+                        type="text"
+                        placeholder="Tu ciudad de residencia"
+                        value={formData.city}
+                        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                        className="bg-background border-input focus:border-primary text-foreground placeholder:text-muted-foreground h-12 rounded-xl"
+                        required
+                    />
+                </div>
+
+                {/* Champ Asunto */}
                 <div>
                   <Label htmlFor="subject" className="text-foreground mb-2 block font-medium">
-                    Asunto  *
+                    Asunto  *
                   </Label>
                   <Input
                     id="subject"
@@ -258,6 +311,7 @@ export function Contact() {
                   />
                 </div>
 
+                {/* Champ Mensaje */}
                 <div>
                   <Label htmlFor="message" className="text-foreground mb-2 block font-medium">
                     Mensaje *
@@ -272,6 +326,7 @@ export function Contact() {
                   />
                 </div>
 
+                {/* Champ Adjuntar CV */}
                 <div>
                   <Label htmlFor="cv" className="text-foreground mb-2 block font-medium">
                     Adjuntar CV (Opcional)
@@ -285,6 +340,22 @@ export function Contact() {
                   />
                 </div>
 
+                {/* AJOUTÉ: Champ Adjuntar Carta de Motivación (Cover Letter) */}
+                <div>
+                    <Label htmlFor="coverLetter" className="text-foreground mb-2 block font-medium">
+                        Adjuntar Carta de Motivación (Opcional)
+                    </Label>
+                    <input
+                        id="coverLetter"
+                        type="file"
+                        accept=".pdf,.doc,.docx"
+                        onChange={(e) => setFormData({ ...formData, coverLetter: e.target.files?.[0] || null })}
+                        className="bg-background border border-input focus:border-primary text-muted-foreground placeholder:text-muted-foreground h-12 rounded-xl px-2 pt-2 file:bg-primary file:text-white file:border-none file:rounded-md file:px-3 file:py-1 file:mr-6 file:cursor-pointer hover:file:bg-primary/80 transition-colors w-full"
+                    />
+                </div>
+
+
+                {/* Bouton de soumission */}
                 <motion.button
                   type="submit"
                   className="group w-full flex items-center justify-center gap-3 px-8 py-4 bg-primary text-white rounded-xl overflow-hidden relative font-bold text-lg tracking-wide shadow-lg shadow-primary/20"
@@ -303,7 +374,7 @@ export function Contact() {
               </form>
             </Card>
 
-           
+            
           </motion.div>
         </div>
       </div>
