@@ -6,6 +6,8 @@ import contactRoutes from './routes.js';
 import { fileURLToPath } from 'url';
 import path from 'path';
 dotenv.config();
+console.log('EMAIL_USER:', process.env.EMAIL_USER);
+console.log('EMAIL_PASS:', process.env.EMAIL_PASS ? 'OK' : 'MISSING');
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
