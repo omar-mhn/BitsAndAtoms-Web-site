@@ -10,7 +10,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const router = express.Router();
-const CSV_PATH = path.join(__dirname,'uploads/data.csv');
+const CSV_PATH = path.join(__dirname,'..','uploads','data.csv');
 
 // Multer setup for file uploads
 const storage = multer.diskStorage({
@@ -39,6 +39,7 @@ const upload = multer({ storage: storage ,
     { name: 'cv', maxCount: 1 },
     { name: 'coverLetter', maxCount: 1 } // Allow coverLetter uploads as well
 ]);
+/*
 // Nodemailer setup for sending emails
     const transporter = nodemailer.createTransport({
         service: 'Gmail',
@@ -46,7 +47,7 @@ const upload = multer({ storage: storage ,
             user: process.env.EMAIL_USER, // Your email address
             pass: process.env.EMAIL_PASS,// Your email password or app password
         },
-    });
+    });*/
     // Function to append a submission to the CSV
     const appendToCSV = (data) => {
         const fields = ['timestamp','name', 'email', 'center','city','subject', 'message', 'cvPath', 'coverLetterPath'];
