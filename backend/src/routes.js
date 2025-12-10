@@ -1,145 +1,143 @@
-import express from 'express';
-import multer from 'multer';
-import path from 'path';
-import fs from 'fs';
-import { parse } from 'json2csv';
-import { fileURLToPath } from 'url';
-import { sendEmail } from './mailer.js'; // Ajusta la ruta
+import express from "express";
+import multer from "multer";
+import fs from "fs";
+import fetch from "node-fetch";
+import path from "path";
+import { fileURLToPath } from "url";
+import { sendEmail } from "./mailer.js";
 
+const router = express.Router();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const router = express.Router();
-const uploadsDir = path.join(__dirname, '..', 'uploads');
-if (!fs.existsSync(uploadsDir)) fs.mkdirSync(uploadsDir, { recursive: true });
-const CSV_PATH = path.join(__dirname, '..', 'uploads', 'data.csv');
-
-// --- Multer setup ---
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, uploadsDir),
-  
-  filename: (req, file, cb) => {
-    const originalName = Buffer.from(file.originalname, 'latin1').toString('utf8'); 
-    // separar el .pdf del nombre
-    const ext = path.extname(originalName); 
-    const nameWithoutExt = path.basename(originalName, ext);
-    
-    const cleanName = nameWithoutExt
-      .replace(/\s+/g, '-')             // Reemplaza espacios por guiones
-      .replace(/[^a-zA-Z0-9.\-_]/g, ''); // Elimina caracteres especiales
-
-    cb(null, `${cleanName}-${Date.now()}${ext}`);
-  }
-});
-
+// ----------------------
+// MULTER SOLO EN MEMORIA
+// ----------------------
+const storage = multer.memoryStorage();
 const upload = multer({
   storage,
   limits: { fileSize: 5 * 1024 * 1024 },
   fileFilter: (req, file, cb) => {
-    if (file.fieldname === 'cv' && !file.originalname.match(/\.(pdf|doc|docx)$/)) {
-      return cb(new Error('Only PDF and DOC files are allowed for CV!'), false);
+    if (file.fieldname === "cv" && !file.originalname.match(/\.(pdf|doc|docx)$/)) {
+      return cb(new Error("Solo se permiten PDF o DOC para el CV"), false);
     }
     cb(null, true);
   }
 }).fields([
-  { name: 'cv', maxCount: 1 },
-  { name: 'coverLetter', maxCount: 1 }
+  { name: "cv", maxCount: 1 },
+  { name: "coverLetter", maxCount: 1 }
 ]);
 
-// --- Helper: append to CSV ---
-export const appendToCSV = (data) => {
-    const fields = [
-      'timestamp',
-      'name',
-      'email',
-      'center',
-      'city',
-      'subject',
-      'message',
-      'cvPath',
-      'coverLetterPath'
-    ];
-  
-    // Siempre genera CSV completo de los datos enviados
-    const csvData = parse(data, { fields, header: !fs.existsSync(CSV_PATH) }) + '\n';
-  
-    try {
-      fs.appendFileSync(CSV_PATH, csvData, 'utf8');
-      console.log('CSV updated successfully!');
-    } catch (err) {
-      console.error('Error writing CSV:', err);
+// ----------------------
+// POST /contact
+// ----------------------
+router.post("/contact", upload, async (req, res) => {
+  try {
+    const { name, email, center, city, subject, message } = req.body;
+
+    const cvFile = req.files?.cv?.[0] || null;
+    const coverLetterFile = req.files?.coverLetter?.[0] || null;
+
+    // ----------------------
+    // VALIDACIÓN: CV obligatorio
+    // ----------------------
+    if (!cvFile) {
+      return res.status(400).json({
+        success: false,
+        message: "El CV (PDF) es obligatorio."
+      });
     }
-  };
 
-// --- POST /contact ---
-router.post('/contact', upload, async (req, res) => {
-    try {
-      const { name, email, center, city, subject, message } = req.body;
-      const cvFile = req.files?.cv?.[0] || null;
-      const lettreFile = req.files?.coverLetter?.[0] || null;
-  
-      const cvPath = cvFile ? cvFile.filename : 'N/A';
-      const lettrePath = lettreFile ? lettreFile.filename : 'N/A';
+    // ----------------------
+    // Convertir archivos a Base64
+    // ----------------------
+    const fileToBase64 = (file) =>
+      file.buffer.toString("base64");
 
-      const getReadableName = (file) => {
-      const ext = path.extname(file.filename); 
-      const nameWithoutExt = path.basename(file.filename, ext); 
-      const parts = nameWithoutExt.split('-');
-      if (parts.length > 1) {
-             parts.pop(); 
-             return parts.join('-') + ext; 
+    const googlePayload = {
+      name,
+      email,
+      center,
+      city,
+      subject,
+      message,
+      files: {}
+    };
 
-      } 
-      return file.filename;
+    // CV obligatorio
+    googlePayload.files.cv = {
+      filename: cvFile.originalname,
+      mimeType: cvFile.mimetype,
+      base64: fileToBase64(cvFile)
+    };
+
+    // Carta (opcional)
+    if (coverLetterFile) {
+      googlePayload.files.coverLetter = {
+        filename: coverLetterFile.originalname,
+        mimeType: coverLetterFile.mimetype,
+        base64: fileToBase64(coverLetterFile)
       };
-      const cvNameForCSV = getReadableName(cvFile);
-      const lettreNameForCSV = getReadableName(lettreFile);
-  
-      // Guardar en CSV
-      const submissionData = [{
-        timestamp: new Date().toISOString(),
-        name: name || 'N/A',
-        email: email || 'N/A',
-        center: center || 'N/A',
-        city: city || 'N/A',
-        subject: subject || 'N/A',
-        message: message ? message.replace(/(\r\n|\n|\r)/gm, ' ') : 'N/A',
-
-        cvPath: cvNameForCSV,           
-        coverLetterPath: lettreNameForCSV
-        
-      }];
-  
-      appendToCSV(submissionData);
-  
-      // Enviar email (ya lo tienes funcionando)
-      const attachments = [];
-      if (cvFile) attachments.push({ filename: cvFile.originalname, path: cvFile.path });
-      if (lettreFile) attachments.push({ filename: lettreFile.originalname, path: lettreFile.path });
-  
-      await sendEmail({
-        subject: `New contact form submission: ${subject || 'No subject'}`,
-        text: `
-          Name: ${name}
-          Email: ${email}
-          Center: ${center}
-          City: ${city}
-          Message: ${message}
-        `,
-        attachments,
-        replyTo: email
-      });
-  
-      res.status(200).json({
-        success: true,
-        message: 'Submission successful! Email sent and CSV updated.',
-        files: { cv: cvPath, coverLetter: lettrePath }
-      });
-  
-    } catch (error) {
-      console.error('Error processing submission:', error);
-      res.status(500).json({ success: false, message: 'Internal Server Error', error: error.message });
     }
-  });
+
+    // ----------------------
+    // ENVIAR A GOOGLE APPS SCRIPT
+    // ----------------------
+    const gsResponse = await fetch(process.env.APPS_SCRIPT_WEBAPP_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(googlePayload)
+    });
+
+    const gsResult = await gsResponse.json();
+    if (!gsResult.success) {
+      console.error("Google Script Error:", gsResult.error);
+    }
+
+    // ----------------------
+    // Enviar email con adjuntos (opcional)
+    // ----------------------
+    const attachments = [
+      {
+        filename: cvFile.originalname,
+        content: cvFile.buffer
+      }
+    ];
+
+    if (coverLetterFile) {
+      attachments.push({
+        filename: coverLetterFile.originalname,
+        content: coverLetterFile.buffer
+      });
+    }
+
+    await sendEmail({
+      subject: `Nueva solicitud: ${subject || "Sin asunto"}`,
+      text: `
+        Nombre: ${name}
+        Email: ${email}
+        Centro: ${center}
+        Ciudad: ${city}
+        Mensaje: ${message}
+      `,
+      attachments,
+      replyTo: email
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Solicitud enviada correctamente.",
+      googleResult: gsResult
+    });
+
+  } catch (error) {
+    console.error("Error al procesar solicitud:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Error interno en el servidor.",
+      error: error.message
+    });
+  }
+});
 
 export default router;
