@@ -17,7 +17,19 @@ const CSV_PATH = path.join(__dirname, '..', 'uploads', 'data.csv');
 // --- Multer setup ---
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadsDir),
-  filename: (req, file, cb) => cb(null, Date.now() + path.extname(file.originalname))
+  
+  filename: (req, file, cb) => {
+    const originalName = Buffer.from(file.originalname, 'latin1').toString('utf8'); 
+    // separar el .pdf del nombre
+    const ext = path.extname(originalName); 
+    const nameWithoutExt = path.basename(originalName, ext);
+    
+    const cleanName = nameWithoutExt
+      .replace(/\s+/g, '-')             // Reemplaza espacios por guiones
+      .replace(/[^a-zA-Z0-9.\-_]/g, ''); // Elimina caracteres especiales
+
+    cb(null, `${cleanName}-${Date.now()}${ext}`);
+  }
 });
 
 const upload = multer({
@@ -68,6 +80,20 @@ router.post('/contact', upload, async (req, res) => {
   
       const cvPath = cvFile ? cvFile.filename : 'N/A';
       const lettrePath = lettreFile ? lettreFile.filename : 'N/A';
+
+      const getReadableName = (file) => {
+      const ext = path.extname(file.filename); 
+      const nameWithoutExt = path.basename(file.filename, ext); 
+      const parts = nameWithoutExt.split('-');
+      if (parts.length > 1) {
+             parts.pop(); 
+             return parts.join('-') + ext; 
+
+      } 
+      return file.filename;
+      };
+      const cvNameForCSV = getReadableName(cvFile);
+      const lettreNameForCSV = getReadableName(lettreFile);
   
       // Guardar en CSV
       const submissionData = [{
@@ -78,8 +104,10 @@ router.post('/contact', upload, async (req, res) => {
         city: city || 'N/A',
         subject: subject || 'N/A',
         message: message ? message.replace(/(\r\n|\n|\r)/gm, ' ') : 'N/A',
-        cvPath,
-        coverLetterPath: lettrePath
+
+        cvPath: cvNameForCSV,           
+        coverLetterPath: lettreNameForCSV
+        
       }];
   
       appendToCSV(submissionData);
