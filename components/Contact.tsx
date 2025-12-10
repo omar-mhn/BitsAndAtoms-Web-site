@@ -329,7 +329,7 @@ export function Contact() {
                 {/* Champ Adjuntar CV */}
                 <div>
                   <Label htmlFor="cv" className="text-foreground mb-2 block font-medium">
-                    Adjuntar CV (Opcional)
+                    Adjuntar CV *
                   </Label>
                   <input
                     id="cv"
@@ -337,6 +337,7 @@ export function Contact() {
                     accept=".pdf,.doc,.docx"
                     onChange={(e) => setFormData({ ...formData, cv: e.target.files?.[0] || null })}
                     className="bg-background border border-input focus:border-primary text-muted-foreground placeholder:text-muted-foreground h-12 rounded-xl px-2 pt-2 file:bg-primary file:text-white file:border-none file:rounded-md file:px-3 file:py-1 file:mr-6 file:cursor-pointer hover:file:bg-primary/80 transition-colors w-full"
+                    required
                   />
                 </div>
 
