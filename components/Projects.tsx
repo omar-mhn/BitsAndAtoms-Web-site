@@ -193,29 +193,7 @@ export function Projects() {
           ))}
         </div>
 
-        {/* CTA */}
-        <motion.div
-          className="text-center mt-20"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <motion.button
-            className="group px-10 py-5 bg-transparent border-2 border-foreground rounded-full overflow-hidden relative"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <motion.div
-              className="absolute inset-0 bg-foreground"
-              initial={{ x: "-100%" }}
-              whileHover={{ x: 0 }}
-              transition={{ duration: 0.3 }}
-            />
-            <span className="relative z-10 text-foreground group-hover:text-background transition-colors font-black tracking-wide uppercase">
-              ¿Tienes una idea? Empieza tu proyecto
-            </span>
-          </motion.button>
-        </motion.div>
+        
       </div>
     </section>
   );
