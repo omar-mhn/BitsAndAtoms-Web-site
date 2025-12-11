@@ -30,9 +30,7 @@ export function Navbar() {
     { name: "Mentores", href: "#mentors" },
     { name: "Espacios", href: "#spaces" },
     { name: "Podcast", href: "#podcast" },
-    { name: "Blog", href: "#blog" },
     { name: "Proyectos", href: "#projects" },
-    { name: "Branding", href: "#branding" },
     { name: "Contacto", href: "#contact" },
   ];
 
