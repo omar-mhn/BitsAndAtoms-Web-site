@@ -56,7 +56,7 @@ export function About() {
             </span>
           </h2>
           
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg md:text-xl leading-relaxed font-medium">
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg md:text-xl leading-relaxed font-medium text-justify">
             Un espacio donde la tecnología cobra vida. Un proyecto impulsado por Admira y nacido del 
             deseo de formar, acompañar y abrir oportunidades a una nueva generación de creadores e 
             innovadores.
@@ -100,7 +100,7 @@ export function About() {
             <h3 className="mb-6 text-3xl font-bold text-foreground">
               Un espacio donde la <span className="text-primary">tecnología</span> cobra vida
             </h3>
-            <div className="space-y-6 text-lg text-muted-foreground">
+            <div className="space-y-6 text-lg text-muted-foreground text-justify ">
               <p>
                En Bits and Atoms aprenderás tecnología creándola. Nuestro programa combina IA, 
                IoT y creatividad para que desarrolles proyectos reales desde el primer día. 
