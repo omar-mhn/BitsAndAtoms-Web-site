@@ -25,9 +25,7 @@ export default function App() {
         <Mentors />
         <Spaces />
         <Podcast />
-        <Blog />
         <Projects />
-        <Branding />
         <Contact />
       </main>
       
