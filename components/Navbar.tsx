@@ -24,12 +24,12 @@ export function Navbar() {
   }, [darkMode]);
 
   const navItems = [
-    { name: "Inicio", href: "#hero" },
+
     { name: "Quiénes somos", href: "#about" },
-    { name: "Formación", href: "#training" },
+
     { name: "Mentores", href: "#mentors" },
     { name: "Espacios", href: "#spaces" },
-    { name: "Podcast", href: "#podcast" },
+
     { name: "Proyectos", href: "#projects" },
     { name: "Contacto", href: "#contact" },
   ];

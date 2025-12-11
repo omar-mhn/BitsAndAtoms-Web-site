@@ -54,31 +54,14 @@ const mentors = [
   },
   {
     name: "Joan Melchor",
-    role: "Producción y Streaming",
+    role: "Robótica",
     company: "",
     image: "/Mentores/Joan_Melchor.png",
-    bio: "Descubre cómo transformar historias en experiencias visuales cautivadoras a través del arte del streaming.",
+    bio: "Domina el diseño, construcción y programación de robots para resolver desafíos del mundo real con innovación y eficiencia.",
     specialties: [],
     social: { linkedin: "https://www.linkedin.com/in/joanmelchor/", website: "#" }
   },
-  {
-    name: "Iván Rodríguez",
-    role: "Web 3.0",
-    company: "",
-    image: "https://images.unsplash.com/photo-1598550874175-4d7112ee7e89?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxYJTIwZ2VuZXJhdGlvbiUyMHdvbWFufGVufDF8fHx8MTc2MzcxNTMwMHww&ixlib=rb-4.1.0&q=80&w=600",
-    bio: "Da vida a tus ideas con excelencia técnica y creatividad, dominando cada etapa de la producción y postproducción audiovisual.",
-    specialties: [],
-    social: { linkedin: "#", twitter: "#", website: "#" }
-  },
-  {
-    name: "Juan Carlos Expósito",
-    role: "Ecommerce",
-    company: "",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHxhc2lhbiUyMG1hbiUyMHRlY2h8ZW58MXx8fHwxNzYzNzE1NDAwfDA&ixlib=rb-4.1.0&q=80&w=600",
-    bio: "Revoluciona el comercio electrónico con estrategias disruptivas que potencian el crecimiento y la satisfacción del cliente.",
-    specialties: [],
-    social: { linkedin: "#", twitter: "#", website: "#" }
-  },
+
   {
     name: "Carlos Silva",
     role: "Entrepreneurship",
