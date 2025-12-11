@@ -1,31 +1,29 @@
 {
   "name": "bits-and-atoms",
-  "version": "1.0.0",
-  "description": "Bits and Atoms - A modern web application for training, mentorship, and community engagement",
+  "version": "0.1.0",
   "private": true,
-  "type": "module",
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
   "scripts": {
-    "dev:frontend": "npm run dev --workspace frontend",
-    "dev:backend": "npm run dev --workspace backend",
-    "build:frontend": "npm run build --workspace frontend",
-    "start:backend": "npm start --workspace backend",
-    "install:all": "npm install && npm install --workspace frontend && npm install --workspace backend"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "keywords": [
-    "training",
-    "mentorship",
-    "community",
-    "react",
-    "express"
-  ],
-  "author": "Bits and Atoms",
-  "license": "MIT",
-  "engines": {
-    "node": ">=16.0.0",
-    "npm": ">=8.0.0"
+  "dependencies": {
+    "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-tabs": "^1.0.4",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "framer-motion": "^11.0.0",
+    "lucide-react": "^0.344.0",
+    "node-fetch": "^3.3.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-icons": "^5.5.0",
+    "sonner": "^1.4.3",
+    "tailwind-merge": "^2.2.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.1.4"
   }
 }
