@@ -161,10 +161,10 @@ export function Hero() {
             className="group relative px-4 sm:px-8 py-3 sm:py-4 bg-primary border border-primary overflow-hidden rounded-full shadow-lg shadow-primary/25 text-sm sm:text-base whitespace-nowrap"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => document.getElementById("training")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
           >
             <span className="relative z-10 text-white font-bold tracking-wide">
-              Descubre programas
+              Únete a nosotros
             </span>
           </motion.button>
 
@@ -173,10 +173,10 @@ export function Hero() {
             className="group relative px-4 sm:px-8 py-3 sm:py-4 bg-transparent border border-muted-foreground/30 text-foreground overflow-hidden rounded-full hover:bg-muted/20 text-sm sm:text-base whitespace-nowrap"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
           >
             <span className="relative z-10 font-medium tracking-wide">
-              Únete a nosotros
+              Nuestros proyectos
             </span>
           </motion.button>
         </motion.div>
