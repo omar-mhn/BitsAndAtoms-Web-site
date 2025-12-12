@@ -33,7 +33,7 @@ const upload = multer({
 // ----------------------
 router.post("/contact", upload, async (req, res) => {
   try {
-    const { name, email, center, city, subject, message } = req.body;
+    const { name, email, center, city,/* subject,message  */} = req.body;
 
     const cvFile = req.files?.cv?.[0] || null;
     const coverLetterFile = req.files?.coverLetter?.[0] || null;
@@ -59,8 +59,8 @@ router.post("/contact", upload, async (req, res) => {
       email,
       center,
       city,
-      subject,
-      message,
+      /*subject,*/
+     /* message,*/
       files: {}
     };
 
@@ -112,13 +112,12 @@ router.post("/contact", upload, async (req, res) => {
     }
 
     await sendEmail({
-      subject: `Nueva solicitud: ${subject || "Sin asunto"}`,
+      subject: `Nueva solicitud: ${name ||"Sin asunto"}`,
       text: `
         Nombre: ${name}
         Email: ${email}
         Centro: ${center}
         Ciudad: ${city}
-        Mensaje: ${message}
       `,
       attachments,
       replyTo: email
