@@ -12,7 +12,7 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Ubicación",
-    content: "Carrer de Bretón de los Herreros, 9\n08012 Gràcia, España",
+    content: "08012 Gràcia,Barcelona,España",
   },
   
   {
@@ -33,25 +33,25 @@ export function Contact() {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "",
-    message: "" ,
-    center: "",   // NOUVEAU
-    city: "",     // NOUVEAU
+    //subject: "",
+    //message: "" ,
+    center: "",   
+    city: "",     
     cv: null as File | null,
-    coverLetter: null as File | null, // NOUVEAU (Lettre de motivation)
+    coverLetter: null as File | null, 
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Créer un objet FormData pour l'envoi de fichiers et de données textuelles
+    
     const formToSend = new FormData();
     
-    // Ajouter les champs de texte
+
     formToSend.append("name", formData.name);
     formToSend.append("email", formData.email);
-    formToSend.append("subject", formData.subject);
-    formToSend.append("message", formData.message);
+   // formToSend.append("subject", formData.subject);
+    //formToSend.append("message", formData.message);
     formToSend.append("center", formData.center);
     formToSend.append("city", formData.city);
     
@@ -79,7 +79,7 @@ export function Contact() {
       success: () => {
         // Réinitialiser l'état après succès
         setFormData({
-         name: "", email: "", subject: "", message: "", 
+         name: "", email: "", /*subject: "",*/ /*message: ""*/ 
          cv: null, coverLetter: null, center: "", city: ""
         });
         return "Mensaje enviado con éxito. ¡Gracias por contactarnos!";
@@ -295,7 +295,8 @@ export function Contact() {
                     />
                 </div>
 
-                {/* Champ Asunto */}
+                {/* Champ Asunto 
+                
                 <div>
                   <Label htmlFor="subject" className="text-foreground mb-2 block font-medium">
                     Asunto  *
@@ -310,8 +311,8 @@ export function Contact() {
                     required
                   />
                 </div>
-
-                {/* Champ Mensaje */}
+                */}
+                {/* Champ Mensaje 
                 <div>
                   <Label htmlFor="message" className="text-foreground mb-2 block font-medium">
                     Mensaje *
@@ -325,7 +326,7 @@ export function Contact() {
                     required
                   />
                 </div>
-
+                    */}  
                 {/* Champ Adjuntar CV */}
                 <div>
                   <Label htmlFor="cv" className="text-foreground mb-2 block font-medium">
@@ -341,7 +342,7 @@ export function Contact() {
                   />
                 </div>
 
-                {/* AJOUTÉ: Champ Adjuntar Carta de Motivación (Cover Letter) */}
+                {/* Champ Adjuntar Carta de Motivación (Cover Letter) */}
                 <div>
                     <Label htmlFor="coverLetter" className="text-foreground mb-2 block font-medium">
                         Adjuntar Carta de Motivación (Opcional)
