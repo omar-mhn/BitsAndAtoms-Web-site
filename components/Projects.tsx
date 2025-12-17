@@ -1,199 +1,303 @@
-import React from 'react';
-import { motion } from "framer-motion";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { ExternalLink, Users, Code } from "lucide-react";
-import { Badge } from "./ui/badge";
+import React, { useEffect, useMemo, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight, ExternalLink, Youtube } from "lucide-react";
+import { FaSpotify } from "react-icons/fa";
 import { Card } from "./ui/card";
+import { ImageWithFallback } from "./figma/ImageWithFallback";
+
+/* ---------------- DATA ---------------- */
+
+const categories = ["Todos", "IoT", "IA", "Hardware", "AR / VR"];
 
 const projects = [
   {
-    title: "Sistema de Monitoreo Ambiental IoT",
-    description: "Red de sensores distribuidos para monitorear calidad del aire, temperatura y humedad en tiempo real",
-    team: ["Ana García", "Carlos Ruiz", "María Torres"],
-    technologies: ["Arduino", "React", "Node.js", "MQTT", "MongoDB"],
-    image: "https://images.unsplash.com/photo-1725923727790-15ec49fa4d15?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpbm5vdmF0aW9uJTIwcHJvamVjdCUyMHRlY2hub2xvZ3l8ZW58MXx8fHwxNzYzNzE0OTAwfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    title: "Sistema de Monitoreo Ambiental",
+    description: "Sensores conectados para analizar variables ambientales.",
+    image:
+      "https://images.unsplash.com/photo-1725923727790-15ec49fa4d15?fit=max&q=80&w=1080",
     category: "IoT",
   },
   {
-    title: "Plataforma de Educación Adaptativa con IA",
-    description: "Sistema de aprendizaje personalizado que se adapta al ritmo y estilo de cada estudiante",
-    team: ["Pedro López", "Laura Martín"],
-    technologies: ["Python", "TensorFlow", "React", "PostgreSQL"],
-    image: "https://images.unsplash.com/photo-1563394867331-e687a36112fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmdXR1cmlzdGljJTIwY2xhc3Nyb29tJTIwZWR1Y2F0aW9ufGVufDF8fHx8MTc2MzcxNDg5OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    title: "Plataforma Educativa Inteligente",
+    description: "Aprendizaje adaptativo basado en IA.",
+    image:
+      "https://images.unsplash.com/photo-1563394867331-e687a36112fd?fit=max&q=80&w=1080",
     category: "IA",
   },
   {
-    title: "Prótesis Biónica de Bajo Coste",
-    description: "Diseño e impresión 3D de prótesis de mano funcionales y asequibles",
-    team: ["Javier Sánchez", "Isabel Fernández", "David Gómez"],
-    technologies: ["CAD", "3D Printing", "Arduino", "Electrónica"],
-    image: "https://images.unsplash.com/photo-1694701503673-379c9e0d887e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYWJsYWIlMjBtYWtlcnNwYWNlJTIwZXF1aXBtZW50fGVufDF8fHx8MTc2MzcxNDg5OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    title: "Prótesis Biónica Accesible",
+    description: "Diseño funcional mediante impresión 3D.",
+    image:
+      "https://images.unsplash.com/photo-1694701503673-379c9e0d887e?fit=max&q=80&w=1080",
     category: "Hardware",
   },
   {
-    title: "App de Realidad Aumentada para Museos",
-    description: "Experiencia inmersiva que combina arte físico con contenido digital interactivo",
-    team: ["Sofía Ramírez", "Miguel Ortiz"],
-    technologies: ["Unity", "AR Foundation", "C#", "Firebase"],
-    image: "https://images.unsplash.com/photo-1758685848208-e108b6af94cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB0ZWNobm9sb2d5JTIwbGFiJTIwd29ya3NwYWNlfGVufDF8fHx8MTc2MzcxNDg5OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    category: "AR/VR",
+    title: "Experiencia AR para Museos",
+    description: "Contenido digital integrado en espacios físicos.",
+    image: "https://images.unsplash.com/photo-1758685848208?fit=max&q=80&w=1080",
+    category: "AR / VR",
   },
   {
-    title: "Blockchain para Trazabilidad Alimentaria",
-    description: "Sistema distribuido para rastrear el origen y recorrido de productos alimentarios",
-    team: ["Roberto Díaz", "Carmen Vega", "Pablo Castro"],
-    technologies: ["Solidity", "Ethereum", "Web3.js", "React"],
-    image: "https://images.unsplash.com/photo-1728933102332-a4f1a281a621?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWFtJTIwY29sbGFib3JhdGlvbiUyMHRlY2hub2xvZ3l8ZW58MXx8fHwxNzYzNjUyMjY2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    category: "Blockchain",
+    title: "Robot Autónomo Solar",
+    description: "Robot para limpieza de paneles solares de forma autónoma.",
+    image:
+      "https://images.unsplash.com/photo-1627667050609-d4ba6483a368?fit=max&q=80&w=1080",
+    category: "Hardware",
   },
   {
-    title: "Robot Autónomo de Limpieza Solar",
-    description: "Robot capaz de limpiar paneles solares de forma autónoma y eficiente",
-    team: ["Elena Morales", "Alberto Jiménez"],
-    technologies: ["ROS", "Python", "Computer Vision", "Mecatrónica"],
-    image: "https://images.unsplash.com/photo-1627667050609-d4ba6483a368?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb2RjYXN0JTIwcmVjb3JkaW5nJTIwc3R1ZGlvfGVufDF8fHx8MTc2MzcxNDc1NXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-    category: "Robótica",
+    title: "Trazabilidad Alimentaria",
+    description: "Rastreo del origen y recorrido de productos alimentarios.",
+    image:
+      "https://images.unsplash.com/photo-1728933102332-a4f1a281a621?fit=max&q=80&w=1080",
+    category: "IoT",
   },
 ];
 
-const categories = ["Todos", "IoT", "IA", "Hardware", "AR/VR", "Blockchain", "Robótica"];
+/* ---------------- HELPERS ---------------- */
+
+function getVisibleCountFromWidth(width: number) {
+  if (width >= 1024) return 4; // lg
+  if (width >= 768) return 2; // md
+  return 1; // mobile
+}
 
 export function Projects() {
+  const [activeCategory, setActiveCategory] = useState("Todos");
+  const [pageStart, setPageStart] = useState(0);
+  const [visibleCount, setVisibleCount] = useState(() =>
+    typeof window === "undefined" ? 4 : getVisibleCountFromWidth(window.innerWidth)
+  );
+
+  useEffect(() => {
+    const onResize = () => setVisibleCount(getVisibleCountFromWidth(window.innerWidth));
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+
+  const filtered = useMemo(() => {
+    return activeCategory === "Todos"
+      ? projects
+      : projects.filter((p) => p.category === activeCategory);
+  }, [activeCategory]);
+
+  const total = filtered.length;
+  const showCount = Math.min(visibleCount, total);
+  const canNavigate = total > showCount;
+
+  useEffect(() => {
+    if (total === 0) return;
+    setPageStart((prev) => prev % total);
+  }, [total]);
+
+  const next = () => {
+    if (!canNavigate) return;
+    setPageStart((prev) => (prev + showCount) % total);
+  };
+
+  const prev = () => {
+    if (!canNavigate) return;
+    setPageStart((prev) => (prev - showCount + total) % total);
+  };
+
+  const pageItems = useMemo(() => {
+    if (total === 0) return [];
+    return Array.from({ length: showCount }).map((_, i) => {
+      const idx = (pageStart + i) % total;
+      return { ...filtered[idx], _key: `${activeCategory}-${idx}-${pageStart}` };
+    });
+  }, [filtered, total, showCount, pageStart, activeCategory]);
+
   return (
-    <section id="projects" className="min-h-screen py-24 px-4 bg-background">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.div
-            className="inline-block mb-6 px-6 py-2 rounded-full bg-accent shadow-lg shadow-accent/25"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-          >
-            <span className="text-white font-bold text-sm tracking-wider uppercase">Proyectos</span>
-          </motion.div>
-          
-          <h2 className="mb-6 text-4xl md:text-6xl font-black tracking-tight text-foreground">
-            Innovación <br/>
+    <section id="projects" className="py-24 px-4 bg-background">
+      <div className="max-w-7xl mx-auto space-y-24">
+        {/* PILL + TITULO */}
+        <div className="text-center space-y-3">
+          <div className="flex justify-center">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center justify-center px-6 py-2 rounded-full
+                         bg-gradient-to-r from-purple-500 to-indigo-500
+                         text-white text-xs font-extrabold tracking-widest uppercase
+                         shadow-lg shadow-purple-500/30"
+            >
+              Proyectos
+            </motion.div>
+          </div>
+
+          <h2 className="text-4xl md:text-6xl font-black tracking-tight text-foreground">
+            Creatividad e innovación{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-500 dark:to-blue-500">
               en acción
             </span>
           </h2>
-          
-          <p className="text-muted-foreground max-w-3xl mx-auto text-lg md:text-xl leading-relaxed font-medium">
-            Descubre los proyectos desarrollados por nuestros estudiantes y equipos. 
-            De la idea al prototipo funcional.
-          </p>
-        </motion.div>
+        </div>
 
-        {/* Category filters */}
+        {/* ================= PODCAST (SEPARADO) ================= */}
         <motion.div
-          className="flex flex-wrap justify-center gap-3 mb-16"
-          initial={{ opacity: 0, y: 20 }}
+          className="grid lg:grid-cols-2 gap-16 items-center"
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          {categories.map((category) => (
-            <motion.button
-              key={category}
-              className="px-5 py-2.5 rounded-full bg-card border border-border hover:border-primary/50 hover:text-primary transition-all text-muted-foreground font-bold text-sm"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {category}
-            </motion.button>
-          ))}
+          <div className="relative h-[360px] rounded-3xl overflow-hidden border border-border">
+            <ImageWithFallback
+              src="/img/podcast_1.jpeg"
+              alt="Bits & Atoms Podcast"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div className="max-w-xl">
+            <h3 className="text-3xl font-black mb-4 text-foreground">
+              Bits & Atoms{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+                Podcast
+              </span>
+            </h3>
+
+            <p className="text-muted-foreground text-lg leading-relaxed mb-6">
+              Apostamos por el debate, la creatividad y las conversaciones honestas
+              sobre tecnología, educación y futuro.
+            </p>
+
+            <div className="flex flex-wrap gap-6">
+              <a
+                href="https://open.spotify.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <FaSpotify size={22} />
+                <span className="text-sm font-medium">Spotify</span>
+                <ExternalLink size={14} />
+              </a>
+
+              <a
+                href="https://www.youtube.com/@BitsAtomsAdmira"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+              >
+                <Youtube size={22} />
+                <span className="text-sm font-medium">YouTube</span>
+                <ExternalLink size={14} />
+              </a>
+            </div>
+          </div>
         </motion.div>
 
-        {/* Projects Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-            >
-              <Card className="group relative h-full overflow-hidden bg-card border-border hover:border-primary/50 transition-all duration-300 rounded-3xl shadow-sm hover:shadow-xl">
-                {/* Image */}
-                <div className="relative h-64 overflow-hidden">
-                  <ImageWithFallback
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  
-                  {/* Category badge */}
-                  <Badge className="absolute top-4 right-4 bg-black/60 backdrop-blur-md border-none text-white px-3 py-1">
-                    {project.category}
-                  </Badge>
+        {/* ================= BLOQUE PROYECTOS (SEPARADO) ================= */}
+        <div className="space-y-10">
+          {/* Título */}
+          <div className="space-y-6">
+            <h3 className="text-3xl md:text-4xl font-black text-foreground">
+              Todos{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+                nuestros proyectos
+              </span>
+            </h3>
 
-                  {/* View project button overlay */}
-                  <motion.div
-                    className="absolute inset-0 bg-black/70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity"
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
+            {/* Filtros debajo */}
+            <div className="flex gap-3 flex-wrap">
+              {categories.map((cat) => {
+                const active = activeCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => {
+                      setActiveCategory(cat);
+                      setPageStart(0);
+                    }}
+                    className={`px-5 py-2 rounded-full text-sm font-bold border transition
+                      ${
+                        active
+                          ? "bg-primary text-white border-primary"
+                          : "bg-card text-muted-foreground border-border hover:text-foreground"
+                      }`}
                   >
-                    <motion.button
-                      className="flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full font-bold hover:bg-gray-200 transition-colors"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
+                    {cat}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Carrusel sin scroll (solo flechas) */}
+          <div className="flex items-center gap-6">
+            <button
+              onClick={prev}
+              disabled={!canNavigate}
+              className={`p-3 rounded-full bg-card border border-border transition
+                ${canNavigate ? "hover:text-primary" : "opacity-40 cursor-not-allowed"}`}
+              aria-label="Anterior"
+            >
+              <ChevronLeft />
+            </button>
+
+            <div className="flex-1">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <AnimatePresence mode="wait">
+                  {pageItems.map((project) => (
+                    <motion.div
+                      key={project._key}
+                      initial={{ opacity: 0, y: 14 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -14 }}
+                      transition={{ duration: 0.25 }}
                     >
-                      <span>Ver proyecto</span>
-                      <ExternalLink size={16} />
-                    </motion.button>
-                  </motion.div>
-                </div>
+                      <Card className="group overflow-hidden rounded-3xl border border-border bg-card">
+                        <div className="relative h-64 overflow-hidden">
+                          <ImageWithFallback
+                            src={project.image}
+                            alt={project.title}
+                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                          />
 
-                {/* Content */}
-                <div className="p-8">
-                  <h4 className="mb-4 text-foreground line-clamp-2 text-xl font-bold">
-                    {project.title}
-                  </h4>
-                  
-                  <p className="text-muted-foreground text-sm mb-6 line-clamp-3 leading-relaxed font-medium">
-                    {project.description}
-                  </p>
+                          <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-black/60 text-white backdrop-blur">
+                            {project.category}
+                          </span>
 
-                  {/* Team */}
-                  <div className="flex items-center gap-3 mb-6 text-sm text-muted-foreground">
-                    <Users size={16} />
-                    <span className="line-clamp-1">{project.team.join(", ")}</span>
-                  </div>
+                          <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                            <div className="p-5">
+                              <h4 className="text-white font-bold mb-2 line-clamp-2">
+                                {project.title}
+                              </h4>
+                              <p className="text-gray-200 text-sm line-clamp-3">
+                                {project.description}
+                              </p>
+                              <span className="inline-block mt-3 text-xs uppercase tracking-wide text-white/80">
+                                Ver proyecto →
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+            </div>
 
-                  {/* Technologies */}
-                  <div className="flex items-start gap-3">
-                    <Code size={16} className="text-primary mt-1 flex-shrink-0" />
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.slice(0, 3).map((tech) => (
-                        <span
-                          key={tech}
-                          className="text-xs px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20 font-bold"
-                        >
-                          {tech}
-                        </span>
-                      ))}
-                      {project.technologies.length > 3 && (
-                        <span className="text-xs px-3 py-1 rounded-full bg-muted text-muted-foreground border border-border font-bold">
-                          +{project.technologies.length - 3}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            </motion.div>
-          ))}
+            <button
+              onClick={next}
+              disabled={!canNavigate}
+              className={`p-3 rounded-full bg-card border border-border transition
+                ${canNavigate ? "hover:text-primary" : "opacity-40 cursor-not-allowed"}`}
+              aria-label="Siguiente"
+            >
+              <ChevronRight />
+            </button>
+          </div>
+
+          {/* CTA opcional */}
+          <div className="text-center">
+            <button className="text-sm font-bold tracking-wide uppercase text-muted-foreground hover:text-foreground transition-colors">
+              Ver todos los proyectos →
+            </button>
+          </div>
         </div>
-
-        
       </div>
     </section>
   );

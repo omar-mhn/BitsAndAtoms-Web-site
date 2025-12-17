@@ -21,10 +21,10 @@ export default function App() {
       <main>
         <Hero/>
         <About />
-        <Training />
+        {/*<Training />*/}
         <Mentors />
         <Spaces />
-        <Podcast />
+        {/*<Podcast />}*/}
         <Projects />
         <Contact />
       </main>

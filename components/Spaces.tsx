@@ -137,25 +137,41 @@ export function Spaces() {
         >
           {/* Solid Badge */}
           <motion.div
-            className="inline-block mb-6 px-6 py-2 rounded-full bg-accent shadow-lg shadow-accent/25"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            className="text-center mb-20 space-y-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
           >
-            <span className="text-white font-bold text-sm tracking-wider uppercase">Espacios</span>
+            {/* Pill */}
+            <div className="flex justify-center">
+              <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                className="inline-flex items-center justify-center px-6 py-2 rounded-full
+                          bg-gradient-to-r from-purple-500 to-indigo-500
+                          text-white text-xs font-extrabold tracking-widest uppercase
+                          shadow-lg shadow-purple-500/30"
+              >
+                Espacios
+              </motion.div>
+            </div>
+
+            {/* Título */}
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight text-foreground">
+              Instalaciones pensadas para{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-500">
+                crear sin límites
+              </span>
+            </h2>
+
+            {/* Texto apoyo */}
+            <p className="text-muted-foreground max-w-3xl mx-auto text-lg md:text-xl leading-relaxed font-medium">
+              Espacios diseñados para inspirar, experimentar y construir.
+              Cada rincón impulsa el aprendizaje práctico y la creatividad.
+            </p>
           </motion.div>
-          
-          <h2 className="mb-6 text-4xl md:text-6xl font-black tracking-tight text-foreground">
-            Instalaciones de <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-400 dark:to-blue-500">
-              última generación
-            </span>
-          </h2>
-          
-          <p className="text-muted-foreground max-w-3xl mx-auto text-lg md:text-xl leading-relaxed font-medium">
-            Espacios diseñados para inspirar, crear e innovar. 
-            Cada rincón está pensado para potenciar tu aprendizaje y creatividad.
-          </p>
         </motion.div>
 
         {/* Navigation Controls */}

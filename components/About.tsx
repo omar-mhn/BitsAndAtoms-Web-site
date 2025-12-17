@@ -1,169 +1,208 @@
-import React from 'react';
+import React from "react";
 import { motion } from "framer-motion";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { UsersRound, Globe2, Sparkles, Atom } from "lucide-react";
+import { Globe2, UsersRound, Sparkles, Atom } from "lucide-react";
+import { Card } from "./ui/card";
 
+/* ---------------- DATA ---------------- */
 
 const values = [
   {
     icon: Globe2,
     title: "Visión",
-    description: "Usar la tecnología para crear impacto real",
+    description: "Usar la tecnología para crear impacto real.",
   },
   {
     icon: UsersRound,
     title: "Personas",
-    description: "Una comunidad curiosa, diversa y con ganas de aprender juntos",
+    description: "Una comunidad curiosa, diversa y con ganas de aprender juntas.",
   },
   {
     icon: Sparkles,
-    title: "Próposito",
-    description: "Acompañar a futuros creadores a encontrar su camino",
+    title: "Propósito",
+    description: "Acompañar a futuros creadores a encontrar su camino.",
   },
   {
     icon: Atom,
     title: "Misión",
-    description: "Innovación, honestidad y colaboración para crecer creando",
+    description: "Innovación, honestidad y colaboración para crecer creando.",
   },
 ];
 
+const programs = [
+  {
+    title: "Learning by Doing",
+    description:
+      "Aprende tecnología construyéndola desde el primer día. Explora, experimenta y convierte ideas en proyectos reales.",
+    gradient: "from-blue-500 to-indigo-500",
+  },
+  {
+    title: "Proyectos reales",
+    description:
+      "Retos auténticos donde aplicar IA, IoT y creatividad para desarrollar soluciones con impacto.",
+    gradient: "from-purple-500 to-pink-500",
+  },
+  {
+    title: "Mentores",
+    description:
+      "Profesionales en activo que acompañan, retan y ayudan a convertir cada proyecto en aprendizaje.",
+    gradient: "from-cyan-500 to-blue-500",
+  },
+  {
+    title: "Colaboración",
+    description:
+      "Trabajo en equipo multidisciplinar donde las ideas se debaten y evolucionan juntas.",
+    gradient: "from-indigo-500 to-purple-500",
+  },
+];
+
+/* ---------------- COMPONENT ---------------- */
+
 export function About() {
   return (
-    <section id="about" className="min-h-screen py-24 px-4 bg-background">
-      <div className="max-w-7xl mx-auto">
-        {/* Header Section */}
+    <section id="about" className="py-24 px-4 bg-background">
+      <div className="max-w-7xl mx-auto space-y-32">
+
+        {/* ================= HEADER GENERAL ================= */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center space-y-4"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
         >
-          {/* Badge Sólido para más peso */}
-          <motion.div
-            className="inline-block mb-6 px-6 py-2 rounded-full bg-primary shadow-lg shadow-primary/25"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-          >
-            <span className="text-white font-bold text-sm tracking-wider uppercase">Quiénes somos</span>
-          </motion.div>
-          
-          <h2 className="mb-6 text-4xl md:text-6xl font-black tracking-tight text-foreground">
-            Educación práctica, <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500">
+          {/* Pill estilo Proyectos */}
+          <div className="flex justify-center">
+            <div
+              className="inline-flex items-center justify-center px-6 py-2 rounded-full
+                         bg-gradient-to-r from-purple-500 to-indigo-500
+                         text-white text-xs font-extrabold tracking-widest uppercase
+                         shadow-lg shadow-purple-500/30"
+            >
+              Sobre Bits & Atoms
+            </div>
+          </div>
+
+          <h2 className="text-4xl md:text-6xl font-black tracking-tight text-foreground">
+            Educación práctica,{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
               creatividad e innovación
             </span>
           </h2>
-          
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg md:text-xl leading-relaxed font-medium text-justify">
-            Un espacio donde la tecnología cobra vida. Un proyecto impulsado por Admira y nacido del 
-            deseo de formar, acompañar y abrir oportunidades a una nueva generación de creadores e 
-            innovadores.
-          </p>
         </motion.div>
 
-        {/* Main Content */}
-        <div className="grid lg:grid-cols-2 gap-16 mb-20 items-center">
-          {/* Image Side */}
+        {/* ================= QUIÉNES SOMOS ================= */}
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          {/* Video */}
           <motion.div
-            className="relative"
-            initial={{ opacity: 0, x: -50 }}
+            className="relative h-[360px] lg:h-[520px] rounded-3xl overflow-hidden border border-border"
+            initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
           >
-            <div className="relative h-[400px] lg:h-[600px] rounded-3xl overflow-hidden group shadow-2xl shadow-primary/10">
-              <iframe
-                src="https://www.youtube.com/embed/PN577xVQ4SM?mute=1&controls=1"
-                title="YouTube video"
-                allow="encrypted-media"
-                allowFullScreen
-                className="w-full h-full transition-transform duration-700"
-              />
-              {/* Gradient overlay for text readability on image */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-80 pointer-events-none" />
-            </div>
-
-            {/* Back Glow */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 to-purple-500/20 rounded-3xl blur-3xl -z-10 opacity-60" />
+            <iframe
+              src="https://www.youtube.com/embed/PN577xVQ4SM?mute=1&controls=1"
+              className="w-full h-full"
+              allowFullScreen
+            />
           </motion.div>
 
-          {/* Text Side */}
+          {/* Texto */}
           <motion.div
-            className="flex flex-col justify-center"
-            initial={{ opacity: 0, x: 50 }}
+            className="space-y-6 max-w-xl text-justify"
+            initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
           >
-            <h3 className="mb-6 text-3xl font-bold text-foreground">
-              Un espacio donde la <span className="text-primary">tecnología</span> cobra vida
+            <h3 className="text-3xl font-black text-foreground">
+              Un espacio donde la{" "}
+              <span className="text-primary">tecnología cobra vida</span>
             </h3>
-            <div className="space-y-6 text-lg text-muted-foreground text-justify ">
-              <p>
-               En Bits and Atoms aprenderás tecnología creándola. Nuestro programa combina IA, 
-               IoT y creatividad para que desarrolles proyectos reales desde el primer día. 
-               Aquí trabajarás enfrentándote a retos auténticos, transformando ideas y 
-               mejorando en equipo.
-              </p>
-              <p>
-              Creemos en una educación práctica, donde experimentar, equivocarse y construir forman 
-              parte del proceso. Aquí aprenderás a pensar de forma crítica, a comunicar tus ideas y a 
-              convertir conceptos en soluciones tangibles.
-              </p>
-              <p>
-                Bits and Atoms es un entorno donde tu curiosidad, tu energía y tus ganas de crear son 
-                lo que realmente importa. Un lugar donde las ideas evolucionan y cada proyecto te acerca 
-                a la mejor versión de ti mismo.
-              </p>
-            </div>
 
-            <motion.button
-              className="group mt-8 self-start px-8 py-4 bg-transparent border-2 border-primary rounded-full overflow-hidden relative"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
-            >
-              <motion.div
-                className="absolute inset-0 bg-primary"
-                initial={{ x: "-100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-              <span className="relative z-10 text-primary group-hover:text-white transition-colors font-bold">
-                Ver nuestros proyectos
-              </span>
-            </motion.button>
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Bits & Atoms nace con la idea de aprender tecnología creándola.
+              Combinamos IA, IoT y creatividad para trabajar en proyectos reales
+              desde el primer día.
+            </p>
+
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Creemos en una educación práctica donde equivocarse, experimentar y
+              construir forman parte del proceso.
+            </p>
+
+            <p className="text-muted-foreground text-lg leading-relaxed">
+              Aquí, cada idea evoluciona y cada proyecto te acerca a tu mejor versión.
+            </p>
           </motion.div>
         </div>
 
-        {/* Values Grid */}
-        <motion.div
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          {values.map((value, index) => (
-            <motion.div
-              key={value.title}
-              className="group relative p-8 rounded-3xl border border-border bg-card hover:border-primary transition-all duration-300 shadow-sm hover:shadow-xl hover:shadow-primary/5"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -5 }}
-            >
-              <div className="mb-6 inline-flex p-4 rounded-2xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors">
-                <value.icon size={28} />
-              </div>
-              <h4 className="mb-3 text-xl font-bold text-foreground">{value.title}</h4>
-              <p className="text-muted-foreground leading-relaxed">{value.description}</p>
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* ================= CÓMO APRENDEMOS ================= */}
+        <div className="space-y-12">
+          <h3 className="text-3xl md:text-4xl font-black text-foreground">
+            Cómo{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+              aprendemos
+            </span>
+          </h3>
+
+          <div className="grid md:grid-cols-2 gap-8">
+            {programs.map((program, index) => (
+              <motion.div
+                key={program.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <Card className="relative p-8 rounded-3xl border border-border bg-card overflow-hidden">
+                  {/* Top gradient */}
+                  <div
+                    className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${program.gradient}`}
+                  />
+
+                  <h4 className="text-xl font-bold mb-4 text-foreground">
+                    {program.title}
+                  </h4>
+                  <p className="text-muted-foreground text-lg leading-relaxed text-justify">
+                    {program.description}
+                  </p>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* ================= VALORES ================= */}
+        <div className="space-y-12">
+          <h3 className="text-3xl md:text-4xl font-black text-foreground">
+            Lo que{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
+              nos mueve
+            </span>
+          </h3>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {values.map((value, index) => (
+              <motion.div
+                key={value.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
+                className="p-6 rounded-3xl border border-border bg-card text-justify"
+              >
+                <div className="mb-4 inline-flex p-3 rounded-xl bg-primary/10 text-primary">
+                  <value.icon size={24} />
+                </div>
+                <h4 className="font-bold text-foreground mb-2">
+                  {value.title}
+                </h4>
+                <p className="text-muted-foreground">
+                  {value.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );

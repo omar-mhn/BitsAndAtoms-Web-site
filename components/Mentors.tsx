@@ -1,283 +1,251 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ImageWithFallback } from "./figma/ImageWithFallback";
-import { Linkedin, Globe, Award, Briefcase, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Linkedin,
+  Globe,
+  Award,
+  Briefcase,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { Card } from "./ui/card";
-import { Badge } from "./ui/badge";
+import { ImageWithFallback } from "./figma/ImageWithFallback";
+
+/* ---------------- DATA ---------------- */
 
 const mentors = [
-  {
-    name: "Marc Segarra",
-    role: "Creatividad",
-    company: "",
-    image: "/Mentores/Marc_Segarra.png",
-    bio: "Explora y expande los límites de tu imaginación, convirtiendo ideas innovadoras en realidades impactantes.",
-    specialties: [],
-    social: { linkedin: "https://www.linkedin.com/in/marcsegarratorres/",  website: "#" }
-  },
-  {
-    name: "Jordi Palou",
-    role: "IoT",
-    company: "",
-    image:"/Mentores/Jordi_Palou.png",
-    bio: "Integra el mundo físico con el digital creando soluciones inteligentes a través del Internet de las Cosas.",
-    specialties: [],
-    social: { linkedin: "https://www.linkedin.com/in/jordipalou/", website: "#" }
-  },
-
-  {
-    name: "Carles Mayans",
-    role: "Marketing 3.0",
-    company: "",
-    image: "/Mentores/Carles_Mayans.png",
-    bio: "Aprende a conectar con tus clientes a un nivel emocional y ético, utilizando las estrategias avanzadas del marketing 3.0.",
-    specialties: [],
-    social: { linkedin: "https://www.linkedin.com/in/cmayansc/", website: "#" }
-  },
-  {
-    name: "Daniel Vidal",
-    role: "Propiedad intelectual",
-    company: "",
-    image:"/Mentores/Daniel_Vidal.png",
-    bio: "Protege y maximiza el valor de tus innovaciones y creaciones con una sólida estrategia de propiedad intelectual.",
-    specialties: [],
-    social: { linkedin: "https://www.linkedin.com/in/danielvidal1/", website: "#" }
-  },
-  {
-    name: "Miguel Fernández",
-    role: "Producción Audiovisual",
-    company: "",
-    image: "/Mentores/Miguel_Fernández.png",
-    bio: "Da vida a tus ideas con excelencia técnica y creatividad, dominando cada etapa de la producción y postproducción audiovisual.",
-    specialties: [],
-    social: { linkedin: "#", twitter: "#", website: "#" }
-  },
-  {
-    name: "Joan Melchor",
-    role: "Robótica",
-    company: "",
-    image: "/Mentores/Joan_Melchor.png",
-    bio: "Domina el diseño, construcción y programación de robots para resolver desafíos del mundo real con innovación y eficiencia.",
-    specialties: [],
-    social: { linkedin: "https://www.linkedin.com/in/joanmelchor/", website: "#" }
-  },
-
-  {
-    name: "Carlos Silva",
-    role: "Entrepreneurship",
-    company: "",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHxhc2lhbiUyMG1hbiUyMHRlY2h8ZW58MXx8fHwxNzYzNzE1NDAwfDA&ixlib=rb-4.1.0&q=80&w=600",
-    bio: "Revoluciona el comercio electrónico con estrategias disruptivas que potencian el crecimiento y la satisfacción del cliente.",
-    specialties: [],
-    social: { linkedin: "#", twitter: "#", website: "#" }
-  }
+  {
+    name: "Marc Segarra",
+    role: "Creatividad",
+    image: "/Mentores/Marc_Segarra.png",
+    bio: "Explora y expande los límites de tu imaginación, convirtiendo ideas innovadoras en realidades impactantes.",
+    social: {
+      linkedin: "https://www.linkedin.com/in/marcsegarratorres/",
+      website: "#",
+    },
+  },
+  {
+    name: "Jordi Palou",
+    role: "IoT",
+    image: "/Mentores/Jordi_Palou.png",
+    bio: "Integra el mundo físico con el digital creando soluciones inteligentes a través del Internet de las Cosas.",
+    social: {
+      linkedin: "https://www.linkedin.com/in/jordipalou/",
+      website: "#",
+    },
+  },
+  {
+    name: "Carles Mayans",
+    role: "Marketing 3.0",
+    image: "/Mentores/Carles_Mayans.png",
+    bio: "Conecta con tus clientes desde un enfoque emocional, ético y estratégico.",
+    social: {
+      linkedin: "https://www.linkedin.com/in/cmayansc/",
+      website: "#",
+    },
+  },
+  {
+    name: "Daniel Vidal",
+    role: "Propiedad intelectual",
+    image: "/Mentores/Daniel_Vidal.png",
+    bio: "Protege y maximiza el valor de tus innovaciones con una estrategia sólida.",
+    social: {
+      linkedin: "https://www.linkedin.com/in/danielvidal1/",
+      website: "#",
+    },
+  },
+  {
+    name: "Miguel Fernández",
+    role: "Producción Audiovisual",
+    image: "/Mentores/Miguel_Fernández.png",
+    bio: "Da vida a tus ideas dominando cada etapa de la producción audiovisual.",
+    social: {
+      linkedin: "#",
+      website: "#",
+    },
+  },
+  {
+    name: "Joan Melchor",
+    role: "Robótica",
+    image: "/Mentores/Joan_Melchor.png",
+    bio: "Diseña y programa robots para resolver desafíos reales con innovación.",
+    social: {
+      linkedin: "https://www.linkedin.com/in/joanmelchor/",
+      website: "#",
+    },
+  },
+  {
+    name: "Carlos Silva",
+    role: "Entrepreneurship",
+    image:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=max&q=80&w=600",
+    bio: "Estrategias disruptivas para escalar proyectos y negocios digitales.",
+    social: {
+      linkedin: "#",
+      website: "#",
+    },
+  },
 ];
 
+/* ---------------- COMPONENT ---------------- */
+
 export function Mentors() {
-  const [startIndex, setStartIndex] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(4);
-  // NOUVEAU: Détecte si la mise en page doit être mobile (taille < 1024px)
-  const [isMobileLayout, setIsMobileLayout] = useState(false); 
+  const [startIndex, setStartIndex] = useState(0);
+  const [itemsPerPage, setItemsPerPage] = useState(4);
+  const [isMobileLayout, setIsMobileLayout] = useState(false);
 
-  useEffect(() => {
-    const handleResize = () => {
-      const mobile = window.innerWidth < 1024;
-      setIsMobileLayout(mobile);
-      
-      // Logique pour itemsPerPage (utilisée pour le carrousel Desktop)
-      if (window.innerWidth < 640) setItemsPerPage(1);
-      else if (window.innerWidth < 1024) setItemsPerPage(2);
-      else setItemsPerPage(4);
-    };
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 1024;
+      setIsMobileLayout(mobile);
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+      if (window.innerWidth < 640) setItemsPerPage(1);
+      else if (window.innerWidth < 1024) setItemsPerPage(2);
+      else setItemsPerPage(4);
+    };
 
-  // Safety check to ensure we don't stay out of bounds when resizing
-  useEffect(() => {
-    if (!isMobileLayout) { // Appliquer cette logique uniquement en mode Desktop
-      const maxIndex = Math.max(0, mentors.length - itemsPerPage);
-      if (startIndex > maxIndex) {
-        setStartIndex(maxIndex);
-      }
-    } else {
-      // En mode mobile, startIndex et itemsPerPage ne sont plus utilisés pour le défilement
-      setStartIndex(0); 
-    }
-  }, [itemsPerPage, startIndex, isMobileLayout]);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-  const nextSlide = () => {
-    // Logique du carrousel Desktop
-    if (startIndex >= mentors.length - itemsPerPage) {
-      setStartIndex(0);
-    } else {
-      setStartIndex((prev) => prev + 1);
-    }
-  };
+  const nextSlide = () => {
+    if (startIndex >= mentors.length - itemsPerPage) {
+      setStartIndex(0);
+    } else {
+      setStartIndex((prev) => prev + 1);
+    }
+  };
 
-  const prevSlide = () => {
-    // Logique du carrousel Desktop
-    if (startIndex === 0) {
-      setStartIndex(mentors.length - itemsPerPage);
-    } else {
-      setStartIndex((prev) => prev - 1);
-    }
-  };
+  const prevSlide = () => {
+    if (startIndex === 0) {
+      setStartIndex(mentors.length - itemsPerPage);
+    } else {
+      setStartIndex((prev) => prev - 1);
+    }
+  };
 
-  // Composant de rendu des cartes
-  const renderMentors = (isScrollable: boolean) => (
-    // Si c'est un défilement natif, on utilise flex, overflow et snap
-    <motion.div 
-      className={isScrollable 
-        ? "flex overflow-x-scroll snap-x snap-mandatory pb-4" // Classes de défilement natif
-        : "flex w-full" // Classes Desktop pour que motion.div puisse contrôler la translation
-      }
-      // La logique de translation s'applique uniquement au carrousel Desktop
-      animate={!isScrollable ? { x: `-${startIndex * (100 / mentors.length)}%` } : {}}
-      transition={!isScrollable ? { type: "spring", stiffness: 300, damping: 30 } : {}}
-      style={!isScrollable ? { width: `${(mentors.length / itemsPerPage) * 100}%` } : {}} // Forcer la largeur du conteneur en Desktop
-    >
-      {mentors.map((mentor) => (
-        <div 
-          key={mentor.name}
-          // En mode défilement natif, chaque carte prend toute la largeur visible
-          className={`px-3 ${isScrollable ? 'min-w-full snap-center md:min-w-[50%]' : ''}`} // Largeur ajustée en mobile/tablette
-          style={!isScrollable ? { width: `${100 / mentors.length}%` } : {}} // Pour forcer la taille du bloc dans le carrousel Desktop
-        >
-          <Card className="group relative overflow-hidden bg-card border-border hover:border-primary/50 transition-all duration-300 rounded-3xl h-full flex flex-col hover:shadow-2xl hover:shadow-primary/10">
-            {/* Image Container */}
-            <div className="relative aspect-[4/5] overflow-hidden">
-              <ImageWithFallback
-                src={mentor.image}
-                alt={mentor.name}
-                // CONSERVÉ: Zoom uniquement sur Desktop (lg:group-hover)
-                className="w-full h-full object-cover transition-transform duration-700 lg:group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-              
-              {/* Social Links Overlay */}
-              <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4 transition-all duration-300 translate-y-0 opacity-100 lg:translate-y-10 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100">
-                <a href={mentor.social.linkedin} target="_blank" rel="noopener noreferrer" className="p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-primary hover:text-white transition-colors">
-                  <Linkedin size={18} />
-                </a>                      
-                <a href={mentor.social.website} target="_blank" rel="noopener noreferrer" className="p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-primary hover:text-white transition-colors">
-                  <Globe size={18} />
-                </a>
-              </div>
-            </div>
+  return (
+    <section id="mentors" className="py-24 px-4 bg-background">
+      <div className="max-w-7xl mx-auto">
 
-            {/* Content */}
-            <div className="p-6 flex flex-col flex-grow relative">
-              <div className="mb-4">
-                <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">{mentor.name}</h3>
-                <div className="flex items-center gap-2 mt-1 text-sm font-medium text-muted-foreground">
-                  <Briefcase size={14} className="text-primary" />
-                  <span>{mentor.role}</span>
-                </div>
-                {mentor.company && (
-                    <div className="text-xs font-semibold text-primary/80 mt-1 uppercase tracking-wide">
-                    {mentor.company}
-                    </div>
-                )}
-              </div>
+        {/* ================= HEADER ================= */}
+        <motion.div
+          className="text-center mb-20 space-y-4"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <div className="flex justify-center">
+            <div
+              className="inline-flex px-6 py-2 rounded-full
+                         bg-gradient-to-r from-purple-500 to-indigo-500
+                         text-white text-xs font-extrabold tracking-widest uppercase
+                         shadow-lg shadow-purple-500/30"
+            >
+              Mentores
+            </div>
+          </div>
 
-              <p className="text-muted-foreground text-sm leading-relaxed mb-6 flex-grow">
-                {mentor.bio}
-              </p>
-            </div>
-          </Card>
-        </div>
-      ))}
-    </motion.div>
-  );
+          <h2 className="text-4xl md:text-6xl font-black tracking-tight text-foreground">
+            Aprende con{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+              quienes ya están creando
+            </span>
+          </h2>
 
+          <p className="text-muted-foreground max-w-3xl mx-auto text-lg">
+            Profesionales en activo que acompañan, inspiran y comparten experiencia real.
+          </p>
+        </motion.div>
 
-  return (
-    <section id="mentors" className="min-h-screen pt-12 pb-24 px-4 bg-background">
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <motion.div
-          className="text-center mb-20"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.div
-            className="inline-block mb-6 px-6 py-2 rounded-full bg-primary shadow-lg shadow-primary/25"
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-          >
-            <span className="text-white font-bold text-sm tracking-wider uppercase">Mentores</span>
-          </motion.div>
-          
-          <h2 className="mb-6 text-4xl md:text-6xl font-black tracking-tight text-foreground">
-            Aprende de los <br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500 dark:from-blue-400 dark:to-cyan-400">
-              expertos de la industria
-            </span>
-          </h2>
-          
-          <p className="text-muted-foreground max-w-3xl mx-auto text-lg md:text-xl leading-relaxed font-medium">
-            Nuestro equipo docente está formado por profesionales activos en las empresas tecnológicas más innovadoras.
-          </p>
-        </motion.div>
+        {/* ================= CAROUSEL ================= */}
+        <div className="relative">
+          {!isMobileLayout && (
+            <>
+              <button
+                onClick={prevSlide}
+                className="absolute top-1/2 -left-12 -translate-y-1/2 p-3 rounded-full bg-background border border-border hover:bg-primary hover:text-white transition z-10"
+              >
+                <ChevronLeft />
+              </button>
 
-        {/* Carousel Container */}
-        <div className="relative">
-          {/* Controls - Left Arrow (Masqué sur Mobile/Tablet) */}
-          <div className={`absolute top-1/2 -left-4 md:-left-12 -translate-y-1/2 z-20 ${isMobileLayout ? 'hidden' : ''}`}>
-            <button 
-              onClick={prevSlide}
-              className="p-3 rounded-full bg-background border border-border shadow-lg hover:bg-primary hover:text-white hover:border-primary transition-all text-foreground"
-              aria-label="Anterior"
-            >
-              <ChevronLeft size={24} />
-            </button>
-          </div>
+              <button
+                onClick={nextSlide}
+                className="absolute top-1/2 -right-12 -translate-y-1/2 p-3 rounded-full bg-background border border-border hover:bg-primary hover:text-white transition z-10"
+              >
+                <ChevronRight />
+              </button>
+            </>
+          )}
 
-          {/* Controls - Right Arrow (Masqué sur Mobile/Tablet) */}
-          <div className={`absolute top-1/2 -right-4 md:-right-12 -translate-y-1/2 z-20 ${isMobileLayout ? 'hidden' : ''}`}>
-            <button 
-              onClick={nextSlide}
-              className="p-3 rounded-full bg-background border border-border shadow-lg hover:bg-primary hover:text-white hover:border-primary transition-all text-foreground"
-              aria-label="Siguiente"
-            >
-              <ChevronRight size={24} />
-            </button>
-          </div>
+          <div className="overflow-hidden py-10 -my-10">
+            <motion.div
+              className="flex"
+              animate={!isMobileLayout ? { x: `-${startIndex * (100 / mentors.length)}%` } : {}}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              style={{ width: `${(mentors.length / itemsPerPage) * 100}%` }}
+            >
+              {mentors.map((mentor) => (
+                <div
+                  key={mentor.name}
+                  className="px-3"
+                  style={{ width: `${100 / mentors.length}%` }}
+                >
+                  <Card className="group h-full overflow-hidden rounded-3xl border border-border bg-card hover:border-primary/50 transition-all duration-300">
 
-          {/* Rendu conditionnel du conteneur */}
-          <div className="overflow-hidden py-10 -my-10 px-2">
-            {renderMentors(isMobileLayout)}
-          </div>
-        </div>
+                    {/* IMAGE */}
+                    <div className="relative aspect-[4/5] overflow-hidden">
+                      <ImageWithFallback
+                        src={mentor.image}
+                        alt={mentor.name}
+                        className="w-full h-full object-cover transition-transform duration-700 lg:group-hover:scale-110"
+                      />
 
-        {/* Footer Info / Progress (Masqué sur Mobile/Tablet car défilement natif) */}
-        <div className={`mt-12 flex flex-col items-center gap-6 ${isMobileLayout ? 'hidden' : ''}`}>
-          <div className="flex gap-2">
-            {/* Indicators showing progress based on valid start positions */}
-            {Array.from({ length: Math.max(1, mentors.length - itemsPerPage + 1) }).map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setStartIndex(idx)}
-                className={`h-1.5 rounded-full transition-all duration-300 ${
-                  idx === startIndex ? 'w-8 bg-primary' : 'w-2 bg-border hover:bg-primary/50'
-                }`}
-                aria-label={`Ir a diapositiva ${idx + 1}`}
-              />
-            ))}
-          </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
 
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted border border-border text-muted-foreground text-sm font-medium">
-            <Award size={16} className="text-primary" />
-            <span>Todos nuestros mentores están certificados y activos en la industria</span>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+                      {/* SOCIALS – hover desktop */}
+                      <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4
+                                      opacity-100 lg:opacity-0 lg:translate-y-6
+                                      lg:group-hover:opacity-100 lg:group-hover:translate-y-0
+                                      transition-all duration-300">
+                        <a
+                          href={mentor.social.linkedin}
+                          className="p-2 bg-white/10 backdrop-blur rounded-full text-white hover:bg-primary transition"
+                        >
+                          <Linkedin size={18} />
+                        </a>
+                        <a
+                          href={mentor.social.website}
+                          className="p-2 bg-white/10 backdrop-blur rounded-full text-white hover:bg-primary transition"
+                        >
+                          <Globe size={18} />
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* CONTENT */}
+                    <div className="p-6 flex flex-col h-full">
+                      <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition">
+                        {mentor.name}
+                      </h3>
+
+                      <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">
+                        <Briefcase size={14} className="text-primary" />
+                        {mentor.role}
+                      </div>
+
+                      <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+                        {mentor.bio}
+                      </p>
+                    </div>
+                  </Card>
+                </div>
+              ))}
+            </motion.div>
+          </div>
+        </div>       
+      </div>
+    </section>
+  );
 }
