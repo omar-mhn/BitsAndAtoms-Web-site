@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
-import { MapPin, Phone, Mail, Send, Instagram, Linkedin, Twitter, Youtube } from "lucide-react";
+import { MapPin, Phone, Mail, Send, Instagram, Linkedin, Youtube, Podcast  } from "lucide-react";
 import { SiTiktok } from "react-icons/si";
 import { Card } from "./ui/card";
 import { Input } from "./ui/input";
@@ -12,12 +12,12 @@ const contactInfo = [
   {
     icon: MapPin,
     title: "Ubicación",
-    content: "08012 Gràcia,Barcelona,España",
+    content: "Gràcia, Barcelona · 08012 ",
   },
   
   {
     icon: Mail,
-    title: "Email",
+    title: "¿Tienes alguna pregunta?",
     content: "jsedano@admira.com",
   },
 ];
@@ -27,6 +27,7 @@ const socialMedia = [
   { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/company/bitsatoms/", color: "hover:text-blue-500" },
   { name: "TikTok", icon: SiTiktok, url: "https://www.tiktok.com/@bitsatoms?_r=1&_t=ZN-91TI3bSOSpi", color:  "hover:text-[#69C9D0]" },
   { name: "YouTube", icon: Youtube, url: "https://www.youtube.com/@BitsAtomsAdmira", color: "hover:text-red-500" },
+  { name: "Spotify", icon: Podcast, url: "https://spotify.com/BitsAtoms_", color: "hover:text-green-500" },
 ];
 
 export function Contact() {
@@ -110,15 +111,15 @@ export function Contact() {
           </motion.div>
           
           <h2 className="mb-6 text-4xl md:text-6xl font-black tracking-tight text-foreground">
-            Hablemos de tu <br/>
+            Súmate a<br/>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-500">
-              futuro proyecto
+              Bits & Atoms
             </span>
           </h2>
           
           <p className="text-muted-foreground max-w-3xl mx-auto text-lg md:text-xl font-medium">
-            ¿Tienes alguna pregunta o quieres saber más sobre nuestros programas? 
-            Estamos aquí para ayudarte.
+            ¿Te apetece empezar algo nuevo?
+            Cuéntanos qué te interesa y hablamos.
           </p>
         </motion.div>
 
@@ -228,7 +229,8 @@ export function Contact() {
             transition={{ duration: 0.6 }}
           >
             <Card className="p-10 bg-card border-border rounded-3xl shadow-lg mt-16 h-fit min-h-[650px] overflow-y-auto">
-              <h3 className="mb-4 text-2xl font-bold text-foreground">Envíanos un mensaje</h3>
+              <h3 className="mb-1 text-2xl font-bold text-foreground">¡Inscríbete a Bits&Atoms!</h3>
+              <p className='text-muted-foreground mb-7'>Únete a la próxima edición · 2026/27</p>
               <form onSubmit={handleSubmit} className="space-y-6">
                 
                 {/* Champ Nombre completo */}
@@ -239,7 +241,7 @@ export function Contact() {
                   <Input
                     id="name"
                     type="text"
-                    placeholder="Tu nombre"
+                    placeholder="Nombre y apellidos"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="bg-background border-input focus:border-primary text-foreground placeholder:text-muted-foreground h-12 rounded-xl"
@@ -265,17 +267,17 @@ export function Contact() {
 
                 {/* AJOUTÉ: Champ Centro (Center) */}
                 <div>
-                    <Label htmlFor="center" className="text-foreground mb-2 block font-medium">
-                        Centro *
+                    <Label htmlFor="center" className="text-foreground mb-1 block font-medium">
+                        Centro 
                     </Label>
+                    <p className='text-muted-foreground text-xs mb-2'>Si no estás estudiando, déjalo en blanco</p>
                     <Input
                         id="center"
                         type="text"
-                        placeholder="Tu centro de interés"
+                        placeholder="Centro de estudios actual"
                         value={formData.center}
                         onChange={(e) => setFormData({ ...formData, center: e.target.value })}
                         className="bg-background border-input focus:border-primary text-foreground placeholder:text-muted-foreground h-12 rounded-xl"
-                        required
                     />
                 </div>
 
@@ -327,35 +329,134 @@ export function Contact() {
                   />
                 </div>
                     */}  
-                {/* Champ Adjuntar CV */}
+                {/* Adjuntar CV */}
                 <div>
-                  <Label htmlFor="cv" className="text-foreground mb-2 block font-medium">
+                  <Label htmlFor="cv" className="text-foreground mb-1 block font-medium">
                     Adjuntar CV *
                   </Label>
-                  <input
-                    id="cv"
-                    type="file"
-                    accept=".pdf,.doc,.docx"
-                    onChange={(e) => setFormData({ ...formData, cv: e.target.files?.[0] || null })}
-                    className="bg-background border border-input focus:border-primary text-muted-foreground placeholder:text-muted-foreground h-12 rounded-xl px-2 pt-2 file:bg-primary file:text-white file:border-none file:rounded-md file:px-3 file:py-1 file:mr-6 file:cursor-pointer hover:file:bg-primary/80 transition-colors w-full"
-                    required
-                  />
+
+                  <div className="border border-input rounded-xl h-11 px-4 flex items-center">
+                    {!formData.cv ? (
+                      <>
+                        <label
+                          htmlFor="cv"
+                          className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer hover:text-foreground transition-colors w-full"
+                        >
+                          <span className="material-symbols-outlined text-[16px]">
+                            attach_file
+                          </span>
+                          <span>Ningún archivo seleccionado</span>
+                        </label>
+
+                        <input
+                          id="cv"
+                          type="file"
+                          accept=".pdf,.doc,.docx"
+                          className="hidden"
+                          onChange={(e) =>
+                            setFormData({ ...formData, cv: e.target.files?.[0] || null })
+                          }
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-sm truncate flex-1">
+                          {formData.cv.name}
+                        </span>
+
+                        <label
+                          htmlFor="cv"
+                          className="text-xs text-primary cursor-pointer hover:underline"
+                        >
+                          Cambiar
+                        </label>
+
+                        <input
+                          id="cv"
+                          type="file"
+                          accept=".pdf,.doc,.docx"
+                          className="hidden"
+                          onChange={(e) =>
+                            setFormData({ ...formData, cv: e.target.files?.[0] || null })
+                          }
+                        />
+                      </>
+                    )}
+                  </div>
                 </div>
 
-                {/* Champ Adjuntar Carta de Motivación (Cover Letter) */}
+                {/* Adjuntar Carta de Motivación */}
                 <div>
-                    <Label htmlFor="coverLetter" className="text-foreground mb-2 block font-medium">
-                        Adjuntar Carta de Motivación (Opcional)
-                    </Label>
-                    <input
-                        id="coverLetter"
-                        type="file"
-                        accept=".pdf,.doc,.docx"
-                        onChange={(e) => setFormData({ ...formData, coverLetter: e.target.files?.[0] || null })}
-                        className="bg-background border border-input focus:border-primary text-muted-foreground placeholder:text-muted-foreground h-12 rounded-xl px-2 pt-2 file:bg-primary file:text-white file:border-none file:rounded-md file:px-3 file:py-1 file:mr-6 file:cursor-pointer hover:file:bg-primary/80 transition-colors w-full"
-                    />
-                </div>
+                  <Label htmlFor="coverLetter" className="text-foreground mb-1 block font-medium">
+                    Adjuntar Carta de Motivación
+                  </Label>
 
+                  <p className="text-muted-foreground text-xs mb-2">
+                    Es opcional, pero si te apetece, cuéntanos qué te motiva.
+                  </p>
+
+                  <div className="border border-input rounded-xl h-11 px-4 flex items-center gap-3">
+                    {!formData.coverLetter ? (
+                      <>
+                        <label
+                          htmlFor="coverLetter"
+                          className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer hover:text-foreground transition-colors w-full"
+                        >
+                          <span className="material-symbols-outlined text-[16px]">
+                            attach_file
+                          </span>
+                          <span>Ningún archivo seleccionado</span>
+                        </label>
+
+                        <input
+                          id="coverLetter"
+                          type="file"
+                          accept=".pdf,.doc,.docx"
+                          className="hidden"
+                          onChange={(e) =>
+                            setFormData({ ...formData, coverLetter: e.target.files?.[0] || null })
+                          }
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-sm truncate flex-1">
+                          {formData.coverLetter.name}
+                        </span>
+
+                        <label
+                          htmlFor="coverLetter"
+                          className="text-xs text-primary cursor-pointer hover:underline"
+                        >
+                          Cambiar
+                        </label>
+
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setFormData({ ...formData, coverLetter: null })
+                          }
+                          className="text-muted-foreground hover:text-destructive transition-colors flex items-center"
+                          aria-label="Eliminar archivo"
+                        >
+                          <span className="material-symbols-outlined text-[18px]">
+                            delete
+                          </span>
+                        </button>
+
+                        <input
+                          id="coverLetter"
+                          type="file"
+                          accept=".pdf,.doc,.docx"
+                          className="hidden"
+                          onChange={(e) =>
+                            setFormData({ ...formData, coverLetter: e.target.files?.[0] || null })
+                          }
+                        />
+                      </>
+                    )}
+                  </div>
+                </div>
 
                 {/* Bouton de soumission */}
                 <motion.button
