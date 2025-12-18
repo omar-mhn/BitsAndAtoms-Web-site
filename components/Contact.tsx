@@ -15,6 +15,7 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { toast } from "sonner";
 import { useScrollFocusSection } from "./useScrollFocusSection";
+import { ContactMap } from "./ContactMap";
 
 const socialMedia = [
   { name: "Instagram", icon: Instagram, url: "https://www.instagram.com/bitsatoms_/" },
@@ -69,14 +70,11 @@ export function Contact() {
       error: "Error al enviar el mensaje",
     });
   };
-  
+
   const focusRef = useScrollFocusSection("white");
+
   return (
-    <section
-      ref={focusRef}
-      id="contact"
-      className="py-24 px-4"
-    >
+    <section ref={focusRef} id="contact" className="py-24 px-4">
       <div className="max-w-7xl mx-auto">
 
         {/* HEADER */}
@@ -171,14 +169,19 @@ export function Contact() {
                   <Label>Adjuntar CV *</Label>
                   <div className="border border-input rounded-xl h-11 px-4 flex items-center">
                     {!formData.cv ? (
-                      <label htmlFor="cv" className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer w-full">
+                      <label
+                        htmlFor="cv"
+                        className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer w-full"
+                      >
                         <span className="material-symbols-outlined text-[16px]">attach_file</span>
                         Ningún archivo seleccionado
                       </label>
                     ) : (
                       <>
                         <span className="text-sm truncate flex-1">{formData.cv.name}</span>
-                        <label htmlFor="cv" className="text-xs text-primary cursor-pointer">Cambiar</label>
+                        <label htmlFor="cv" className="text-xs text-primary cursor-pointer">
+                          Cambiar
+                        </label>
                       </>
                     )}
                     <input
@@ -198,14 +201,19 @@ export function Contact() {
 
                   <div className="border border-input rounded-xl h-11 px-4 flex items-center gap-3">
                     {!formData.coverLetter ? (
-                      <label htmlFor="coverLetter" className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer w-full">
+                      <label
+                        htmlFor="coverLetter"
+                        className="flex items-center gap-2 text-xs text-muted-foreground cursor-pointer w-full"
+                      >
                         <span className="material-symbols-outlined text-[16px]">attach_file</span>
                         Ningún archivo seleccionado
                       </label>
                     ) : (
                       <>
                         <span className="text-sm truncate flex-1">{formData.coverLetter.name}</span>
-                        <label htmlFor="coverLetter" className="text-xs text-primary cursor-pointer">Cambiar</label>
+                        <label htmlFor="coverLetter" className="text-xs text-primary cursor-pointer">
+                          Cambiar
+                        </label>
                         <button
                           type="button"
                           onClick={() => setFormData({ ...formData, coverLetter: null })}
@@ -220,7 +228,9 @@ export function Contact() {
                       type="file"
                       className="hidden"
                       accept=".pdf,.doc,.docx"
-                      onChange={(e) => setFormData({ ...formData, coverLetter: e.target.files?.[0] || null })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, coverLetter: e.target.files?.[0] || null })
+                      }
                     />
                   </div>
                 </div>
@@ -251,19 +261,20 @@ export function Contact() {
 
             <div className="flex gap-4">
               {socialMedia.map((s) => (
-                <a key={s.name} href={s.url} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground">
+                <a
+                  key={s.name}
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-foreground"
+                >
                   <s.icon size={20} />
                 </a>
               ))}
             </div>
 
-            <div className="h-40 rounded-2xl overflow-hidden border border-border">
-              <iframe
-                className="w-full h-full opacity-80"
-                loading="lazy"
-                src="https://www.google.com/maps/embed?pb=!1m18..."
-              />
-            </div>
+            {/* ✅ MAPA LEAFLET (reemplaza el iframe) */}
+            <ContactMap />
           </div>
         </div>
       </div>
