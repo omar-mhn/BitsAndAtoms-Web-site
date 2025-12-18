@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Cpu, Clapperboard, GraduationCap, Wrench, Laptop, Sprout, Sparkles, ChevronLeft, ChevronRight } from "lucide-react";
+import { useScrollFocusSection } from "./useScrollFocusSection";
 
 const spaces = [
   {
@@ -123,9 +124,14 @@ export function Spaces() {
   };
 
   const currentSpace = spaces[currentIndex];
-
+  const focusRef = useScrollFocusSection("green");
+  
   return (
-    <section id="spaces" className="min-h-screen py-24 px-4 bg-background">
+    <section
+      ref={focusRef}
+      id="spaces"
+      className="py-24 px-4"
+    >
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div

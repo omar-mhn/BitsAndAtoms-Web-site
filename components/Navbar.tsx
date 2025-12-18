@@ -7,127 +7,199 @@ export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [darkMode, setDarkMode] = useState(true);
 
+  /* ---------------- SCROLL ---------------- */
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /* ---------------- THEME ---------------- */
   useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
+    document.documentElement.classList.toggle("dark", darkMode);
   }, [darkMode]);
 
   const navItems = [
-
     { name: "Quiénes somos", href: "#about" },
-
     { name: "Mentores", href: "#mentors" },
     { name: "Espacios", href: "#spaces" },
-
     { name: "Proyectos", href: "#projects" },
     { name: "Contacto", href: "#contact" },
   ];
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    element?.scrollIntoView({ behavior: "smooth" });
+  const scrollTo = (href: string) => {
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
     setIsOpen(false);
   };
 
   return (
     <motion.nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${
-        scrolled 
-          ? "bg-background/80 backdrop-blur-lg shadow-sm border-border" 
-          : "bg-transparent border-transparent"
-      }`}
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
+      initial={{ y: -60, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+      className="
+        fixed top-0 left-0 right-0 z-50
+      "
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <motion.div
-            className="flex-shrink-0 cursor-pointer"
-            whileHover={{ scale: 1.05 }}
-            onClick={() => scrollToSection("#hero")}
-          >
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-500 bg-clip-text text-transparent text-2xl font-black tracking-tighter">
-              B&A
-            </span>
-          </motion.div>
+      {/* ================= CAPA 1: BLUR ================= */}
+      <div
+        className={`
+          absolute inset-0
+          backdrop-blur-xl
+          transition-opacity duration-300
+          ${
+            scrolled
+              ? "opacity-100"
+              : "opacity-0"
+          }
+        `}
+      />
 
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center space-x-1">
+      {/* ================= CAPA 2: CONTRASTE REAL ================= */}
+      <div
+        className={`
+          absolute inset-0
+          transition-all duration-300
+          ${
+            scrolled
+              ? `
+                bg-background/90
+                dark:bg-background/75
+              `
+              : `
+                bg-background/40
+                dark:bg-background/30
+              `
+          }
+        `}
+      />
+
+
+      {/* ================= CONTENIDO ================= */}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex h-20 items-center justify-between">
+
+          {/* LOGO */}
+          <motion.button
+            onClick={() => scrollTo("#hero")}
+            whileHover={{ scale: 1.04 }}
+            className="select-none"
+          >
+            <span
+              className="
+                text-2xl font-black tracking-tight
+                bg-gradient-to-r
+                from-blue-600 to-purple-600
+                dark:from-blue-400 dark:to-purple-500
+                bg-clip-text text-transparent
+              "
+            >
+              B&amp;A
+            </span>
+          </motion.button>
+
+          {/* DESKTOP NAV */}
+          <div className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (
               <motion.button
                 key={item.name}
-                onClick={() => scrollToSection(item.href)}
-                className="px-4 py-2 rounded-full text-sm font-medium text-muted-foreground hover:text-primary hover:bg-primary/5 transition-all"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                onClick={() => scrollTo(item.href)}
+                whileHover={{ y: -1 }}
+                whileTap={{ scale: 0.96 }}
+                className="
+                  px-4 py-2 rounded-full
+                  text-sm font-semibold
+                  text-foreground/80
+                  hover:text-foreground
+                  hover:bg-foreground/5
+                  transition-all
+                "
               >
                 {item.name}
               </motion.button>
             ))}
           </div>
 
-          {/* Theme Toggle */}
-          <div className="hidden lg:flex items-center space-x-4">
+          {/* ACTIONS */}
+          <div className="hidden lg:flex items-center gap-3">
             <motion.button
               onClick={() => setDarkMode(!darkMode)}
-              className="p-2.5 rounded-full border border-border bg-background hover:bg-muted text-muted-foreground hover:text-foreground transition-colors"
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ rotate: 8, scale: 1.05 }}
               whileTap={{ scale: 0.9 }}
+              className="
+                p-2.5 rounded-full
+                border border-foreground/25
+                backdrop-blur-sm
+                text-foreground/70
+                hover:text-foreground
+                hover:border-foreground/50
+                transition-all
+              "
             >
               {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </motion.button>
           </div>
 
-          {/* Mobile Toggle */}
-          <div className="lg:hidden flex items-center space-x-2">
+          {/* MOBILE */}
+          <div className="lg:hidden flex items-center gap-2">
             <motion.button
               onClick={() => setDarkMode(!darkMode)}
-              className="p-2 rounded-lg border border-border bg-background text-muted-foreground"
               whileTap={{ scale: 0.9 }}
+              className="
+                p-2 rounded-xl
+                border border-foreground/25
+                backdrop-blur-sm
+                text-foreground/70
+              "
             >
-              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </motion.button>
+
             <motion.button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg border border-border bg-background text-muted-foreground"
               whileTap={{ scale: 0.9 }}
+              className="
+                p-2 rounded-xl
+                border border-foreground/25
+                backdrop-blur-sm
+                text-foreground/70
+              "
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
             </motion.button>
           </div>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* MOBILE MENU */}
       <motion.div
-        className="lg:hidden overflow-hidden bg-background border-b border-border"
         initial={{ height: 0, opacity: 0 }}
         animate={{
           height: isOpen ? "auto" : 0,
           opacity: isOpen ? 1 : 0,
         }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.35, ease: "easeInOut" }}
+        className="
+          lg:hidden
+          relative overflow-hidden
+          bg-background/95
+          border-t border-border
+        "
       >
         <div className="px-4 pt-4 pb-6 space-y-2">
           {navItems.map((item) => (
             <motion.button
               key={item.name}
-              onClick={() => scrollToSection(item.href)}
-              className="block w-full text-left px-4 py-3 rounded-xl hover:bg-muted text-foreground font-medium transition-colors"
-              whileTap={{ scale: 0.95 }}
+              onClick={() => scrollTo(item.href)}
+              whileTap={{ scale: 0.96 }}
+              className="
+                w-full text-left
+                px-4 py-3 rounded-2xl
+                text-base font-semibold
+                text-foreground
+                hover:bg-foreground/5
+                transition-all
+              "
             >
               {item.name}
             </motion.button>

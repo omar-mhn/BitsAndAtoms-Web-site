@@ -25,7 +25,7 @@ export function Hero() {
       const { innerWidth, innerHeight } = window;
       const x = clientX - innerWidth / 2;
       const y = clientY - innerHeight / 2;
-      
+
       setMousePosition({ x, y });
       mouseX.set(x);
       mouseY.set(y);
@@ -40,19 +40,21 @@ export function Hero() {
   };
 
   return (
-    <section 
+    <section
       id="hero"
-      // Cambiado: Usa bg-background en lugar de #0a0a0a fijo para soportar modo claro
-      className="relative h-screen w-full overflow-hidden bg-background flex items-center justify-center"
+      className="
+        relative h-screen w-full overflow-hidden
+        bg-background
+        flex items-center justify-center
+      "
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
     >
-      {/* Background Grid */}
+      {/* ================= GRID DE FONDO ================= */}
       <div className="absolute inset-0 opacity-10 dark:opacity-20 pointer-events-none">
-        <div 
+        <div
           className="absolute inset-0"
           style={{
-            // El gradiente usa currentColor (primary) para adaptarse al tema
             backgroundImage: `
               linear-gradient(to right, var(--primary) 1px, transparent 1px),
               linear-gradient(to bottom, var(--primary) 1px, transparent 1px)
@@ -64,7 +66,7 @@ export function Hero() {
         />
       </div>
 
-      {/* Particles - Adjusted opacity for light mode visibility */}
+      {/* ================= PARTÍCULAS ================= */}
       {[...Array(20)].map((_, i) => (
         <motion.div
           key={i}
@@ -74,8 +76,7 @@ export function Hero() {
             height: Math.random() * 4 + 2,
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            // Más opacidad en las partículas para que se vean sobre blanco
-            opacity: Math.random() * 0.5 + 0.3, 
+            opacity: Math.random() * 0.5 + 0.3,
           }}
           animate={{
             y: [0, Math.random() * 100 - 50],
@@ -90,10 +91,9 @@ export function Hero() {
         />
       ))}
 
-      {/* Main Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center gap-8 px-4 sm:px-6 md:px-8 w-full max-w-full">
+      {/* ================= CONTENIDO ================= */}
+      <div className="relative z-10 flex flex-col items-center justify-center gap-8 px-4 w-full">
         <motion.div
-          className="relative"
           style={{
             rotateX,
             rotateY,
@@ -101,18 +101,16 @@ export function Hero() {
           }}
         >
           <motion.div
-            className="relative"
-            animate={{
-              scale: isHovering ? 1.05 : 1,
-            }}
+            animate={{ scale: isHovering ? 1.05 : 1 }}
             transition={{ duration: 0.3 }}
           >
-            {/* Logo Glow Container */}
             <div className="relative">
+              {/* Glow */}
               <motion.div
                 className="absolute inset-0 rounded-full blur-3xl"
                 style={{
-                  background: "radial-gradient(circle, var(--glow-primary) 0%, transparent 70%)",
+                  background:
+                    "radial-gradient(circle, var(--glow-primary) 0%, transparent 70%)",
                 }}
                 animate={{
                   scale: [1, 1.2, 1],
@@ -124,79 +122,99 @@ export function Hero() {
                   ease: "easeInOut",
                 }}
               />
-              
-              {/* Main Text */}
-              <motion.div className="flex flex-col items-center justify-center antialiased z-10 relative -mt-4 md:mt-16 w-full">
-              <span className="text-2xl sm:text-4xl md:text-6xl mb-8 relative z-10 group-hover:text-black transition-colors font-bold text-center w-full whitespace-nowrap">
-                Bits & Atoms
-              </span>
-              <div className="absolute inset-0 rounded-lg shadow-[0_0_20px_rgba(0,212,255,0.5)] opacity-0 group-hover:opacity-100 transition-opacity" />
-              <Logo />
-              </motion.div>
+
+              {/* Texto + logo */}
+              <div className="relative z-10 flex flex-col items-center">
+                <span className="text-2xl sm:text-4xl md:text-6xl mb-8 font-bold tracking-tight text-center">
+                  Bits &amp; Atoms
+                </span>
+                <Logo />
+              </div>
             </div>
           </motion.div>
         </motion.div>
 
-        {/* Tagline - Nueva frase inspiradora */}
-        <motion.p
-          // Text color adapts to theme (dark gray in light mode, light gray in dark mode)
-          className="text-muted-foreground max-w-2xl text-center px-4 font-bold tracking-widest uppercase"
-          style={{ fontSize: "clamp(1rem, 2vw, 1.5rem)" }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-        >
-       
-        </motion.p>
-
-        {/* CTA Buttons */}
+        {/* ================= CTA ================= */}
         <motion.div
-          className="flex flex-wrap gap-2 sm:gap-4 justify-center -mt-8 sm:mt-8 px-2 sm:px-4 w-full"
+          className="flex flex-wrap gap-4 justify-center mt-8"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.8 }}
         >
-          {/* Primary Button - Filled for weight */}
+          {/* Primary */}
           <motion.button
-            className="group relative px-4 sm:px-8 py-3 sm:py-4 bg-primary border border-primary overflow-hidden rounded-full shadow-lg shadow-primary/25 text-sm sm:text-base whitespace-nowrap"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() =>
+              document
+                .getElementById("contact")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="
+              px-8 py-3 rounded-full
+              bg-gradient-to-r from-purple-500 to-indigo-500
+              text-white text-sm font-extrabold tracking-widest uppercase
+              shadow-lg shadow-purple-500/30
+            "
           >
-            <span className="relative z-10 text-white font-bold tracking-wide">
-              Únete a nosotros
-            </span>
+            Únete a nosotros
           </motion.button>
 
-          {/* Secondary Button */}
+          {/* Secondary */}
           <motion.button
-            className="group relative px-4 sm:px-8 py-3 sm:py-4 bg-transparent border border-muted-foreground/30 text-foreground overflow-hidden rounded-full hover:bg-muted/20 text-sm sm:text-base whitespace-nowrap"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
+            onClick={() =>
+              document
+                .getElementById("projects")
+                ?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="
+              group relative px-8 py-3 rounded-full
+              border border-foreground/40
+              text-foreground text-sm font-extrabold tracking-widest uppercase
+              backdrop-blur-sm transition-all
+              hover:border-foreground/70
+            "
           >
-            <span className="relative z-10 font-medium tracking-wide">
-              Nuestros proyectos
-            </span>
+            <span className="relative z-10">Nuestros proyectos</span>
+            <span
+              className="
+                absolute inset-0 rounded-full
+                bg-foreground/5 opacity-0
+                group-hover:opacity-100 transition-opacity
+              "
+            />
           </motion.button>
         </motion.div>
       </div>
 
+      {/* ================= SCROLL INDICATOR ================= */}
       <motion.button
-        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-muted-foreground cursor-pointer z-20 hover:text-primary transition-colors hidden md:block"
         onClick={handleScroll}
-        animate={{
-          y: [0, 10, 0],
-        }}
-        transition={{
-          duration: 2,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
+        className="
+          absolute bottom-8 left-1/2 -translate-x-1/2
+          text-muted-foreground hover:text-primary
+          hidden md:block
+        "
+        animate={{ y: [0, 10, 0] }}
+        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         whileHover={{ scale: 1.2 }}
       >
         <ChevronDown size={32} />
       </motion.button>
+
+      {/* ================= FADE HERO → FONDO GLOBAL ================= */}
+      <div
+        className="
+          pointer-events-none
+          absolute bottom-0 left-0 right-0
+          h-56 md:h-72 lg:h-96
+          ient-to-bbg-grad
+          from-transparent
+          to-background
+        "
+      />
     </section>
   );
 }

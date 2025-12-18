@@ -1,36 +1,29 @@
-import React from 'react';
-import { Hero } from "./components/Hero";
+// App.tsx
+import { Layout } from "./Layout";
 import { Navbar } from "./components/Navbar";
+import { Hero } from "./components/Hero";
 import { About } from "./components/About";
-import { Training } from "./components/Training";
+import { Mentors } from "./components/Mentors";
 import { Spaces } from "./components/Spaces";
-import { Podcast } from "./components/Podcast";
-import { Blog } from "./components/Blog";
 import { Projects } from "./components/Projects";
-import { Branding } from "./components/Branding";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 import { Toaster } from "./components/ui/sonner";
-import { Mentors } from './components/Mentors';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <Layout>
       <Navbar />
-      
-      <main>
-        <Hero/>
-        <About />
-        {/*<Training />*/}
-        <Mentors />
-        <Spaces />
-        {/*<Podcast />}*/}
-        <Projects />
-        <Contact />
-      </main>
-      
+
+      <Hero />
+      <About />
+      <Mentors />
+      <Spaces />
+      <Projects />
+      <Contact />
+
       <Footer />
       <Toaster />
-    </div>
+    </Layout>
   );
 }

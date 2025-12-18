@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Globe2, UsersRound, Sparkles, Atom } from "lucide-react";
 import { Card } from "./ui/card";
+import { useScrollFocusSection } from "./useScrollFocusSection";
 
 /* ---------------- DATA ---------------- */
 
@@ -57,9 +58,16 @@ const programs = [
 
 /* ---------------- COMPONENT ---------------- */
 
-export function About() {
-  return (
-    <section id="about" className="py-24 px-4 bg-background">
+export function About() {    
+  const focusRef = useScrollFocusSection("purple");
+  return (  
+    <section
+      ref={focusRef}
+      id="about"
+      className="relative py-24 px-4"
+    >
+
+      {/* ================= CONTENIDO ================= */}
       <div className="max-w-7xl mx-auto space-y-32">
 
         {/* ================= HEADER GENERAL ================= */}

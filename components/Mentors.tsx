@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { Card } from "./ui/card";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { useScrollFocusSection } from "./useScrollFocusSection";
 
 /* ---------------- DATA ---------------- */
 
@@ -93,6 +94,7 @@ export function Mentors() {
   const [startIndex, setStartIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(4);
   const [isMobileLayout, setIsMobileLayout] = useState(false);
+  const focusRef = useScrollFocusSection("blue");
 
   useEffect(() => {
     const handleResize = () => {
@@ -126,7 +128,11 @@ export function Mentors() {
   };
 
   return (
-    <section id="mentors" className="py-24 px-4 bg-background">
+    <section
+      ref={focusRef}
+      id="mentors"
+      className="py-24 px-4"
+    >
       <div className="max-w-7xl mx-auto">
 
         {/* ================= HEADER ================= */}

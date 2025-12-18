@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { motion } from "framer-motion";
 import { Heart, ArrowUp } from "lucide-react";
 
@@ -7,55 +7,78 @@ export function Footer() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-
   return (
-    // Changed bg-[#050505] to bg-background (which is white in light mode) but with a dark border/section context maybe?
-    // Actually, typically footers are dark even in light mode OR consistent with theme. 
-    // User asked for "consistency", so let's make it follow theme: bg-background or bg-muted.
-    // Let's use a very dark gray for footer in dark mode and a light gray in light mode.
-    <footer className="relative bg-muted/30 border-t border-border">
+    <footer className="relative overflow-hidden">
 
-        {/* Bottom bar */}
-        <div className="align-items-center max-w-7xl mx-auto px-4 py-10 flex flex-col md:flex-row items-center justify-between gap-6 pt-10 border-t border-border">
-          <p className="text-muted-foreground text-sm text-center md:text-left font-medium">
-            © 2025 Bits and Atoms. Hecho con <Heart className="inline text-red-500 mx-1" size={16} fill="currentColor" /> en Admira.
-          </p>
-          <div className="flex items-center gap-8 text-sm text-muted-foreground font-medium">
-            <motion.a 
-              href="#" 
-              className="hover:text-primary transition-colors"
+      {/* ================= CAPA GLASS ================= */}
+      <div
+        className="
+          absolute inset-0
+          backdrop-blur-xl
+          bg-background/85
+          dark:bg-background/75
+        "
+      />
+
+      {/* ================= CAPA DE PROFUNDIDAD ================= */}
+      <div
+        className="
+          absolute inset-0
+          pointer-events-none
+          shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]
+          dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]
+        "
+      />
+
+      {/* ================= CONTENIDO ================= */}
+      <div className="relative max-w-7xl mx-auto px-4 py-12 flex flex-col md:flex-row items-center justify-between gap-6">
+
+        {/* Texto */}
+        <p className="text-muted-foreground text-sm font-medium text-center md:text-left">
+          © 2025 Bits &amp; Atoms. Hecho con{" "}
+          <Heart
+            className="inline mx-1 text-red-500"
+            size={16}
+            fill="currentColor"
+          />{" "}
+          en Admira.
+        </p>
+
+        {/* Links */}
+        <div className="flex items-center gap-8 text-sm font-medium text-muted-foreground">
+          {["Privacidad", "Términos", "Cookies"].map((item) => (
+            <motion.a
+              key={item}
+              href="#"
               whileHover={{ y: -2 }}
+              className="
+                transition-colors
+                hover:text-foreground
+              "
             >
-              Privacidad
+              {item}
             </motion.a>
-            <motion.a 
-              href="#" 
-              className="hover:text-primary transition-colors"
-              whileHover={{ y: -2 }}
-            >
-              Términos
-            </motion.a>
-            <motion.a 
-              href="#" 
-              className="hover:text-primary transition-colors"
-              whileHover={{ y: -2 }}
-            >
-              Cookies
-            </motion.a>
-          </div>
+          ))}
         </div>
+      </div>
 
-      {/* Scroll to top button */}
+      {/* ================= SCROLL TO TOP ================= */}
       <motion.button
         onClick={scrollToTop}
-        className="fixed bottom-10 right-10 p-4 rounded-full bg-primary text-white shadow-lg z-40 shadow-primary/30"
         initial={{ opacity: 0, scale: 0 }}
         whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ margin: "-100px" }}
-        whileHover={{ scale: 1.1, y: -5 }}
+        viewport={{ margin: "-120px" }}
+        whileHover={{ scale: 1.1, y: -6 }}
         whileTap={{ scale: 0.9 }}
+        className="
+          fixed bottom-10 right-10 z-40
+          p-4 rounded-full
+          bg-primary text-white
+          shadow-lg shadow-primary/30
+          backdrop-blur-sm
+        "
       >
-        <ArrowUp size={24} />
+        <ArrowUp size={22} />
       </motion.button>
     </footer>
   );

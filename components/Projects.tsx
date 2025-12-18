@@ -4,6 +4,7 @@ import { ChevronLeft, ChevronRight, ExternalLink, Youtube } from "lucide-react";
 import { FaSpotify } from "react-icons/fa";
 import { Card } from "./ui/card";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { useScrollFocusSection } from "./useScrollFocusSection";
 
 /* ---------------- DATA ---------------- */
 
@@ -62,6 +63,7 @@ function getVisibleCountFromWidth(width: number) {
 }
 
 export function Projects() {
+  const focusRef = useScrollFocusSection("pink");
   const [activeCategory, setActiveCategory] = useState("Todos");
   const [pageStart, setPageStart] = useState(0);
   const [visibleCount, setVisibleCount] = useState(() =>
@@ -108,7 +110,11 @@ export function Projects() {
   }, [filtered, total, showCount, pageStart, activeCategory]);
 
   return (
-    <section id="projects" className="py-24 px-4 bg-background">
+    <section
+      ref={focusRef}
+      id="projects"
+      className="py-24 px-4"
+    >
       <div className="max-w-7xl mx-auto space-y-24">
         {/* PILL + TITULO */}
         <div className="text-center space-y-3">
