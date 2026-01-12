@@ -35,7 +35,7 @@ export function Footer() {
 
         {/* Texto */}
         <p className="text-muted-foreground text-sm font-medium text-center md:text-left">
-          © 2025 Bits &amp; Atoms. Hecho con{" "}
+          © 2026 Bits &amp; Atoms. Hecho con{" "}
           <Heart
             className="inline mx-1 text-red-500"
             size={16}

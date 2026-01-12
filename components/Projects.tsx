@@ -7,29 +7,25 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { useScrollFocusSection } from "./useScrollFocusSection";
 
 /* ---------------- DATA ---------------- */
-
 const categories = ["Todos", "IoT", "IA", "Hardware", "AR / VR"];
 
 const projects = [
   {
     title: "Sistema de Monitoreo Ambiental",
     description: "Sensores conectados para analizar variables ambientales.",
-    image:
-      "https://images.unsplash.com/photo-1725923727790-15ec49fa4d15?fit=max&q=80&w=1080",
+    image: "https://images.unsplash.com/photo-1725923727790-15ec49fa4d15?fit=max&q=80&w=1080",
     category: "IoT",
   },
   {
     title: "Plataforma Educativa Inteligente",
     description: "Aprendizaje adaptativo basado en IA.",
-    image:
-      "https://images.unsplash.com/photo-1563394867331-e687a36112fd?fit=max&q=80&w=1080",
+    image: "https://images.unsplash.com/photo-1563394867331-e687a36112fd?fit=max&q=80&w=1080",
     category: "IA",
   },
   {
     title: "Prótesis Biónica Accesible",
     description: "Diseño funcional mediante impresión 3D.",
-    image:
-      "https://images.unsplash.com/photo-1694701503673-379c9e0d887e?fit=max&q=80&w=1080",
+    image: "https://images.unsplash.com/photo-1694701503673-379c9e0d887e?fit=max&q=80&w=1080",
     category: "Hardware",
   },
   {
@@ -41,37 +37,42 @@ const projects = [
   {
     title: "Robot Autónomo Solar",
     description: "Robot para limpieza de paneles solares de forma autónoma.",
-    image:
-      "https://images.unsplash.com/photo-1627667050609-d4ba6483a368?fit=max&q=80&w=1080",
+    image: "https://images.unsplash.com/photo-1627667050609-d4ba6483a368?fit=max&q=80&w=1080",
     category: "Hardware",
   },
   {
     title: "Trazabilidad Alimentaria",
     description: "Rastreo del origen y recorrido de productos alimentarios.",
-    image:
-      "https://images.unsplash.com/photo-1728933102332-a4f1a281a621?fit=max&q=80&w=1080",
+    image: "https://images.unsplash.com/photo-1728933102332-a4f1a281a621?fit=max&q=80&w=1080",
     category: "IoT",
   },
 ];
 
-/* ---------------- HELPERS ---------------- */
+/* ---------------- HELPERS  ---------------- */
 
 function getVisibleCountFromWidth(width: number) {
   if (width >= 1024) return 4; // lg
   if (width >= 768) return 2; // md
-  return 1; // mobile
+  return 1; // mobile fallback
 }
 
 export function Projects() {
   const focusRef = useScrollFocusSection("pink");
   const [activeCategory, setActiveCategory] = useState("Todos");
+  
+  // États de votre version originale
   const [pageStart, setPageStart] = useState(0);
-  const [visibleCount, setVisibleCount] = useState(() =>
-    typeof window === "undefined" ? 4 : getVisibleCountFromWidth(window.innerWidth)
-  );
+  const [visibleCount, setVisibleCount] = useState(4);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const onResize = () => setVisibleCount(getVisibleCountFromWidth(window.innerWidth));
+    const onResize = () => {
+      const width = window.innerWidth;
+      setVisibleCount(getVisibleCountFromWidth(width));
+      setIsMobile(width < 1024);
+    };
+
+    onResize();
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
@@ -83,6 +84,7 @@ export function Projects() {
   }, [activeCategory]);
 
   const total = filtered.length;
+  
   const showCount = Math.min(visibleCount, total);
   const canNavigate = total > showCount;
 
@@ -116,7 +118,8 @@ export function Projects() {
       className="py-24 px-4"
     >
       <div className="max-w-7xl mx-auto space-y-24">
-        {/* PILL + TITULO */}
+        
+        {/* HEADER*/}
         <div className="text-center space-y-3">
           <div className="flex justify-center">
             <motion.div
@@ -131,7 +134,6 @@ export function Projects() {
               Proyectos
             </motion.div>
           </div>
-
           <h2 className="text-4xl md:text-6xl font-black tracking-tight text-foreground">
             Creatividad e innovación{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-600 dark:from-purple-500 dark:to-blue-500">
@@ -140,7 +142,7 @@ export function Projects() {
           </h2>
         </div>
 
-        {/* ================= PODCAST (SEPARADO) ================= */}
+        {/* PODCAST*/}
         <motion.div
           className="grid lg:grid-cols-2 gap-16 items-center"
           initial={{ opacity: 0, y: 16 }}
@@ -154,7 +156,6 @@ export function Projects() {
               className="w-full h-full object-cover"
             />
           </div>
-
           <div className="max-w-xl">
             <h3 className="text-3xl font-black mb-4 text-foreground">
               Bits & Atoms{" "}
@@ -162,30 +163,17 @@ export function Projects() {
                 Podcast
               </span>
             </h3>
-
             <p className="text-muted-foreground text-lg leading-relaxed mb-6">
               Apostamos por el debate, la creatividad y las conversaciones honestas
               sobre tecnología, educación y futuro.
             </p>
-
             <div className="flex flex-wrap gap-6">
-              <a
-                href="https://open.spotify.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-              >
+              <a href="https://open.spotify.com" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
                 <FaSpotify size={22} />
                 <span className="text-sm font-medium">Spotify</span>
                 <ExternalLink size={14} />
               </a>
-
-              <a
-                href="https://www.youtube.com/@BitsAtomsAdmira"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-              >
+              <a href="https://www.youtube.com/@BitsAtomsAdmira" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors">
                 <Youtube size={22} />
                 <span className="text-sm font-medium">YouTube</span>
                 <ExternalLink size={14} />
@@ -194,9 +182,10 @@ export function Projects() {
           </div>
         </motion.div>
 
-        {/* ================= BLOQUE PROYECTOS (SEPARADO) ================= */}
+        {/* ================= SECTION PROJETS ================= */}
         <div className="space-y-10">
-          {/* Título */}
+          
+          {/* Título y Filtros */}
           <div className="space-y-6">
             <h3 className="text-3xl md:text-4xl font-black text-foreground">
               Todos{" "}
@@ -204,8 +193,6 @@ export function Projects() {
                 nuestros proyectos
               </span>
             </h3>
-
-            {/* Filtros debajo */}
             <div className="flex gap-3 flex-wrap">
               {categories.map((cat) => {
                 const active = activeCategory === cat;
@@ -217,11 +204,7 @@ export function Projects() {
                       setPageStart(0);
                     }}
                     className={`px-5 py-2 rounded-full text-sm font-bold border transition
-                      ${
-                        active
-                          ? "bg-primary text-white border-primary"
-                          : "bg-card text-muted-foreground border-border hover:text-foreground"
-                      }`}
+                      ${active ? "bg-primary text-white border-primary" : "bg-card text-muted-foreground border-border hover:text-foreground"}`}
                   >
                     {cat}
                   </button>
@@ -230,75 +213,88 @@ export function Projects() {
             </div>
           </div>
 
-          {/* Carrusel sin scroll (solo flechas) */}
-          <div className="flex items-center gap-6">
-            <button
-              onClick={prev}
-              disabled={!canNavigate}
-              className={`p-3 rounded-full bg-card border border-border transition
-                ${canNavigate ? "hover:text-primary" : "opacity-40 cursor-not-allowed"}`}
-              aria-label="Anterior"
-            >
-              <ChevronLeft />
-            </button>
-
-            <div className="flex-1">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <AnimatePresence mode="wait">
-                  {pageItems.map((project) => (
-                    <motion.div
-                      key={project._key}
-                      initial={{ opacity: 0, y: 14 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -14 }}
-                      transition={{ duration: 0.25 }}
-                    >
-                      <Card className="group overflow-hidden rounded-3xl border border-border bg-card">
-                        <div className="relative h-64 overflow-hidden">
-                          <ImageWithFallback
-                            src={project.image}
-                            alt={project.title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                          />
-
-                          <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-black/60 text-white backdrop-blur">
-                            {project.category}
-                          </span>
-
-                          <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
-                            <div className="p-5">
-                              <h4 className="text-white font-bold mb-2 line-clamp-2">
-                                {project.title}
-                              </h4>
-                              <p className="text-gray-200 text-sm line-clamp-3">
-                                {project.description}
-                              </p>
-                              <span className="inline-block mt-3 text-xs uppercase tracking-wide text-white/80">
-                                Ver proyecto →
-                              </span>
-                            </div>
+          
+          {/* CAS 1 : MODO MOBILE (Scroll Horizontal) */}
+          {isMobile ? (
+            <div className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-6 -mb-6">
+               
+               {filtered.map((project, idx) => (
+                  <motion.div
+                    key={`${project.title}-${idx}`}
+                    className="min-w-[85vw] md:min-w-[45vw] snap-center h-full"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <Card className="group h-full overflow-hidden rounded-3xl border border-border bg-card">
+                       
+                       <div className="relative h-64 overflow-hidden">
+                        <ImageWithFallback src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                        <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-black/60 text-white backdrop-blur">{project.category}</span>
+                        <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                          <div className="p-5">
+                            <h4 className="text-white font-bold mb-2 line-clamp-2">{project.title}</h4>
+                            <p className="text-gray-200 text-sm line-clamp-3">{project.description}</p>
+                            <span className="inline-block mt-3 text-xs uppercase tracking-wide text-white/80">Ver proyecto →</span>
                           </div>
                         </div>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </div>
+                      </div>
+                    </Card>
+                  </motion.div>
+               ))}
             </div>
+          ) : (
+            <div className="flex items-center gap-6">
+              <button
+                onClick={prev}
+                disabled={!canNavigate}
+                className={`p-3 rounded-full bg-card border border-border transition ${canNavigate ? "hover:text-primary" : "opacity-40 cursor-not-allowed"}`}
+              >
+                <ChevronLeft />
+              </button>
 
-            <button
-              onClick={next}
-              disabled={!canNavigate}
-              className={`p-3 rounded-full bg-card border border-border transition
-                ${canNavigate ? "hover:text-primary" : "opacity-40 cursor-not-allowed"}`}
-              aria-label="Siguiente"
-            >
-              <ChevronRight />
-            </button>
-          </div>
+              <div className="flex-1">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                  <AnimatePresence mode="wait">
+                    
+                    {pageItems.map((project) => (
+                      <motion.div
+                        key={project._key}
+                        initial={{ opacity: 0, y: 14 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -14 }}
+                        transition={{ duration: 0.25 }}
+                      >
+                        <Card className="group overflow-hidden rounded-3xl border border-border bg-card">
+                          <div className="relative h-64 overflow-hidden">
+                            <ImageWithFallback src={project.image} alt={project.title} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                            <span className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-black/60 text-white backdrop-blur">{project.category}</span>
+                            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity flex items-end">
+                              <div className="p-5">
+                                <h4 className="text-white font-bold mb-2 line-clamp-2">{project.title}</h4>
+                                <p className="text-gray-200 text-sm line-clamp-3">{project.description}</p>
+                                <span className="inline-block mt-3 text-xs uppercase tracking-wide text-white/80">Ver proyecto →</span>
+                              </div>
+                            </div>
+                          </div>
+                        </Card>
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+              </div>
 
-          {/* CTA opcional */}
-          <div className="text-center">
+              <button
+                onClick={next}
+                disabled={!canNavigate}
+                className={`p-3 rounded-full bg-card border border-border transition ${canNavigate ? "hover:text-primary" : "opacity-40 cursor-not-allowed"}`}
+              >
+                <ChevronRight />
+              </button>
+            </div>
+          )}
+
+          <div className="text-center pt-8">
             <button className="text-sm font-bold tracking-wide uppercase text-muted-foreground hover:text-foreground transition-colors">
               Ver todos los proyectos →
             </button>

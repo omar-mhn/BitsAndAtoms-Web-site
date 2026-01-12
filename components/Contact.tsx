@@ -16,13 +16,15 @@ import { Label } from "./ui/label";
 import { toast } from "sonner";
 import { useScrollFocusSection } from "./useScrollFocusSection";
 import { ContactMap } from "./ContactMap";
+import { FaSpotify } from "react-icons/fa";
+
 
 const socialMedia = [
   { name: "Instagram", icon: Instagram, url: "https://www.instagram.com/bitsatoms_/" },
   { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/company/bitsatoms/" },
   { name: "TikTok", icon: SiTiktok, url: "https://www.tiktok.com/@bitsatoms" },
   { name: "YouTube", icon: Youtube, url: "https://www.youtube.com/@BitsAtomsAdmira" },
-  { name: "Spotify", icon: Podcast, url: "https://spotify.com/BitsAtoms_" },
+  { name: "Spotify", icon: FaSpotify, url: "https://spotify.com/BitsAtoms_" },
 ];
 
 export function Contact() {

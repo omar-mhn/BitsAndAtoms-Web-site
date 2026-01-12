@@ -86,6 +86,17 @@ const mentors = [
       website: "#",
     },
   },
+  {
+    name: "Juan Antonio Domingo",
+    role: "Producción audiovisual",
+    image:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=max&q=80&w=600",
+    bio: "Potencia tus ideas con excelencia técnica y creatividad en producción audiovisual.",
+    social: {
+      linkedin: "#",
+      website: "#",
+    },
+  },
 ];
 
 /* ---------------- COMPONENT ---------------- */
@@ -165,8 +176,9 @@ export function Mentors() {
           </p>
         </motion.div>
 
-        {/* ================= CAROUSEL ================= */}
+       {/* ================= CAROUSEL ================= */}
         <div className="relative">
+         
           {!isMobileLayout && (
             <>
               <button
@@ -185,62 +197,55 @@ export function Mentors() {
             </>
           )}
 
-          <div className="overflow-hidden py-10 -my-10">
+         
+          <div className="py-10 -my-10 overflow-x-auto lg:overflow-hidden snap-x snap-mandatory scroll-smooth">
             <motion.div
               className="flex"
+
               animate={!isMobileLayout ? { x: `-${startIndex * (100 / mentors.length)}%` } : {}}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              style={{ width: `${(mentors.length / itemsPerPage) * 100}%` }}
+              
+          
+              style={{ 
+                width: isMobileLayout ? "auto" : `${(mentors.length / itemsPerPage) * 100}%` 
+              }}
             >
               {mentors.map((mentor) => (
                 <div
                   key={mentor.name}
-                  className="px-3"
-                  style={{ width: `${100 / mentors.length}%` }}
+                 
+                  className="px-3 snap-center shrink-0"
+              
+                  style={{ 
+                    width: isMobileLayout ? "85vw" : `${100 / mentors.length}%` 
+                  }}
                 >
                   <Card className="group h-full overflow-hidden rounded-3xl border border-border bg-card hover:border-primary/50 transition-all duration-300">
-
-                    {/* IMAGE */}
+             
                     <div className="relative aspect-[4/5] overflow-hidden">
                       <ImageWithFallback
                         src={mentor.image}
                         alt={mentor.name}
                         className="w-full h-full object-cover transition-transform duration-700 lg:group-hover:scale-110"
                       />
-
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
-
-                      {/* SOCIALS – hover desktop */}
-                      <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4
-                                      opacity-100 lg:opacity-0 lg:translate-y-6
-                                      lg:group-hover:opacity-100 lg:group-hover:translate-y-0
-                                      transition-all duration-300">
-                        <a
-                          href={mentor.social.linkedin}
-                          className="p-2 bg-white/10 backdrop-blur rounded-full text-white hover:bg-primary transition"
-                        >
+                      <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-4 opacity-100 lg:opacity-0 lg:translate-y-6 lg:group-hover:opacity-100 lg:group-hover:translate-y-0 transition-all duration-300">
+                        <a href={mentor.social.linkedin} className="p-2 bg-white/10 backdrop-blur rounded-full text-white hover:bg-primary transition">
                           <Linkedin size={18} />
                         </a>
-                        <a
-                          href={mentor.social.website}
-                          className="p-2 bg-white/10 backdrop-blur rounded-full text-white hover:bg-primary transition"
-                        >
+                        <a href={mentor.social.website} className="p-2 bg-white/10 backdrop-blur rounded-full text-white hover:bg-primary transition">
                           <Globe size={18} />
                         </a>
                       </div>
                     </div>
-
-                    {/* CONTENT */}
                     <div className="p-6 flex flex-col h-full">
                       <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition">
                         {mentor.name}
                       </h3>
-
                       <div className="flex items-center gap-2 mt-1 text-sm text-muted-foreground">
                         <Briefcase size={14} className="text-primary" />
                         {mentor.role}
                       </div>
-
                       <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
                         {mentor.bio}
                       </p>
