@@ -151,7 +151,7 @@ export function Projects() {
         >
           <div className="relative h-[360px] rounded-3xl overflow-hidden border border-border">
             <ImageWithFallback
-              src="/img/podcast_1.jpeg"
+              src="img/podcast_1.jpeg"
               alt="Bits & Atoms Podcast"
               className="w-full h-full object-cover"
             />
