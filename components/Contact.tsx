@@ -250,34 +250,48 @@ export function Contact() {
           </motion.div>
 
           {/* COLUMNA DERECHA */}
-          <div className="w-full max-w-sm mx-auto space-y-4 pt-6">
-            <div>
-              <h4 className="font-bold mb-3">Contacto</h4>
-              <p className="text-sm text-muted-foreground flex items-center gap-2">
-                <Mail size={16} /> jsedano@admira.com
-              </p>
-              <p className="text-sm text-muted-foreground flex items-center gap-2 mt-2">
-                <MapPin size={16} /> Gràcia, Barcelona
-              </p>
-            </div>
+            <motion.div
+              className="w-full max-w-2xl mx-auto space-y-8 pt-6"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <div>
+                <h4 className="font-bold mb-3">Contacto</h4>
 
-            <div className="flex gap-4">
-              {socialMedia.map((s) => (
-                <a
-                  key={s.name}
-                  href={s.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  <s.icon size={20} />
-                </a>
-              ))}
-            </div>
+                <p className="text-sm text-muted-foreground flex items-center gap-2">
+                  <Mail size={16} /> jsedano@admira.com
+                </p>
+                <p className="text-sm text-muted-foreground flex items-center gap-2 mt-2">
+                  <MapPin size={16} /> Gràcia, Barcelona
+                </p>
+              </div>
 
-            {/* ✅ MAPA LEAFLET (reemplaza el iframe) */}
-            <ContactMap />
-          </div>
+              <div>
+                <h4 className="font-bold mb-3">Síguenos</h4>
+
+                <div className="flex gap-4">
+                  {socialMedia.map((s) => (
+                    <a
+                      key={s.name}
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-foreground transition"
+                      aria-label={s.name}
+                    >
+                      <s.icon size={20} />
+                    </a>
+                  ))}
+                </div>
+              </div>
+
+              <div className="text-sm text-muted-foreground leading-relaxed max-w-md">
+                Si tienes dudas sobre el programa o el proceso de inscripción, escríbenos y te responderemos lo antes posible.
+              </div>
+            </motion.div>
+
+
         </div>
       </div>
     </section>
