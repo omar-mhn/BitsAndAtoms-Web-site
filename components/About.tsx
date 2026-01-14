@@ -25,7 +25,7 @@ const values = [
   {
     icon: Atom,
     title: "Misión",
-    description: "Innovación, honestidad y colaboración para crecer creando.",
+    description: "Innovar, colaborar y crecer creando",
   },
 ];
 
@@ -51,7 +51,7 @@ const programs = [
   {
     title: "Colaboración",
     description:
-      "Trabajo en equipo multidisciplinar donde las ideas se debaten y evolucionan juntas.",
+      "Trabajo en equipos multidisciplinares donde las ideas se debaten y evolucionan juntas.",
     gradient: "from-indigo-500 to-purple-500",
   },
 ];
@@ -121,23 +121,26 @@ export function About() {
             viewport={{ once: true }}
           >
             <h3 className="text-3xl font-black text-foreground">
-              Un espacio donde la{" "}
-              <span className="text-primary">tecnología cobra vida</span>
+              Donde la tecnología {" "}
+              <span className="text-primary">cobra vida</span>
             </h3>
 
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Bits & Atoms nace con la idea de aprender tecnología creándola.
-              Combinamos IA, IoT y creatividad para trabajar en proyectos reales
-              desde el primer día.
+              Bits and Atoms es un proyecto de Admira nacido desde una visión 
+              de tecnología con propósito, pensado para formar, acompañar y crear 
+              oportunidades reales para jóvenes con talento. El aprendizaje se basa 
+              en la práctica: construir, probar y equivocarse es parte del camino.
             </p>
 
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Creemos en una educación práctica donde equivocarse, experimentar y
-              construir forman parte del proceso.
+              El programa combina inteligencia artificial, IoT y pensamiento 
+              creativo para desarrollar proyectos reales desde el primer día, 
+              trabajando con retos auténticos, ideas con sentido y crecimiento en equipo.
             </p>
 
             <p className="text-muted-foreground text-lg leading-relaxed">
-              Aquí, cada idea evoluciona y cada proyecto te acerca a tu mejor versión.
+              Un entorno donde la curiosidad y las ganas de aprender marcan 
+              la diferencia, y donde cada proyecto impulsa el desarrollo profesional.
             </p>
           </motion.div>
         </div>
