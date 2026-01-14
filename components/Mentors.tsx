@@ -16,67 +16,19 @@ import { useScrollFocusSection } from "./useScrollFocusSection";
 
 const mentors = [
   {
-    name: "Marc Segarra",
-    role: "Creatividad",
-    image: "/Mentores/Marc_Segarra.png",
-    bio: "Explora y expande los límites de tu imaginación, convirtiendo ideas innovadoras en realidades impactantes.",
-    social: {
-      linkedin: "https://www.linkedin.com/in/marcsegarratorres/",
-      website: "#",
-    },
-  },
-  {
-    name: "Jordi Palou",
-    role: "IoT",
-    image: "/Mentores/Jordi_Palou.png",
-    bio: "Integra el mundo físico con el digital creando soluciones inteligentes a través del Internet de las Cosas.",
-    social: {
-      linkedin: "https://www.linkedin.com/in/jordipalou/",
-      website: "#",
-    },
-  },
-  {
-    name: "Carles Mayans",
-    role: "Marketing 3.0",
-    image: "/Mentores/Carles_Mayans.png",
-    bio: "Conecta con tus clientes desde un enfoque emocional, ético y estratégico.",
-    social: {
-      linkedin: "https://www.linkedin.com/in/cmayansc/",
-      website: "#",
-    },
-  },
-  {
-    name: "Daniel Vidal",
-    role: "Propiedad intelectual",
-    image: "/Mentores/Daniel_Vidal.png",
-    bio: "Protege y maximiza el valor de tus innovaciones con una estrategia sólida.",
-    social: {
-      linkedin: "https://www.linkedin.com/in/danielvidal1/",
-      website: "#",
-    },
-  },
-  {
-    name: "Miguel Fernández",
-    role: "Producción Audiovisual",
-    image: "/Mentores/Miguel_Fernández.png",
-    bio: "Da vida a tus ideas dominando cada etapa de la producción audiovisual.",
-    social: {
-      linkedin: "#",
-      website: "#",
-    },
-  },
-  {
-    name: "Joan Melchor",
-    role: "Robótica",
-    image: "/Mentores/Joan_Melchor.png",
-    bio: "Diseña y programa robots para resolver desafíos reales con innovación.",
-    social: {
-      linkedin: "https://www.linkedin.com/in/joanmelchor/",
-      website: "#",
-    },
-  },
-  {
     name: "Carlos Silva",
+    role: "Entrepreneurship",
+    image:
+      "/Mentores/Silva_Carlos.png",
+    bio: "Diseña y desarrolla proyectos emprendedores, trabajando el modelo de negocio, la estrategia y la ejecución.",
+    social: {
+      linkedin: "https://www.linkedin.com/in/carlossilvasantin/?locale=es_ES",
+      website: "https://admira.com/es/",
+    },
+  },
+  /*
+  {
+    name: "Joshua Sedano",
     role: "Entrepreneurship",
     image:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=max&q=80&w=600",
@@ -87,11 +39,82 @@ const mentors = [
     },
   },
   {
+    name: "Paul Vilà",
+    role: "Entrepreneurship",
+    image:
+      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=max&q=80&w=600",
+    bio: "Estrategias disruptivas para escalar proyectos y negocios digitales.",
+    social: {
+      linkedin: "#",
+      website: "#",
+    },
+  },*/
+  {
+    name: "Marc Segarra",
+    role: "Creatividad",
+    image: "/Mentores/Marc_Segarra.png",
+    bio: "Explora y expande los límites de tu imaginación, convirtiendo ideas innovadoras en realidades impactantes.",
+    social: {
+      linkedin: "https://www.linkedin.com/in/marcsegarratorres/",
+      website: "#",
+    },
+  },  
+  {
+    name: "Daniel Vidal",
+    role: "Propiedad intelectual",
+    image: "/Mentores/Daniel_Vidal.png",
+    bio: "Protege y maximiza el valor de tus ideas y productos con las herramientas legales adecuadas.",
+    social: {
+      linkedin: "https://www.linkedin.com/in/danielvidal1/",
+      website: "#",
+    },
+  },
+  {
+    name: "Jordi Palou",
+    role: "IoT",
+    image: "/Mentores/Jordi_Palou.png",
+    bio: "Integra el mundo físico y el digital creando soluciones inteligentes, aprendiendo a diseñar y conectar sistemas reales.",
+    social: {
+      linkedin: "https://www.linkedin.com/in/jordipalou/",
+      website: "#",
+    },
+  },
+  {
+    name: "Carles Mayans",
+    role: "Marketing 3.0",
+    image: "/Mentores/Carles_Mayans.png",
+    bio: "Aprende a conectar con tus clientes a un nivel emocional y ético, utilizando las estrategias avanzadas del marketing.",
+    social: {
+      linkedin: "https://www.linkedin.com/in/cmayansc/",
+      website: "#",
+    },
+  },
+  {
+    name: "Miguel Fernández",
+    role: "Arcade",
+    image: "/Mentores/Miguel_Fernández.png",
+    bio: "Explora el interior de las máquinas arcade, abriéndolas, reparándolas y entendiendo cómo funcionan.",
+    social: {
+      linkedin: "#",
+      website: "#",
+    },
+  },
+  {
+    name: "Joan Melchor",
+    role: "Robótica",
+    image: "/Mentores/Joan_Melchor.png",
+    bio: "Diseña y programa sistemas robóticos automatizados, trabajando con brazos robóticos, sensores y plataformas móviles.",
+    social: {
+      linkedin: "https://www.linkedin.com/in/joanmelchor/",
+      website: "#",
+    },
+  },
+  {
     name: "Juan Antonio Domingo",
     role: "Producción audiovisual",
     image:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?fit=max&q=80&w=600",
-    bio: "Potencia tus ideas con excelencia técnica y creatividad en producción audiovisual.",
+      "/Mentores/ja_Domingo.jpg",
+    bio: "Da vida a tus ideas con excelencia técnica y creatividad, dominando cada etapa de la producción y postproducción audiovisual.    ",
     social: {
       linkedin: "#",
       website: "#",
@@ -165,14 +188,15 @@ export function Mentors() {
           </div>
 
           <h2 className="text-4xl md:text-6xl font-black tracking-tight text-foreground">
-            Aprende con{" "}
+            Aprende de quienes{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
-              quienes ya están creando
+              lideran la industria
             </span>
           </h2>
 
           <p className="text-muted-foreground max-w-3xl mx-auto text-lg">
-            Profesionales en activo que acompañan, inspiran y comparten experiencia real.
+          Nuestro equipo de mentores está formado por profesionales en activo en las empresas tecnológicas más avanzadas.
+
           </p>
         </motion.div>
 
