@@ -5,114 +5,128 @@ import { Cpu, Clapperboard, GraduationCap, Wrench, Laptop, Sprout, Sparkles, Che
 import { useScrollFocusSection } from "./useScrollFocusSection";
 
 /* ---------------- DATA ---------------- */
-
 const spaces = [
   {
     id: "fablab",
     name: "FabLab",
     icon: Wrench,
-    description: "Laboratorio de fabricación digital equipado con impresoras 3D, cortadoras láser, fresadoras CNC y más.",
-    image: "https://images.unsplash.com/photo-1694701503673-379c9e0d887e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYWJsYWIlMjBtYWtlcnNwYWNlJTIwZXF1aXBtZW50fGVufDF8fHx8MTc2MzcxNDg5OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    description:
+      "Espacio de experimentación y creación donde las ideas se transforman en prototipos reales mediante procesos de fabricación digital y trabajo manual.",
+    image:
+      "https://images.unsplash.com/photo-1694701503673-379c9e0d887e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     features: [
-      "Impresoras 3D (FDM y SLA)",
-      "Cortadora láser CO2",
-      "Fresadora CNC",
-      "Estación de soldadura",
-      "Herramientas de prototipado",
-      "Zona de ensamblaje"
+      "Impresoras 3D para prototipado rápido",
+      "Cortadora y grabadora láser",
+      "Fresadora CNC de sobremesa",
+      "Zona de electrónica y soldadura",
+      "Herramientas manuales y eléctricas",
+      "Espacio de montaje y testeo"
     ],
   },
   {
     id: "estudio_audiovisual",
     name: "Estudio audiovisual",
     icon: Clapperboard,
-    description: "Espacios de aprendizaje equipados con tecnología de última generación para clases y talleres.",
-    image: "https://images.unsplash.com/photo-1563394867331-e687a36112fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmdXR1cmlzdGljJTIwY2xhc3Nyb29tJTIwZWR1Y2F0aW9ufGVufDF8fHx8MTc2MzcxNDg5OXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    description:
+      "Estudio profesional equipado para la creación de podcasts, vídeos, contenido multimedia y emisiones en directo.",
+    image:
+      "https://images.unsplash.com/photo-1563394867331-e687a36112fd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     features: [
-      "Pantallas interactivas 4K",
-      "Equipos informáticos de alto rendimiento",
-      "Mobiliario modular",
-      "Sistema de sonido premium",
-      "Iluminación adaptable",
-      "Pizarras digitales"
+      "Cámaras profesionales y trípodes",
+      "Micrófonos de estudio y de corbata",
+      "Iluminación continua y focos LED",
+      "Fondos y chroma key",
+      "Mesa de mezcla de audio",
+      "Software de edición audiovisual"
     ],
   },
-  {
+  /*{
     id: "incubadora",
     name: "Incubadora",
     icon: Cpu,
-    description: "Zona tranquila para estudio individual y trabajo colaborativo con recursos técnicos actualizados.",
-    image: "https://images.unsplash.com/photo-1758685848208-e108b6af94cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB0ZWNobm9sb2d5JTIwbGFiJTIwd29ya3NwYWNlfGVufDF8fHx8MTc2MzcxNDg5OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    description:
+      "Zona tranquila para estudio individual y trabajo colaborativo con recursos técnicos actualizados.",
+    image:
+      "https://images.unsplash.com/photo-1758685848208-e108b6af94cc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     features: [
-      "Biblioteca técnica física y digital",
-      "Puestos de trabajo individual",
-      "Salas de reuniones",
+      "Puestos de trabajo individuales",
+      "Salas de reuniones pequeñas",
+      "Biblioteca técnica y recursos digitales",
       "WiFi de alta velocidad",
-      "Zona silenciosa",
-      "Acceso 24/7 para estudiantes"
+      "Zonas silenciosas",
+      "Acceso ampliado para estudiantes"
     ],
-  },
+  },*/
   {
     id: "uni",
     name: "Universidad",
     icon: GraduationCap,
-    description: "Espacios de descanso y socialización diseñados para fomentar la creatividad y el networking.",
-    image: "https://images.unsplash.com/photo-1728933102332-a4f1a281a621?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWFtJTIwY29sbGFib3JhdGlvbiUyMHRlY2hub2xvZ3l8ZW58MXx8fHwxNzYzNjUyMjY2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    description:
+      "Espacios académicos diseñados para el aprendizaje activo, el trabajo en grupo y la conexión entre formación, investigación y proyectos reales.",
+    image:
+      "https://images.unsplash.com/photo-1728933102332-a4f1a281a621?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     features: [
-      "Cafetería con snacks saludables",
-      "Zona de gaming y descanso",
-      "Terraza exterior",
-      "Lounges cómodos",
-      "Ping pong y juegos de mesa",
-      "Eventos y networking"
+      "Aulas polivalentes",
+      "Zonas de trabajo colaborativo",
+      "Espacios de tutoría y mentoring",
+      "Infraestructura digital avanzada",
+      "Áreas comunes para estudiantes",
+      "Actividades formativas y workshops"
     ],
   },
   {
     id: "ofi_desarrollo",
     name: "Oficinas de desarrollo",
     icon: Laptop,
-    description: "Espacios privados insonorizados diseñados para el trabajo en equipo y videoconferencias.",
-    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBtZWV0aW5nJTIwcm9vbXxlbnwxfHx8fDE3NjM3MTU1MDB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    description:
+      "Espacios profesionales orientados al desarrollo de proyectos tecnológicos, trabajo en equipo y coordinación con clientes y partners.",
+    image:
+      "https://images.unsplash.com/photo-1497366216548-37526070297c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     features: [
-      "Pantallas para presentaciones",
-      "Sistemas de videoconferencia",
-      "Pizarras de vidrio",
-      "Paneles acústicos",
-      "Climatización independiente",
-      "Servicio de catering"
+      "Mesas de trabajo en equipo",
+      "Pantallas para diseño y programación",
+      "Salas de reuniones cerradas",
+      "Sistemas de videollamada",
+      "Pizarras físicas y digitales",
+      "Espacios para reuniones ágiles"
     ],
   },
   {
     id: "360",
     name: "Sala 360",
     icon: Sprout,
-    description: "Estudio profesional equipado para la producción de podcasts, vídeos y contenido multimedia.",
-    image: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwb2RjYXN0JTIwc3R1ZGlvfGVufDF8fHx8MTc2MzcxNTUwMHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    description:
+      "Sala de reuniones y videoconferencias con proyección inmersiva 360 para una experiencia envolvente.",
+    image:
+      "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     features: [
-      "Micrófonos Shure SM7B",
-      "Interfaz de audio Rodecaster Pro",
-      "Iluminación LED profesional",
-      "Cámaras 4K",
-      "Fondos intercambiables",
-      "Software de edición"
+      "Sistema de proyección envolvente",
+      "Cámaras y audio para videoconferencia",
+      "Iluminación ambiental regulable",
+      "Mesa central colaborativa",
+      "Control multimedia integrado",
+      "Configuración flexible del espacio"
     ],
   },
   {
     id: "showrooms",
     name: "Showrooms",
     icon: Sparkles,
-    description: "Gran espacio polivalente para eventos, conferencias, presentaciones y hackathons.",
-    image: "https://images.unsplash.com/photo-1544531586-fde5298cdd40?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhdWRpdG9yaXVtJTIwbW9kZXJufGVufDF8fHx8MTc2MzcxNTUwMHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+    description:
+      "Espacios polivalentes de gran formato para eventos, conferencias, presentaciones y hackathons, donde también se exhiben los proyectos desarrollados por bits&atoms.",
+    image:
+      "https://images.unsplash.com/photo-1544531586-fde5298cdd40?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080",
     features: [
-      "Capacidad para 150 personas",
-      "Proyector Láser 4K",
-      "Sistema de sonido envolvente",
-      "Streaming en directo",
-      "Cabina de control",
-      "Zona de networking anexa"
+      "Capacidad para eventos y conferencias",
+      "Pantalla y proyección de gran formato",
+      "Sistema de sonido profesional",
+      "Escenario para presentaciones y charlas",
+      "Zona de exposición de proyectos",
+      "Espacios de networking"
     ],
   },
 ];
+
 
 /* ---------------- COMPONENT ---------------- */
 
