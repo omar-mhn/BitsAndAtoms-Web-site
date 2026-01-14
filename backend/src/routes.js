@@ -86,13 +86,19 @@ router.post("/contact", upload, async (req, res) => {
     const gsResponse = await fetch(process.env.APPS_SCRIPT_WEBAPP_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(googlePayload)
+      body: JSON.stringify(googlePayload),
+      redirect: "follow"
     });
 
-    const gsResult = await gsResponse.json();
-    if (!gsResult.success) {
-      console.error("Google Script Error:", gsResult.error);
-    }
+   const text = await gsResponse.text();
+
+let gsResult;
+try {
+  gsResult = JSON.parse(text);
+} catch (e) {
+  console.error("Error: Google no respondió con JSON. Respuesta recibida:", text.substring(0, 100));
+  return res.status(500).json({ success: false, message: "Error en la conexión con Google" });
+}
 
     // ----------------------
     // Enviar email con adjuntos (opcional)
